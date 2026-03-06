@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales & CGV — KookifonK</title>
+<meta name="description" content="Conditions générales de vente, mentions légales et politique de confidentialité de KookifonK.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FDF8F0; --cream-d: #F5ECD8; --warm-white: #FFFCF7;
+    --choco: #2C1810; --choco-m: #5C3D2E; --caramel: #A0522D;
+    --honey: #D4873E; --terra: #C4622D; --terra-d: #A04820;
+    --sage: #6B8F71; --warm-gray: #8A7A70; --border: #E2CCAA;
+    --text: #2C1810; --text-m: #6B5040; --text-l: #A08070;
+    --ff-head: 'Fraunces', Georgia, serif;
+    --ff-body: 'DM Sans', system-ui, sans-serif;
+    --radius: 16px; --shadow: 0 4px 24px rgba(44,24,16,.08);
+    --shadow-lg: 0 12px 48px rgba(44,24,16,.14); --t: .25s ease;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--ff-body); background: var(--cream); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; color: inherit; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: transparent; transition: background .3s, box-shadow .3s; }
+  nav.scrolled { background: rgba(253,248,240,.97); box-shadow: 0 2px 20px rgba(44,24,16,.08); backdrop-filter: blur(12px); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+  .nav-logo { font-family: var(--ff-head); font-size: 1.4rem; font-weight: 700; color: var(--choco); }
+  .nav-logo span { color: var(--terra); }
+  .nav-links { display: flex; align-items: center; gap: .5rem; }
+  .nav-links a { font-size: .88rem; font-weight: 500; padding: .45rem .9rem; border-radius: 100px; color: var(--choco); transition: all var(--t); }
+  .nav-links a:hover { background: var(--cream-d); }
+  .nav-cta { background: var(--terra) !important; color: #fff !important; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--terra-d) !important; }
+  .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: .5rem; }
+  .nav-burger span { display: block; width: 22px; height: 2px; background: var(--choco); border-radius: 2px; transition: all .3s; }
+  @media(max-width:768px) {
+    .nav-burger { display: flex; }
+    .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--cream); flex-direction: column; padding: 1rem; box-shadow: var(--shadow-lg); gap: .25rem; }
+    .nav-links.open { display: flex; }
+    .nav-links a { width: 100%; text-align: center; padding: .75rem; }
+  }
+
+  /* PAGE */
+  .page-hero { background: var(--choco); color: var(--cream); padding: 8rem 2rem 4rem; text-align: center; }
+  .page-hero h1 { font-family: var(--ff-head); font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 1rem; }
+  .page-hero p { color: rgba(253,248,240,.7); font-size: 1rem; }
+
+  /* TABS */
+  .tabs-wrap { background: var(--warm-white); border-bottom: 1px solid var(--border); position: sticky; top: 64px; z-index: 50; }
+  .tabs { display: flex; max-width: 900px; margin: 0 auto; padding: 0 2rem; overflow-x: auto; }
+  .tab-btn { flex-shrink: 0; font-family: var(--ff-body); font-size: .9rem; font-weight: 600; padding: 1rem 1.5rem; border: none; background: transparent; color: var(--text-m); cursor: pointer; border-bottom: 3px solid transparent; transition: all var(--t); }
+  .tab-btn.active, .tab-btn:hover { color: var(--terra); border-bottom-color: var(--terra); }
+
+  /* CONTENT */
+  .legal-content { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .legal-section { display: none; }
+  .legal-section.active { display: block; }
+
+  .legal-section h2 { font-family: var(--ff-head); font-size: 1.8rem; color: var(--choco); margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid var(--border); }
+  .legal-section h3 { font-family: var(--ff-head); font-size: 1.15rem; color: var(--choco-m); margin: 2rem 0 .75rem; }
+  .legal-section p { color: var(--text-m); margin-bottom: 1rem; font-size: .95rem; }
+  .legal-section ul { color: var(--text-m); padding-left: 1.5rem; margin-bottom: 1rem; font-size: .95rem; }
+  .legal-section ul li { margin-bottom: .4rem; }
+  .legal-section a { color: var(--terra); text-decoration: underline; }
+
+  .info-box { background: var(--cream-d); border-left: 4px solid var(--terra); border-radius: 0 var(--radius) var(--radius) 0; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+  .info-box p { margin: 0; font-size: .9rem; }
+  .placeholder { background: rgba(196,98,45,.12); color: var(--terra); font-weight: 600; padding: .1rem .4rem; border-radius: 4px; font-size: .88rem; }
+
+  /* FOOTER */
+  footer { background: var(--choco); color: rgba(253,248,240,.7); padding: 3rem 2rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; max-width: 1160px; margin: 0 auto 2rem; }
+  .footer-logo { font-family: var(--ff-head); font-size: 1.4rem; font-weight: 700; color: var(--cream); margin-bottom: .75rem; }
+  .footer-logo span { color: var(--honey); }
+  .footer-desc { font-size: .82rem; line-height: 1.6; margin-bottom: .5rem; }
+  .footer-col-title { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(253,248,240,.4); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: .5rem; }
+  .footer-col ul li a { font-size: .85rem; transition: color var(--t); }
+  .footer-col ul li a:hover { color: rgba(255,255,255,.9); }
+  .footer-bottom { max-width: 1160px; margin: 0 auto; padding-top: 1.5rem; border-top: 1px solid rgba(253,248,240,.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
+  .footer-legal { font-size: .78rem; }
+  .footer-legal a { color: rgba(253,248,240,.5); margin: 0 .5rem; }
+  .footer-legal a:hover { color: var(--honey); }
+  .footer-made { font-size: .78rem; }
+  @media(max-width:900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+  @media(max-width:560px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; text-align: center; } }
+
+  /* COOKIE BANNER */
+  #cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: var(--choco); color: var(--cream); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; z-index: 9999; box-shadow: 0 -4px 24px rgba(44,24,16,.2); flex-wrap: wrap; transform: translateY(100%); transition: transform .4s ease; }
+  #cookie-banner.show { transform: translateY(0); }
+  #cookie-banner p { font-size: .88rem; color: rgba(253,248,240,.8); max-width: 700px; }
+  #cookie-banner p a { color: var(--honey); text-decoration: underline; }
+  .cookie-btns { display: flex; gap: .75rem; flex-shrink: 0; }
+  .cookie-btn { font-family: var(--ff-body); font-size: .85rem; font-weight: 600; padding: .6rem 1.4rem; border-radius: 100px; cursor: pointer; border: 2px solid transparent; transition: all var(--t); }
+  .cookie-accept { background: var(--terra); color: #fff; border-color: var(--terra); }
+  .cookie-accept:hover { background: var(--terra-d); }
+  .cookie-refuse { background: transparent; color: rgba(253,248,240,.7); border-color: rgba(253,248,240,.3); }
+  .cookie-refuse:hover { border-color: rgba(253,248,240,.7); color: var(--cream); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">KookifonK<span>.</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="produits.html">Nos snacks</a>
+      <a href="science.html">Double Cinétique™</a>
+      <a href="comment.html">Comment ça marche</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="nav-cta">Commander →</a>
+    </div>
+    <div class="nav-burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <h1>Informations légales</h1>
+  <p>Mentions légales · CGV · Confidentialité · Cookies</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('mentions')">Mentions légales</button>
+    <button class="tab-btn" onclick="showTab('cgv')">CGV</button>
+    <button class="tab-btn" onclick="showTab('confidentialite')">Confidentialité</button>
+    <button class="tab-btn" onclick="showTab('cookies')">Cookies</button>
+  </div>
+</div>
+
+<div class="legal-content">
+
+  <!-- ====== MENTIONS LÉGALES ====== -->
+  <div id="tab-mentions" class="legal-section active">
+    <h2>Mentions légales</h2>
+
+    <div class="info-box">
+      <p>Conformément aux dispositions de la loi n°2004-575 du 21 juin 2004 pour la confiance en l'économie numérique (LCEN).</p>
+    </div>
+
+    <h3>Éditeur du site</h3>
+    <p><strong>KookifonK SAS</strong><br>
+    Société par Actions Simplifiée au capital de 3 000 €<br>
+    Siège social : 9 Avenue Paul Cocat, 38100 Grenoble<br>
+    SIREN : 988 708 657<br>
+    
+    
+    N° TVA intracommunautaire : FR37988708657<br>
+    Représentant légal : Pascal Santoni, Président<br>
+    Email : <a href="/cdn-cgi/l/email-protection#0171607262606d416a6e6e6a68676e6f6a2f6773"><span class="__cf_email__" data-cfemail="0878697b6b69644863676763616e676663266e7a">[email&#160;protected]</span></a></p>
+
+    <h3>Hébergement</h3>
+    <p><strong>Cloudflare, Inc.</strong><br>
+    101 Townsend St, San Francisco, CA 94107, États-Unis<br>
+    Site : <a href="https://www.cloudflare.com" target="_blank">www.cloudflare.com</a></p>
+
+    <h3>Propriété intellectuelle</h3>
+    <p>L'ensemble du contenu de ce site (textes, images, logos, iconographie, technologie Double Cinétique™) est la propriété exclusive de KookifonK SAS ou de ses partenaires et est protégé par les lois françaises et internationales relatives à la propriété intellectuelle.</p>
+    <p>Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de KookifonK SAS.</p>
+
+    <h3>Responsabilité</h3>
+    <p>KookifonK SAS s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site. Cependant, KookifonK SAS ne peut garantir l'exactitude, la complétude ou l'actualité des informations diffusées.</p>
+    <p>Les produits KookifonK sont des compléments alimentaires. Ils ne se substituent pas à une alimentation variée et équilibrée, ni à un traitement médical. Consultez un professionnel de santé en cas de doute.</p>
+
+    <h3>Médiation des litiges</h3>
+    <p>En cas de litige non résolu amiablement, vous pouvez recourir gratuitement au médiateur de la consommation compétent. Nous vous invitons à nous contacter directement à <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="deaebfadbdbfb29eb5b1b1b5b7b8b1b0b5f0b8ac">[email&#160;protected]</a> pour toute résolution amiable.</p>
+    <p>Plateforme européenne de règlement en ligne des litiges : <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a></p>
+  </div>
+
+  <!-- ====== CGV ====== -->
+  <div id="tab-cgv" class="legal-section">
+    <h2>Conditions Générales de Vente</h2>
+    <p style="color:var(--text-l); font-size:.85rem;">Dernière mise à jour : mars 2026</p>
+
+    <div class="info-box">
+      <p>Les présentes CGV s'appliquent à toute commande passée sur le site kookifonk.fr ou directement auprès de KookifonK SAS. Toute commande implique l'acceptation pleine et entière des présentes CGV.</p>
+    </div>
+
+    <h3>Article 1 — Identification du vendeur</h3>
+    <p>KookifonK SAS, 9 Avenue Paul Cocat, 38100 Grenoble, SIREN 988 708 657. Email : <a href="/cdn-cgi/l/email-protection#05756476666469456e6a6a6e6c636a6b6e2b6377"><span class="__cf_email__" data-cfemail="afdfcedccccec3efc4c0c0c4c6c9c0c1c481c9dd">[email&#160;protected]</span></a>.</p>
+
+    <h3>Article 2 — Produits</h3>
+    <p>KookifonK commercialise des snacks fonctionnels artisanaux à base de chocolat Valrhona et d'actifs nutritionnels. Nos produits sont des <strong>compléments alimentaires</strong> au sens du Décret n°2006-352 du 20 mars 2006.</p>
+    <p>Les produits sont fabriqués artisanalement à Grenoble dans des locaux de production partagés agréés. Les compositions et allergènes sont détaillés sur chaque fiche produit et sur les étiquettes.</p>
+    <p><strong>Avertissements obligatoires :</strong></p>
+    <ul>
+      <li>Ne pas dépasser la dose journalière recommandée (1 snack/jour sauf mention contraire)</li>
+      <li>Déconseillé aux femmes enceintes ou allaitantes</li>
+      <li>Déconseillé aux personnes de moins de 18 ans</li>
+      <li>Tenir hors de portée des jeunes enfants</li>
+      <li>Les compléments alimentaires ne se substituent pas à une alimentation variée et équilibrée</li>
+      <li>Pour les produits contenant de la caféine : déconseillé aux enfants, femmes enceintes, personnes sensibles à la caféine</li>
+    </ul>
+
+    <h3>Article 3 — Prix</h3>
+    <p>Les prix sont indiqués en euros toutes taxes comprises (TTC). TVA applicable au taux en vigueur (N° FR37988708657)..</p>
+    <p>KookifonK se réserve le droit de modifier ses prix à tout moment. Les produits sont facturés sur la base des tarifs en vigueur au moment de la validation de la commande.</p>
+
+    <h3>Article 4 — Commandes</h3>
+    <p>Les commandes sont passées par email à <a href="/cdn-cgi/l/email-protection#80f0e1f3e3e1ecc0ebefefebe9e6efeeebaee6f2"><span class="__cf_email__" data-cfemail="4030213323212c002b2f2f2b29262f2e2b6e2632">[email&#160;protected]</span></a>, via le formulaire de commande du site, ou via tout lien de paiement communiqué par KookifonK. La commande est confirmée à réception du paiement.</p>
+    <p>KookifonK se réserve le droit de refuser toute commande pour des motifs légitimes (stock insuffisant, information erronée, etc.).</p>
+
+    <h3>Article 5 — Paiement</h3>
+    <p>Le paiement s'effectue par carte bancaire via la plateforme sécurisée Stripe (Stripe Inc., certifiée PCI-DSS). Les données bancaires ne transitent pas par les serveurs de KookifonK.</p>
+    <p>La commande est traitée uniquement après réception du paiement intégral.</p>
+
+    <h3>Article 6 — Livraison</h3>
+    <p>Les commandes sont expédiées depuis Grenoble dans un délai de <strong>48 heures ouvrées</strong> suivant la confirmation de paiement, hors week-ends et jours fériés.</p>
+    <p>Modes d'expédition : Colissimo ou Chronopost avec numéro de suivi. Emballage isotherme disponible sur demande (saisons chaudes).</p>
+    <p>Les frais de port sont offerts pour toute commande supérieure à 45€. En dessous, les frais Colissimo standard s'appliquent (~4,90€ à 6,90€ selon le poids).</p>
+    <p>KookifonK ne peut être tenu responsable des délais liés au transporteur ou à des événements extérieurs (grèves, intempéries, etc.).</p>
+
+    <h3>Article 7 — Droit de rétractation</h3>
+    <p>Conformément à l'article L221-28 du Code de la consommation, <strong>le droit de rétractation de 14 jours ne s'applique pas</strong> aux denrées alimentaires et compléments alimentaires susceptibles de se détériorer ou de se périmer rapidement.</p>
+    <p>Cependant, si un produit vous est livré défectueux ou endommagé, contactez-nous dans les 48h suivant la réception à <a href="/cdn-cgi/l/email-protection#7606170515171a361d19191d1f1019181d581004"><span class="__cf_email__" data-cfemail="7000110313111c301b1f1f1b19161f1e1b5e1602">[email&#160;protected]</span></a>. Nous traiterons votre demande avec bienveillance.</p>
+
+    <h3>Article 8 — Garanties légales</h3>
+    <p>Tous nos produits bénéficient de la garantie légale de conformité (articles L217-4 et suivants du Code de la consommation) et de la garantie contre les vices cachés (articles 1641 et suivants du Code civil).</p>
+
+    <h3>Article 9 — Conservation des produits</h3>
+    <p>Les snacks KookifonK sont des produits artisanaux sans conservateurs. Ils doivent être conservés dans un endroit frais et sec, à l'abri de la chaleur et de l'humidité. DLC et conditions de conservation indiquées sur l'emballage. Nous déconseillons la congélation.</p>
+
+    <h3>Article 10 — Responsabilité</h3>
+    <p>KookifonK ne saurait être tenu responsable en cas de mauvaise utilisation des produits, de non-respect des précautions d'emploi, ou d'interactions avec un traitement médical en cours. Consultez votre médecin en cas de doute.</p>
+
+    <h3>Article 11 — Données personnelles</h3>
+    <p>Le traitement des données personnelles collectées lors d'une commande est décrit dans notre <a href="#" onclick="showTab('confidentialite');return false;">Politique de confidentialité</a>.</p>
+
+    <h3>Article 12 — Droit applicable et juridiction</h3>
+    <p>Les présentes CGV sont soumises au droit français. En cas de litige, les parties s'engagent à rechercher une solution amiable avant tout recours judiciaire. À défaut, le tribunal compétent sera celui du siège social de KookifonK SAS.</p>
+  </div>
+
+  <!-- ====== CONFIDENTIALITÉ ====== -->
+  <div id="tab-confidentialite" class="legal-section">
+    <h2>Politique de confidentialité</h2>
+    <p style="color:var(--text-l); font-size:.85rem;">Dernière mise à jour : mars 2026 — Conforme au RGPD (Règlement UE 2016/679)</p>
+
+    <div class="info-box">
+      <p>KookifonK SAS s'engage à protéger la vie privée de ses clients et visiteurs. Cette politique explique quelles données nous collectons, pourquoi et comment vous pouvez exercer vos droits.</p>
+    </div>
+
+    <h3>1. Responsable du traitement</h3>
+    <p>KookifonK SAS — 9 Avenue Paul Cocat, 38100 Grenoble — <a href="/cdn-cgi/l/email-protection#7a0a1b09191b163a11151511131c151411541c08"><span class="__cf_email__" data-cfemail="e393829080828fa3888c8c888a858c8d88cd8591">[email&#160;protected]</span></a></p>
+
+    <h3>2. Données collectées</h3>
+    <p><strong>Via le formulaire de contact / commande :</strong></p>
+    <ul>
+      <li>Nom, prénom</li>
+      <li>Adresse email</li>
+      <li>Message et informations relatives à la commande</li>
+    </ul>
+    <p><strong>Via le formulaire newsletter :</strong></p>
+    <ul>
+      <li>Adresse email uniquement</li>
+    </ul>
+    <p><strong>Via Stripe (paiement) :</strong></p>
+    <ul>
+      <li>Données de paiement traitées directement par Stripe — KookifonK ne stocke aucune donnée bancaire</li>
+    </ul>
+    <p><strong>Données de navigation (cookies) :</strong> voir notre <a href="#" onclick="showTab('cookies');return false;">Politique Cookies</a>.</p>
+
+    <h3>3. Finalités et bases légales</h3>
+    <ul>
+      <li><strong>Traitement des commandes</strong> — base légale : exécution du contrat</li>
+      <li><strong>Service client</strong> — base légale : intérêt légitime</li>
+      <li><strong>Newsletter</strong> — base légale : consentement (opt-in)</li>
+      <li><strong>Obligations légales</strong> — base légale : obligation légale</li>
+    </ul>
+
+    <h3>4. Durée de conservation</h3>
+    <ul>
+      <li>Données clients : 3 ans à compter de la dernière commande</li>
+      <li>Données newsletter : jusqu'à désinscription</li>
+      <li>Données de facturation : 10 ans (obligation comptable légale)</li>
+    </ul>
+
+    <h3>5. Destinataires des données</h3>
+    <p>Vos données ne sont jamais vendues à des tiers. Elles peuvent être transmises à :</p>
+    <ul>
+      <li><strong>Brevo (ex-Sendinblue)</strong> — gestion newsletter — serveurs UE</li>
+      <li><strong>Stripe Inc.</strong> — traitement des paiements — certifié PCI-DSS</li>
+      <li><strong>Cloudflare Inc.</strong> — hébergement du site</li>
+      <li>Prestataire de livraison (La Poste/Colissimo) — données d'adresse uniquement</li>
+    </ul>
+
+    <h3>6. Vos droits (RGPD)</h3>
+    <p>Vous disposez des droits suivants concernant vos données personnelles :</p>
+    <ul>
+      <li>Droit d'accès — obtenir une copie de vos données</li>
+      <li>Droit de rectification — corriger des données inexactes</li>
+      <li>Droit à l'effacement — "droit à l'oubli"</li>
+      <li>Droit à la portabilité — recevoir vos données dans un format structuré</li>
+      <li>Droit d'opposition — s'opposer à certains traitements</li>
+      <li>Droit de retrait du consentement — notamment pour la newsletter</li>
+    </ul>
+    <p>Pour exercer vos droits : <a href="/cdn-cgi/l/email-protection#0f7f6e7c6c6e634f64606064666960616421697d"><span class="__cf_email__" data-cfemail="0a7a6b79696b664a61656561636c656461246c78">[email&#160;protected]</span></a>. Réponse sous 30 jours.</p>
+    <p>En cas de réclamation non résolue, vous pouvez saisir la CNIL : <a href="https://www.cnil.fr" target="_blank">cnil.fr</a></p>
+
+    <h3>7. Sécurité</h3>
+    <p>KookifonK met en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte ou divulgation. Le site est sécurisé par HTTPS/TLS via Cloudflare.</p>
+  </div>
+
+  <!-- ====== COOKIES ====== -->
+  <div id="tab-cookies" class="legal-section">
+    <h2>Politique de gestion des cookies</h2>
+    <p style="color:var(--text-l); font-size:.85rem;">Dernière mise à jour : mars 2026</p>
+
+    <div class="info-box">
+      <p>Conformément à la loi française "Informatique et Libertés" et aux recommandations de la CNIL, nous vous informons de l'utilisation des cookies sur kookifonk.fr.</p>
+    </div>
+
+    <h3>Qu'est-ce qu'un cookie ?</h3>
+    <p>Un cookie est un petit fichier texte déposé sur votre appareil lors de votre visite sur un site web. Il permet de mémoriser des informations sur votre navigation.</p>
+
+    <h3>Cookies utilisés sur kookifonk.fr</h3>
+    <p><strong>Cookies strictement nécessaires (exemptés de consentement)</strong></p>
+    <ul>
+      <li><strong>kk_cookie_consent</strong> — mémorise votre choix concernant les cookies — durée : 12 mois</li>
+      <li><strong>kk_newsletter_done</strong> — mémorise si vous avez vu la popup newsletter — durée : session</li>
+      <li>Cookies Cloudflare (sécurité, performance) — nécessaires au fonctionnement du site</li>
+    </ul>
+    <p><strong>Cookies analytiques (soumis à consentement)</strong></p>
+    <ul>
+      <li><strong>Google Analytics</strong> — mesure d'audience anonymisée (pages vues, durée de visite) — durée : 13 mois — activé uniquement avec votre consentement</li>
+    </ul>
+
+    <h3>Gestion de vos préférences</h3>
+    <p>Lors de votre première visite, un bandeau vous permet d'accepter ou refuser les cookies analytiques. Vous pouvez modifier votre choix à tout moment en cliquant ci-dessous :</p>
+    <p style="margin-top:1rem;">
+      <button onclick="resetCookieConsent()" style="font-family:var(--ff-body); background:var(--terra); color:#fff; border:none; padding:.7rem 1.5rem; border-radius:100px; font-weight:600; cursor:pointer; font-size:.9rem;">Modifier mes préférences cookies</button>
+    </p>
+    <p style="margin-top:1rem;">Vous pouvez également désactiver les cookies directement depuis votre navigateur (paramètres → confidentialité).</p>
+
+    <h3>En savoir plus</h3>
+    <p>Pour plus d'informations sur les cookies et vos droits : <a href="https://www.cnil.fr/fr/cookies-et-autres-traceurs" target="_blank">cnil.fr</a></p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container" style="max-width:1160px; margin:0 auto;">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">KookifonK<span>.</span></div>
+        <p class="footer-desc">Snacks fonctionnels artisanaux. Chocolat Valrhona · Actifs cliniques · Fabriqué à Grenoble.</p>
+        <p class="footer-desc" style="margin-top:1rem; font-size:.72rem; opacity:.6;">Complément alimentaire. Ne se substitue pas à une alimentation variée et équilibrée. Déconseillé ef="legal.html">Mentions légales</a></li>
+          <li><a href="legal.html#cgv">CGV</a></li>
+          <li><a href="legal.html#confidentialite">Confidentialité</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="contact.html">Commander</a></li>
+          <li><a href="mailto:pascal@kookifonk.fr">pascal@kookifonk.fr</a></li>
+          <li><a href="#">Grenoble, Isère 🏔️</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">© 2026 KookifonK ·
+        <a href="legal.html">Mentions légales</a> ·
+        <a href="legal.html#cgv">CGV</a> ·
+        <a href="legal.html#confidentialite">Confidentialité</a> ·
+        <a href="legal.html#cookies">Cookies</a>
+      </div>
+      <div class="footer-made">Fait à Grenoble avec précision 🏔️</div>
+    </div>
+  </div>
+</footer>
+
+<script src="cookie-banner.js"></script>
+<script>
+  // NAV
+  window.addEventListener('scroll', function() {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // TABS
+  function showTab(id) {
+    document.querySelectorAll('.legal-section').forEach(function(s){ s.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    var section = document.getElementById('tab-' + id);
+    if (section) section.classList.add('active');
+    var map = { mentions: 0, cgv: 1, confidentialite: 2, cookies: 3 };
+    var btns = document.querySelectorAll('.tab-btn');
+    if (btns[map[id]] !== undefined) btns[map[id]].classList.add('active');
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  }
+
+  // Ouvrir le bon onglet via hash URL
+  window.addEventListener('DOMContentLoaded', function() {
+    var hash = window.location.hash.replace('#', '');
+    if (hash && ['cgv','confidentialite','cookies'].includes(hash)) {
+      showTab(hash);
+    }
+  });
+</script>
+</body>
+</html>
