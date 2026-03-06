@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Double Cinétique™ — La science derrière KookifonK</title>
+<meta name="description" content="Découvrez la technologie Double Cinétique™ : deux matrices, deux vitesses de libération, une efficacité continue de 6 heures. La science derrière les snacks KookifonK.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:      #FDF8F0;
+    --cream-d:    #F5ECD8;
+    --warm-white: #FFFCF7;
+    --choco:      #2C1810;
+    --choco-m:    #5C3D2E;
+    --caramel:    #A0522D;
+    --honey:      #D4873E;
+    --honey-l:    #F0C070;
+    --terra:      #C4622D;
+    --terra-d:    #A04820;
+    --sage:       #6B8F71;
+    --warm-gray:  #8A7A70;
+    --border:     #E2CCAA;
+    --text:       #2C1810;
+    --text-m:     #6B5040;
+    --text-l:     #A08070;
+
+    --ff-head: 'Fraunces', Georgia, serif;
+    --ff-body: 'DM Sans', system-ui, sans-serif;
+
+    --radius-sm: 8px;
+    --radius:    16px;
+    --radius-lg: 28px;
+    --shadow:    0 4px 24px rgba(44,24,16,.08);
+    --shadow-lg: 0 12px 48px rgba(44,24,16,.14);
+    --t: .25s ease;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--ff-body);
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── BOUTONS ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: var(--ff-body); font-size: .95rem; font-weight: 600;
+    padding: .9rem 2rem; border-radius: 100px; border: 2px solid transparent;
+    cursor: pointer; transition: all var(--t); white-space: nowrap;
+  }
+  .btn-primary { background: var(--terra); color: #fff; border-color: var(--terra); box-shadow: 0 4px 16px rgba(196,98,45,.3); }
+  .btn-primary:hover { background: var(--terra-d); border-color: var(--terra-d); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(196,98,45,.4); }
+  .btn-outline { background: transparent; color: var(--terra); border-color: var(--terra); }
+  .btn-outline:hover { background: var(--terra); color: #fff; transform: translateY(-1px); }
+  .btn-white { background: #fff; color: var(--terra); border-color: #fff; }
+  .btn-white:hover { background: var(--cream); transform: translateY(-1px); }
+  .btn-lg { padding: 1.1rem 2.5rem; font-size: 1.05rem; }
+  .btn-full { width: 100%; justify-content: center; }
+
+  /* ── NAV ── */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 0; transition: all var(--t); }
+  nav.scrolled { background: rgba(253,248,240,.95); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(44,24,16,.08); padding: .65rem 0; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .nav-logo { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 900; color: var(--choco); letter-spacing: -.02em; }
+  .nav-logo span { color: var(--terra); }
+  .nav-links { display: flex; align-items: center; gap: .25rem; }
+  .nav-links a { font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); }
+  .nav-links a:hover { background: var(--cream-d); color: var(--choco); }
+  .nav-links a.active { color: var(--terra); font-weight: 600; }
+  .nav-cta { background: var(--terra) !important; color: #fff !important; font-weight: 600 !important; box-shadow: 0 3px 12px rgba(196,98,45,.25); }
+  .nav-cta:hover { background: var(--terra-d) !important; }
+  .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: .4rem; }
+  .nav-burger span { display: block; width: 22px; height: 2px; background: var(--choco); border-radius: 2px; transition: var(--t); }
+
+  /* ── TICKER ── */
+  .ticker { background: var(--choco); padding: .6rem 0; overflow: hidden; white-space: nowrap; }
+  .ticker-track { display: inline-flex; animation: ticker 28s linear infinite; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker-item { font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--honey-l); padding: 0 2rem; }
+  .ticker-dot { color: var(--terra); margin: 0 .25rem; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 70vh;
+    padding: 120px 0 70px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(160deg, var(--cream) 0%, var(--cream-d) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(212,135,62,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--terra); background: rgba(196,98,45,.08); border: 1px solid rgba(196,98,45,.2);
+    padding: .45rem 1rem; border-radius: 100px; margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--ff-head);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 900; line-height: 1.08;
+    letter-spacing: -.03em; color: var(--choco);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em { color: var(--terra); font-style: italic; }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--text-m); max-width: 580px;
+    line-height: 1.7; margin-bottom: 2.5rem;
+  }
+  .hero-badges { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-badge {
+    display: flex; align-items: center; gap: .6rem;
+    background: #fff; border: 1px solid var(--border);
+    padding: .65rem 1.1rem; border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .hero-badge-val { font-size: 1.1rem; font-weight: 700; color: var(--terra); font-family: var(--ff-head); }
+  .hero-badge-label { font-size: .78rem; color: var(--text-m); line-height: 1.3; }
+
+  /* ── SECTION ── */
+  .section { padding: 5rem 0; }
+  .section-tag {
+    display: inline-flex; font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--terra); background: rgba(196,98,45,.08);
+    border: 1px solid rgba(196,98,45,.18); padding: .3rem .85rem; border-radius: 100px;
+    margin-bottom: 1rem;
+  }
+  .section-center { text-align: center; margin-bottom: 3.5rem; }
+  .section-center h2 { font-family: var(--ff-head); font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.15; margin-bottom: 1rem; }
+  .section-center h2 em { color: var(--terra); font-style: italic; }
+  .section-center p { font-size: 1.05rem; color: var(--text-m); max-width: 580px; margin: 0 auto; line-height: 1.7; }
+
+  /* ── SNACK ANATOMY ── */
+  .anatomy {
+    background: var(--choco);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .anatomy::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(212,135,62,.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(196,98,45,.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .anatomy-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; position: relative; }
+  .anatomy h2 { font-family: var(--ff-head); font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; letter-spacing: -.03em; line-height: 1.1; color: #fff; margin-bottom: 1rem; }
+  .anatomy h2 em { color: var(--honey-l); font-style: italic; }
+  .anatomy-intro { font-size: 1.05rem; color: rgba(255,255,255,.7); line-height: 1.7; margin-bottom: 2.5rem; }
+
+  .layer-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    margin-bottom: 1rem;
+    transition: all var(--t);
+  }
+  .layer-card:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); }
+  .layer-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .layer-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--ff-head); font-weight: 900; font-size: .85rem;
+    flex-shrink: 0;
+  }
+  .layer-num.fast { background: var(--honey); color: var(--choco); }
+  .layer-num.slow { background: var(--terra); color: #fff; }
+  .layer-title { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; color: #fff; }
+  .layer-sub { font-size: .78rem; color: rgba(255,255,255,.5); margin-top: .1rem; }
+  .layer-body { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.6; }
+  .layer-time {
+    display: inline-flex; align-items: center; gap: .4rem;
+    margin-top: .75rem; font-size: .75rem; font-weight: 600;
+    padding: .3rem .8rem; border-radius: 100px;
+  }
+  .layer-time.fast { background: rgba(212,135,62,.2); color: var(--honey-l); }
+  .layer-time.slow { background: rgba(196,98,45,.2); color: #FFA07A; }
+
+  /* SNACK VISUAL */
+  .snack-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+  .snack-layer {
+    width: 100%;
+    max-width: 340px;
+    border-radius: var(--radius-lg);
+    padding: 2rem 2.5rem;
+    position: relative;
+    transition: all var(--t);
+  }
+  .snack-layer:hover { transform: scale(1.02); }
+
+  .snack-choco {
+    background: linear-gradient(135deg, #3D1F10 0%, #5C3022 50%, #2C1810 100%);
+    border: 2px solid rgba(212,135,62,.3);
+    border-bottom: none;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    box-shadow: 0 -4px 30px rgba(0,0,0,.3);
+    z-index: 2;
+  }
+  .snack-biscuit {
+    background: linear-gradient(135deg, #C4732D 0%, #A05A20 50%, #8B4A18 100%);
+    border: 2px solid rgba(196,98,45,.4);
+    border-top: none;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    box-shadow: 0 8px 30px rgba(0,0,0,.3);
+    z-index: 1;
+  }
+  .snack-layer-title { font-family: var(--ff-head); font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .35rem; }
+  .snack-layer-desc { font-size: .8rem; color: rgba(255,255,255,.65); line-height: 1.5; }
+  .snack-layer-badge {
+    display: inline-flex; align-items: center; gap: .3rem;
+    margin-top: .6rem; font-size: .7rem; font-weight: 700;
+    padding: .25rem .7rem; border-radius: 100px; letter-spacing: .05em;
+  }
+  .badge-fast { background: rgba(212,135,62,.3); color: var(--honey-l); }
+  .badge-slow { background: rgba(255,255,255,.15); color: rgba(255,255,255,.85); }
+
+  .snack-arrow {
+    width: 2px; height: 0;
+    background: linear-gradient(to bottom, rgba(212,135,62,.6), rgba(196,98,45,.4));
+    position: relative;
+  }
+
+  /* ── COURBE TEMPORELLE ── */
+  .timeline-section { background: var(--warm-white); padding: 5rem 0; }
+  .curve-container {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .curve-title { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; color: var(--choco); margin-bottom: .25rem; }
+  .curve-sub { font-size: .83rem; color: var(--text-l); margin-bottom: 2rem; }
+
+  /* SVG curve */
+  .curve-svg { width: 100%; height: auto; overflow: visible; }
+  .curve-axis { stroke: var(--border); stroke-width: 1; fill: none; }
+  .curve-fast { stroke: var(--honey); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+  .curve-slow { stroke: var(--terra); stroke-width: 2.5; fill: none; stroke-linecap: round; }
+  .curve-combined { stroke: var(--choco); stroke-width: 3; fill: none; stroke-linecap: round; }
+  .curve-fill-fast { fill: rgba(212,135,62,.1); }
+  .curve-fill-slow { fill: rgba(196,98,45,.08); }
+
+  .curve-legend { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .legend-item { display: flex; align-items: center; gap: .6rem; font-size: .82rem; color: var(--text-m); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── ACTIFS PAR PHASE ── */
+  .phases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+  .phase-card {
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    border: 2px solid transparent;
+  }
+  .phase-fast {
+    background: linear-gradient(135deg, rgba(212,135,62,.06) 0%, rgba(240,192,112,.04) 100%);
+    border-color: rgba(212,135,62,.2);
+  }
+  .phase-slow {
+    background: linear-gradient(135deg, rgba(196,98,45,.06) 0%, rgba(160,82,45,.04) 100%);
+    border-color: rgba(196,98,45,.2);
+  }
+  .phase-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.75rem; }
+  .phase-icon {
+    width: 52px; height: 52px; border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .phase-icon.fast { background: rgba(212,135,62,.15); }
+  .phase-icon.slow { background: rgba(196,98,45,.12); }
+  .phase-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .3rem; }
+  .phase-label.fast { color: var(--honey); }
+  .phase-label.slow { color: var(--terra); }
+  .phase-name { font-family: var(--ff-head); font-size: 1.3rem; font-weight: 800; color: var(--choco); letter-spacing: -.02em; }
+  .phase-matrix { font-size: .8rem; color: var(--text-m); margin-top: .2rem; }
+
+  .actif-list { display: flex; flex-direction: column; gap: .65rem; }
+  .actif-item {
+    display: flex; align-items: center; gap: .85rem;
+    padding: .75rem 1rem;
+    background: #fff; border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(44,24,16,.04);
+  }
+  .actif-emoji { font-size: 1.1rem; flex-shrink: 0; }
+  .actif-name { font-weight: 600; font-size: .88rem; color: var(--choco); flex: 1; }
+  .actif-dose { font-size: .78rem; font-weight: 700; color: var(--terra); white-space: nowrap; }
+  .actif-effect { font-size: .73rem; color: var(--text-l); }
+
+  /* ── COMPARATIF ── */
+  .compare-section { padding: 5rem 0; }
+  .compare-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+  .compare-card {
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    border: 2px solid var(--border);
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .compare-card.featured {
+    border-color: var(--terra);
+    background: linear-gradient(160deg, rgba(196,98,45,.04) 0%, #fff 100%);
+    box-shadow: var(--shadow-lg);
+  }
+  .compare-badge {
+    position: absolute; top: 1.25rem; right: 1.25rem;
+    font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    background: var(--terra); color: #fff;
+    padding: .25rem .65rem; border-radius: 100px;
+  }
+  .compare-icon { font-size: 2rem; margin-bottom: .75rem; }
+  .compare-name { font-family: var(--ff-head); font-size: 1.15rem; font-weight: 800; color: var(--choco); margin-bottom: 1.25rem; }
+  .compare-row { display: flex; justify-content: space-between; align-items: center; padding: .5rem 0; border-bottom: 1px solid var(--cream-d); gap: 1rem; }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-metric { font-size: .8rem; color: var(--text-m); }
+  .compare-val { font-size: .8rem; font-weight: 600; color: var(--choco); text-align: right; }
+  .compare-val.good { color: var(--sage); }
+  .compare-val.bad { color: #C0392B; }
+  .compare-val.neutral { color: var(--warm-gray); }
+
+  /* ── FAQ / SCIENCE ── */
+  .science-section { background: var(--cream-d); padding: 5rem 0; }
+  .science-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .science-card {
+    background: #fff; border-radius: var(--radius-lg); padding: 2rem;
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+  }
+  .science-icon { font-size: 1.75rem; margin-bottom: 1rem; }
+  .science-card h3 { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 800; color: var(--choco); margin-bottom: .6rem; letter-spacing: -.01em; }
+  .science-card p { font-size: .88rem; color: var(--text-m); line-height: 1.7; }
+  .science-card .ref { font-size: .73rem; color: var(--text-l); margin-top: .75rem; font-style: italic; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--choco) 0%, #4A2518 100%);
+    padding: 5rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(212,135,62,.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-family: var(--ff-head); font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #fff; letter-spacing: -.03em; margin-bottom: 1rem; line-height: 1.1; }
+  .cta-section h2 em { color: var(--honey-l); font-style: italic; }
+  .cta-section p { font-size: 1.05rem; color: rgba(255,255,255,.7); margin-bottom: 2.5rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--choco); padding: 4rem 0 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-logo { font-family: var(--ff-head); font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: .75rem; }
+  .footer-logo span { color: var(--terra); }
+  .footer-desc { font-size: .83rem; color: rgba(255,255,255,.5); line-height: 1.6; }
+  .footer-col-title { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--honey); margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+  .footer-col ul li a { font-size: .85rem; color: rgba(255,255,255,.55); transition: color var(--t); }
+  .footer-col ul li a:hover { color: #fff; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.1); }
+  .footer-legal { font-size: .75rem; color: rgba(255,255,255,.35); }
+  .footer-made { font-size: .75rem; color: rgba(255,255,255,.35); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column; position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: rgba(253,248,240,.98); backdrop-filter: blur(12px);
+      padding: 1rem 1.25rem 1.5rem; box-shadow: 0 12px 40px rgba(44,24,16,.12);
+      gap: .25rem; z-index: 99;
+    }
+    .nav-burger { display: flex; }
+    .anatomy-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .phases-grid { grid-template-columns: 1fr; }
+    .compare-cards { grid-template-columns: 1fr; }
+    .science-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 0 1rem; }
+    .hero { padding: 90px 0 50px; }
+    .hero h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
+    .hero-badges { flex-direction: column; }
+    .section { padding: 3rem 0; }
+    .anatomy { padding: 3rem 0; }
+    .timeline-section { padding: 3rem 0; }
+    .curve-container { padding: 1.5rem 1rem; }
+    .phase-card { padding: 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: .5rem; }
+    .cta-btns { flex-direction: column; align-items: center; }
+    .cta-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Double Cinétique™ <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Libération rapide 15 min <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Libération prolongée 6h <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Valrhona Grand Cru <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Épeautre bio Grenoble <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Double Cinétique™ <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Libération rapide 15 min <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Libération prolongée 6h <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Valrhona Grand Cru <span class="ticker-dot">✦</span></span>
+    <span class="ticker-item">Épeautre bio Grenoble <span class="ticker-dot">✦</span></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">KookifonK<span>.</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="produits.html">Nos snacks</a>
+        <a href="science.html" class="active">La science</a>
+        <a href="comment.html">Comment ça marche</a>
+        <a href="contact.html" class="nav-cta">Commander →</a>
+      </div>
+      <div class="nav-burger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">🔬 La technologie exclusive</div>
+    <h1>Double Cinétique™<br><em>Deux vitesses.</em><br>Une efficacité continue.</h1>
+    <p class="hero-sub">Un seul snack. Deux matrices de libération. Les actifs rapides agissent en 15 minutes — les actifs lents s'installent sur 4 à 6 heures. Sans pic. Sans crash.</p>
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <div>
+          <div class="hero-badge-val">15 min</div>
+          <div class="hero-badge-label">Premier effet<br>ressenti</div>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div>
+          <div class="hero-badge-val">4–6h</div>
+          <div class="hero-badge-label">Durée<br>d'action</div>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div>
+          <div class="hero-badge-val">2 matrices</div>
+          <div class="hero-badge-label">Chocolat + biscuit<br>= double libération</div>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div>
+          <div class="hero-badge-val">0 crash</div>
+          <div class="hero-badge-label">Pas de pic<br>glycémique</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANATOMIE DU SNACK -->
+<section class="anatomy" id="anatomie">
+  <div class="container">
+    <div class="anatomy-inner">
+      <div>
+        <span class="section-tag" style="background:rgba(212,135,62,.15); color:var(--honey-l); border-color:rgba(212,135,62,.3);">Anatomie du snack</span>
+        <h2>Deux couches.<br><em>Deux rôles.</em><br>Un résultat.</h2>
+        <p class="anatomy-intro">KookifonK n'est pas un simple biscuit enrobé. C'est un système de délivrance à deux étages, où chaque couche a un rôle pharmacocinétique précis.</p>
+
+        <div class="layer-card">
+          <div class="layer-header">
+            <div class="layer-num fast">1</div>
+            <div>
+              <div class="layer-title">Couverture Valrhona 70%</div>
+              <div class="layer-sub">Libération rapide · Phase d'amorçage</div>
+            </div>
+          </div>
+          <div class="layer-body">
+            Le chocolat fond rapidement en bouche et passe dans la circulation sanguine par absorption sublinguale et gastrique directe. Les actifs lipophiles (caféine, L-Théanine) diffusent en 15 à 20 minutes. L'index glycémique bas du chocolat noir évite tout spike insulinique.
+          </div>
+          <div class="layer-time fast">⚡ Effet ressenti : 15–20 minutes</div>
+        </div>
+
+        <div class="layer-card">
+          <div class="layer-header">
+            <div class="layer-num slow">2</div>
+            <div>
+              <div class="layer-title">Base biscuit épeautre bio</div>
+              <div class="layer-sub">Libération prolongée · Phase de soutien</div>
+            </div>
+          </div>
+          <div class="layer-body">
+            L'épeautre est un grain à digestion lente. La matrice fibreuse forme une barrière naturelle qui ralentit la diffusion des actifs hydrophiles (adaptogens, acides aminés). Le corps absorbe progressivement sur 4 à 6 heures, sans saturation des récepteurs.
+          </div>
+          <div class="layer-time slow">⏱️ Durée d'action : 4 à 6 heures</div>
+        </div>
+      </div>
+
+      <!-- SNACK VISUAL -->
+      <div class="snack-visual">
+        <div style="text-align:center; margin-bottom:1.5rem;">
+          <span style="font-size:.75rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.5);">Coupe transversale · Schéma</span>
+        </div>
+
+        <!-- Couche chocolat -->
+        <div class="snack-layer snack-choco">
+          <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem;">
+            <span style="font-size:1.5rem;">🍫</span>
+            <div class="snack-layer-title">Couverture Valrhona 70%</div>
+          </div>
+          <div class="snack-layer-desc">Chocolat Grand Cru · Tain-l'Hermitage<br>Vecteur de libération rapide</div>
+          <div class="snack-layer-badge badge-fast">⚡ Phase 1 — Libération rapide · 15–20 min</div>
+          <div style="margin-top:1rem; display:flex; flex-wrap:wrap; gap:.4rem;">
+            <span style="font-size:.72rem; padding:.2rem .6rem; background:rgba(212,135,62,.2); color:var(--honey-l); border-radius:100px;">Caféine</span>
+            <span style="font-size:.72rem; padding:.2rem .6rem; background:rgba(212,135,62,.2); color:var(--honey-l); border-radius:100px;">L-Théanine</span>
+            <span style="font-size:.72rem; padding:.2rem .6rem; background:rgba(212,135,62,.2); color:var(--honey-l); border-radius:100px;">Theobromine</span>
+            <span style="font-size:.72rem; padding:.2rem .6rem; background:rgba(212,135,62,.2); color:var(--honey-l); border-radius:100px;">Polyphénols</span>
+          </div>
+        </div>
+
+        <!-- Séparateur visuel -->
+        <div style="width:80%; height:3px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent); position:relative; z-index:3;"></div>
+
+        <!-- Couche biscuit -->
+        <div class="snack-layer snack-biscuit">
+          <div style="display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem;">
+            <span style="font-size:1.5rem;">🌾</span>
+            <div class="snack-layer-title">Base biscuit épeautre bio</div>
+          </div>
+          <div class="snack-layer-desc">Épeautre IGP Isère · Matrice fibreuse<br>Vecteur de libération prolongée</div>
+          <div class="snack-layer-badge badge-slow">⏱️ Phase 2 — Libération prolongée · 4–6h</div>
+          <div style="margin-top:1rem; display:flex; flex-wrap:wrap; gap:.4rem;">
+            <span style="font-size:.72rem; padding:.2rem .6rem; background:rgba(255,255,255,.12); color:rgba(255,255,255,.8); border-radius:100px;">L-Citrulline</span>
+            <span style="font-size:.72rem; padding:.2rem .6rem; background:rgba(255,255,255,.12); color:rgba(255,255,255,.8); border-radius:100px;">Ashwagandha</span>
+            <span style="font-size:.72rem; padding:.2rem .6rem; background:rgba(255,255,255,.12); color:rgba(255,255,255,.8); border-radius:100px;">Créatine</span>
+            <span style="font-size:.72rem; padding:.2rem .6rem; background:rgba(255,255,255,.12); color:rgba(255,255,255,.8); border-radius:100px;">Rhodiola</span>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:1.5rem; font-size:.75rem; color:rgba(255,255,255,.4); line-height:1.6;">
+          Épaisseurs non proportionnelles<br>à la réalité pour raison de lisibilité
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURBE TEMPORELLE -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">Profil de libération</span>
+      <h2>La courbe qui <em>fait la différence</em></h2>
+      <p>Visualisez comment les deux phases se combinent pour produire une concentration plasmatique stable et prolongée — sans pic, sans vallée.</p>
+    </div>
+
+    <div class="curve-container">
+      <div class="curve-title">Concentration plasmatique relative des actifs dans le temps</div>
+      <div class="curve-sub">Modèle schématique · non issu d'une étude clinique spécifique au produit</div>
+
+      <svg class="curve-svg" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+        <!-- Axes -->
+        <line x1="60" y1="240" x2="760" y2="240" class="curve-axis"/>
+        <line x1="60" y1="20" x2="60" y2="240" class="curve-axis"/>
+
+        <!-- Grilles légères -->
+        <line x1="60" y1="80" x2="760" y2="80" stroke="#E2CCAA" stroke-width=".5" stroke-dasharray="4,4"/>
+        <line x1="60" y1="140" x2="760" y2="140" stroke="#E2CCAA" stroke-width=".5" stroke-dasharray="4,4"/>
+        <line x1="60" y1="180" x2="760" y2="180" stroke="#E2CCAA" stroke-width=".5" stroke-dasharray="4,4"/>
+
+        <!-- Labels axe X (temps) -->
+        <text x="60" y="258" font-size="11" fill="#A08070" text-anchor="middle" font-family="DM Sans">0</text>
+        <text x="155" y="258" font-size="11" fill="#A08070" text-anchor="middle" font-family="DM Sans">15'</text>
+        <text x="250" y="258" font-size="11" fill="#A08070" text-anchor="middle" font-family="DM Sans">30'</text>
+        <text x="345" y="258" font-size="11" fill="#A08070" text-anchor="middle" font-family="DM Sans">1h</text>
+        <text x="440" y="258" font-size="11" fill="#A08070" text-anchor="middle" font-family="DM Sans">2h</text>
+        <text x="535" y="258" font-size="11" fill="#A08070" text-anchor="middle" font-family="DM Sans">3h</text>
+        <text x="630" y="258" font-size="11" fill="#A08070" text-anchor="middle" font-family="DM Sans">4h</text>
+        <text x="725" y="258" font-size="11" fill="#A08070" text-anchor="middle" font-family="DM Sans">6h</text>
+
+        <!-- Labels axe Y -->
+        <text x="50" y="84" font-size="10" fill="#A08070" text-anchor="end" font-family="DM Sans">Élevé</text>
+        <text x="50" y="144" font-size="10" fill="#A08070" text-anchor="end" font-family="DM Sans">Moyen</text>
+        <text x="50" y="184" font-size="10" fill="#A08070" text-anchor="end" font-family="DM Sans">Faible</text>
+
+        <!-- Fill Phase 1 (rapide) -->
+        <path d="M60,240 C80,240 100,160 155,78 C200,30 240,25 280,50 C320,75 360,130 400,165 C450,200 520,218 760,235 L760,240 Z" class="curve-fill-fast"/>
+
+        <!-- Fill Phase 2 (lente) -->
+        <path d="M60,240 C100,238 200,220 280,185 C350,155 400,120 450,95 C510,68 570,72 620,88 C670,105 710,140 760,175 L760,240 Z" class="curve-fill-slow"/>
+
+        <!-- Courbe Phase 1 (rapide — chocolat) -->
+        <path d="M60,240 C80,240 100,160 155,78 C200,30 240,25 280,50 C320,75 360,130 400,165 C450,200 520,218 760,235" class="curve-fast"/>
+
+        <!-- Courbe Phase 2 (lente — biscuit) -->
+        <path d="M60,240 C100,238 200,220 280,185 C350,155 400,120 450,95 C510,68 570,72 620,88 C670,105 710,140 760,175" class="curve-slow"/>
+
+        <!-- Courbe combinée -->
+        <path d="M60,240 C75,200 120,100 155,70 C185,45 230,30 270,38 C320,50 360,68 410,75 C460,82 510,78 560,82 C610,86 660,100 710,120 C730,130 750,148 760,162" class="curve-combined"/>
+
+        <!-- Annotation zone efficacité -->
+        <rect x="80" y="55" width="630" height="130" rx="6" fill="rgba(107,143,113,.06)" stroke="rgba(107,143,113,.25)" stroke-width="1" stroke-dasharray="5,3"/>
+        <text x="390" y="48" font-size="11" fill="#6B8F71" text-anchor="middle" font-family="DM Sans" font-weight="600">✓ Zone d'efficacité thérapeutique</text>
+
+        <!-- Point 15min annotation -->
+        <line x1="155" y1="240" x2="155" y2="78" stroke="rgba(212,135,62,.4)" stroke-width="1" stroke-dasharray="3,3"/>
+        <circle cx="155" cy="78" r="4" fill="var(--honey)"/>
+        <text x="162" y="72" font-size="10" fill="#D4873E" font-family="DM Sans" font-weight="600">Premier effet</text>
+      </svg>
+
+      <div class="curve-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--honey);"></div>
+          Phase 1 — Chocolat Valrhona (libération rapide)
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--terra);"></div>
+          Phase 2 — Biscuit épeautre (libération prolongée)
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:var(--choco);"></div>
+          Effet combiné Double Cinétique™
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIFS PAR PHASE -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">Les actifs</span>
+      <h2>Chaque actif dans <em>sa bonne phase</em></h2>
+      <p>La répartition des actifs entre les deux matrices n'est pas arbitraire. Elle suit la logique pharmacocinétique de chaque molécule.</p>
+    </div>
+
+    <div class="phases-grid">
+      <!-- Phase 1 -->
+      <div class="phase-card phase-fast">
+        <div class="phase-header">
+          <div class="phase-icon fast">⚡</div>
+          <div>
+            <div class="phase-label fast">Phase 1 · Chocolat Valrhona</div>
+            <div class="phase-name">Libération rapide</div>
+            <div class="phase-matrix">Actifs lipophiles · Absorption 15–20 min</div>
+          </div>
+        </div>
+        <div class="actif-list">
+          <div class="actif-item">
+            <span class="actif-emoji">☕</span>
+            <div>
+              <div class="actif-name">Caféine</div>
+              <div class="actif-effect">Éveil · Concentration · Endurance</div>
+            </div>
+            <div class="actif-dose">100–150 mg</div>
+          </div>
+          <div class="actif-item">
+            <span class="actif-emoji">🍵</span>
+            <div>
+              <div class="actif-name">L-Théanine</div>
+              <div class="actif-effect">Focus calme · Anti-jitters · Clarté</div>
+            </div>
+            <div class="actif-dose">200–400 mg</div>
+          </div>
+          <div class="actif-item">
+            <span class="actif-emoji">🍫</span>
+            <div>
+              <div class="actif-name">Théobromine</div>
+              <div class="actif-effect">Énergie douce · Humeur · Vasodilatation</div>
+            </div>
+            <div class="actif-dose">Naturel</div>
+          </div>
+          <div class="actif-item">
+            <span class="actif-emoji">🌿</span>
+            <div>
+              <div class="actif-name">Polyphénols cacao</div>
+              <div class="actif-effect">Anti-oxydants · Neuroprotection</div>
+            </div>
+            <div class="actif-dose">Naturel</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="phase-card phase-slow">
+        <div class="phase-header">
+          <div class="phase-icon slow">⏱️</div>
+          <div>
+            <div class="phase-label slow">Phase 2 · Biscuit épeautre</div>
+            <div class="phase-name">Libération prolongée</div>
+            <div class="phase-matrix">Actifs hydrophiles · Absorption 4–6h</div>
+          </div>
+        </div>
+        <div class="actif-list">
+          <div class="actif-item">
+            <span class="actif-emoji">💪</span>
+            <div>
+              <div class="actif-name">L-Citrulline</div>
+              <div class="actif-effect">Pompe · Vasodilatation · Endurance</div>
+            </div>
+            <div class="actif-dose">3–5 g</div>
+          </div>
+          <div class="actif-item">
+            <span class="actif-emoji">🌱</span>
+            <div>
+              <div class="actif-name">Ashwagandha KSM-66</div>
+              <div class="actif-effect">Anti-stress · Récupération · Force</div>
+            </div>
+            <div class="actif-dose">600 mg</div>
+          </div>
+          <div class="actif-item">
+            <span class="actif-emoji">⚗️</span>
+            <div>
+              <div class="actif-name">Créatine monohydrate</div>
+              <div class="actif-effect">Force explosive · Puissance musculaire</div>
+            </div>
+            <div class="actif-dose">2–3 g</div>
+          </div>
+          <div class="actif-item">
+            <span class="actif-emoji">🏔️</span>
+            <div>
+              <div class="actif-name">Rhodiola rosea 3%</div>
+              <div class="actif-effect">Adaptogène · Anti-fatigue · Clarté</div>
+            </div>
+            <div class="actif-dose">200 mg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIF -->
+<section class="compare-section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">Pourquoi c'est mieux</span>
+      <h2>Double Cinétique™ vs <em>les alternatives</em></h2>
+      <p>Ce que les gélules, boissons énergisantes et barres classiques ne peuvent pas faire par construction.</p>
+    </div>
+
+    <div class="compare-cards">
+      <div class="compare-card">
+        <div class="compare-icon">💊</div>
+        <div class="compare-name">Gélules & compléments</div>
+        <div class="compare-row"><span class="compare-metric">Délai d'action</span><span class="compare-val neutral">45–90 min</span></div>
+        <div class="compare-row"><span class="compare-metric">Durée d'action</span><span class="compare-val neutral">3–5h (variable)</span></div>
+        <div class="compare-row"><span class="compare-metric">Plaisir gustatif</span><span class="compare-val bad">Aucun</span></div>
+        <div class="compare-row"><span class="compare-metric">Contrôle du pic</span><span class="compare-val bad">Difficile</span></div>
+        <div class="compare-row"><span class="compare-metric">Dosage précis</span><span class="compare-val good">Oui</span></div>
+        <div class="compare-row"><span class="compare-metric">Double libération</span><span class="compare-val bad">Non</span></div>
+      </div>
+
+      <div class="compare-card featured">
+        <div class="compare-badge">Notre techno</div>
+        <div class="compare-icon">🍫</div>
+        <div class="compare-name">Double Cinétique™</div>
+        <div class="compare-row"><span class="compare-metric">Délai d'action</span><span class="compare-val good">15–20 min</span></div>
+        <div class="compare-row"><span class="compare-metric">Durée d'action</span><span class="compare-val good">4–6h stable</span></div>
+        <div class="compare-row"><span class="compare-metric">Plaisir gustatif</span><span class="compare-val good">Valrhona Grand Cru</span></div>
+        <div class="compare-row"><span class="compare-metric">Contrôle du pic</span><span class="compare-val good">IG bas 42</span></div>
+        <div class="compare-row"><span class="compare-metric">Dosage précis</span><span class="compare-val good">Clinique</span></div>
+        <div class="compare-row"><span class="compare-metric">Double libération</span><span class="compare-val good">Phase 1 + Phase 2</span></div>
+      </div>
+
+      <div class="compare-card">
+        <div class="compare-icon">⚡</div>
+        <div class="compare-name">Boissons énergisantes</div>
+        <div class="compare-row"><span class="compare-metric">Délai d'action</span><span class="compare-val good">15–30 min</span></div>
+        <div class="compare-row"><span class="compare-metric">Durée d'action</span><span class="compare-val bad">2–3h + crash</span></div>
+        <div class="compare-row"><span class="compare-metric">Plaisir gustatif</span><span class="compare-val neutral">Sucré artificiel</span></div>
+        <div class="compare-row"><span class="compare-metric">Contrôle du pic</span><span class="compare-val bad">IG très élevé</span></div>
+        <div class="compare-row"><span class="compare-metric">Dosage précis</span><span class="compare-val bad">Souvent sous-dosé</span></div>
+        <div class="compare-row"><span class="compare-metric">Double libération</span><span class="compare-val bad">Non</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE CARDS -->
+<section class="science-section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">Pourquoi ça fonctionne</span>
+      <h2>La science derrière <em>chaque choix</em></h2>
+      <p>Chaque décision de formulation repose sur des mécanismes physiologiques documentés.</p>
+    </div>
+
+    <div class="science-grid">
+      <div class="science-card">
+        <div class="science-icon">🧬</div>
+        <h3>Pourquoi le chocolat comme vecteur rapide ?</h3>
+        <p>Les graisses du chocolat noir augmentent la biodisponibilité des actifs lipophiles. La caféine encapsulée dans la matrice grasse du beurre de cacao est protégée de l'acidité gastrique et diffuse plus régulièrement qu'en solution aqueuse. La théobromine naturelle du cacao agit en synergie avec la caféine ajoutée.</p>
+        <div class="ref">Réf. : Smit et al. (2004) Psychopharmacology · Scholey & Kennedy (2004) Nutritional Neuroscience</div>
+      </div>
+
+      <div class="science-card">
+        <div class="science-icon">🌾</div>
+        <h3>Pourquoi l'épeautre comme vecteur lent ?</h3>
+        <p>L'épeautre contient une proportion élevée de fibres solubles (arabinoxylanes) qui forment un gel visqueux dans le tube digestif. Ce gel ralentit mécaniquement la vitesse de transit des nutriments et des actifs hydrophiles. L'index glycémique bas (IG ~45) évite le pic insulinique qui précède habituellement le crash énergétique.</p>
+        <div class="ref">Réf. : Ruibal-Mendieta et al. (2005) Journal of Cereal Science</div>
+      </div>
+
+      <div class="science-card">
+        <div class="science-icon">⚗️</div>
+        <h3>La synergie caféine / L-Théanine</h3>
+        <p>La combinaison caféine + L-Théanine est l'une des plus étudiées en neurosciences nutritionnelles. La caféine bloque les récepteurs A1 et A2A à l'adénosine (effet stimulant), tandis que la L-Théanine augmente l'activité des ondes alpha cérébrales (focus calme). Ensemble, ils produisent une alerte sans anxiété — un état impossible à obtenir avec l'un ou l'autre seul.</p>
+        <div class="ref">Réf. : Owen et al. (2008) Biological Psychology · Haskell et al. (2008) Biol Psych</div>
+      </div>
+
+      <div class="science-card">
+        <div class="science-icon">📊</div>
+        <h3>Doses cliniques, pas doses marketing</h3>
+        <p>La plupart des compléments contiennent des actifs à des doses trop faibles pour produire un effet mesurable — présents sur l'étiquette, mais inefficaces. KookifonK utilise les doses des études cliniques : 5g de L-Citrulline (dose minimale pour effet vasodilatateur), 600mg d'Ashwagandha KSM-66 (dose des études sur le cortisol), 200–400mg de L-Théanine (dose des études sur les ondes alpha).</p>
+        <div class="ref">Réf. : Pérez-Guisado & Jakeman (2010) JSCR · Chandrasekhar et al. (2012) IJAYP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="container" style="position:relative; z-index:1;">
+    <h2>La technologie,<br>c'est bien.<br><em>Le goût, c'est mieux.</em></h2>
+    <p>Découvrez comment la Double Cinétique™ se traduit en expérience gustative avec le Pack Découverte — 5 formules, 5 snacks, un seul chocolat.</p>
+    <div class="cta-btns">
+      <a href="contact.html" class="btn btn-white btn-lg">Commander le Pack Découverte →</a>
+      <a href="produits.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.4); color:#fff;">Voir toutes les formules</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">KookifonK<span>.</span></div>
+        <p class="footer-desc">Snacks fonctionnels artisanaux. Chocolat Valrhona · Actifs cliniques · Fabriqué à Grenoble.</p>
+        <p class="footer-desc" style="margin-top:1rem; font-size:.72rem; opacity:.6;">Complément alimentaire. Ne se substitue pas à une alimentation variée et équilibrée. Déconseillé aux femmes enceintes et aux moins de 18 ans.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Nos snacks</div>
+        <ul>
+          <li><a href="produits.html">⚡ Énergie</a></li>
+          <li><a href="produits.html">🎯 Focus</a></li>
+          <li><a href="produits.html">🔁 Récup</a></li>
+          <li><a href="produits.html">🏔️ Alpes Endurance</a></li>
+          <li><a href="produits.html">🍄 Umami Energy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">La science</div>
+        <ul>
+          <li><a href="science.html">Double Cinétique™</a></li>
+          <li><a href="science.html#anatomie">Anatomie du snack</a></li>
+          <li><a href="comment.html">Comment ça marche</a></li>
+          <li><a href="contact.html">Demander les CoA</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="contact.html">Commander</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#98e8f9ebfbf9f4d8f3f7f7f3f1fef7f6f3b6feea"><span class="__cf_email__" data-cfemail="ff8f9e8c9c9e93bf949090949699909194d1998d">[email&#160;protected]</span></a></li>
+          <li><a href="#">Grenoble, Isère 🏔️</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">© 2026 KookifonK · <a href="legal.html" style="color:rgba(253,248,240,.65);text-decoration:underline;">Mentions légales</a> · <a href="legal.html#cgv" style="color:rgba(253,248,240,.65);text-decoration:underline;">CGV</a> · <a href="legal.html#confidentialite" style="color:rgba(253,248,240,.65);text-decoration:underline;">Confidentialité</a> · <a href="legal.html#cookies" style="color:rgba(253,248,240,.65);text-decoration:underline;">Cookies</a></div>
+      <div class="footer-made">Fait à Grenoble avec précision 🏔️</div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  window.addEventListener('scroll', function() {
+    var nav = document.getElementById('nav');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  function toggleMenu() {
+    var links = document.getElementById('navLinks');
+    if (links) links.classList.toggle('open');
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    var burger = document.querySelector('.nav-burger');
+    if (burger) burger.addEventListener('click', toggleMenu);
+    document.querySelectorAll('.faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var body = this.nextElementSibling;
+        var isOpen = this.classList.contains('open');
+        document.querySelectorAll('.faq-q.open').forEach(function(b) {
+          b.classList.remove('open');
+          if (b.nextElementSibling) b.nextElementSibling.classList.remove('op
