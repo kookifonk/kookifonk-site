@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KookifonK · UTM Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --rust: #B85835;
+    --dark: #1A1400;
+    --bg: #F9F3EE;
+    --white: #fff;
+    --border: #E8DDD5;
+    --light: #888;
+    --green: #2D7A52;
+  }
+  body { font-family: 'IBM Plex Mono', monospace; background: var(--bg); color: var(--dark); min-height: 100vh; }
+
+  /* HEADER */
+  header { background: var(--dark); height: 54px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 100; }
+  .logo { display: flex; align-items: baseline; gap: 8px; }
+  .logo-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 900; color: var(--bg); }
+  .logo-tag { font-size: 9px; color: var(--rust); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+  .header-btns { display: flex; gap: 8px; }
+
+  /* LAYOUT */
+  .container { max-width: 840px; margin: 0 auto; padding: 24px 16px; }
+
+  /* STATS */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 22px; }
+  .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; }
+  .stat-value { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: var(--rust); }
+  .stat-label { font-size: 9px; color: var(--light); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+  /* BUTTONS */
+  .btn { border: none; border-radius: 4px; padding: 8px 16px; font-size: 12px; font-family: 'IBM Plex Mono', monospace; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.15s; }
+  .btn-primary { background: var(--rust); color: #fff; }
+  .btn-primary:hover { background: #9e4a2c; }
+  .btn-ghost { background: transparent; color: var(--rust); border: 1px solid var(--rust); }
+  .btn-ghost:hover { background: var(--rust); color: #fff; }
+  .btn-danger { background: transparent; color: #c0392b; border: 1px solid #c0392b; }
+  .btn-danger:hover { background: #c0392b; color: #fff; }
+  .btn-sm { padding: 5px 11px; font-size: 10px; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-active { background: var(--rust) !important; color: #fff !important; }
+
+  /* FILTERS */
+  .filters { display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
+  .filter-count { margin-left: auto; font-size: 11px; color: #bbb; }
+
+  /* LINK CARDS */
+  .link-card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; cursor: pointer; transition: box-shadow 0.15s; }
+  .link-card:hover { box-shadow: 0 2px 14px rgba(184,88,53,0.12); }
+  .link-card-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .link-card-info { flex: 1; min-width: 0; }
+  .link-card-title { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .link-card-name { font-weight: 700; font-size: 14px; }
+  .campaign-badge { font-size: 9px; background: #F5EDE8; color: var(--rust); padding: 2px 7px; border-radius: 3px; font-weight: 700; white-space: nowrap; }
+  .link-card-url { font-size: 10px; color: #888; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .link-card-notes { font-size: 10px; color: #bbb; margin-top: 3px; }
+  .link-card-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+  .visit-count { text-align: center; }
+  .visit-num { font-size: 14px; font-weight: 700; color: var(--rust); }
+  .visit-lbl { font-size: 8px; color: #ccc; }
+
+  /* FORMS */
+  .panel { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
+  .panel-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; margin-bottom: 20px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 5px; }
+  input, select, textarea {
+    border: 1px solid #ddd; border-radius: 4px; padding: 8px 12px;
+    font-size: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--dark);
+    background: #FAFAF8; width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--rust); outline-offset: 1px; }
+  textarea { resize: vertical; min-height: 64px; }
+  .hint { font-size: 9px; color: #bbb; margin-top: 3px; }
+
+  /* UTM PREVIEW */
+  .utm-preview { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; margin-bottom: 18px; }
+  .utm-preview-url { font-size: 10px; color: #555; word-break: break-all; margin-top: 4px; }
+
+  /* DETAIL */
+  .detail-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .detail-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .detail-btns { display: flex; gap: 8px; }
+  .utm-box { background: var(--bg); border-radius: 6px; padding: 12px 14px; margin-bottom: 14px; }
+  .utm-box-row { display: flex; gap: 10px; align-items: flex-start; margin-top: 6px; }
+  .utm-box-url { font-size: 10px; color: #555; word-break: break-all; flex: 1; }
+  .params-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+  .param-card { background: var(--bg); border-radius: 6px; padding: 8px 12px; }
+  .param-key { font-size: 9px; color: var(--rust); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .param-val { font-size: 12px; color: var(--dark); }
+  .short-row { display: flex; gap: 8px; }
+  .short-row input { flex: 1; }
+  .stats-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .conversion-rate { margin-top: 8px; font-size: 12px; color: var(--light); }
+  .ga4-tip { background: #EAF4EE; border-left: 3px solid var(--green); border-radius: 0 6px 6px 0; padding: 8px 12px; font-size: 10px; color: var(--green); margin-top: 14px; }
+
+  /* EMPTY */
+  .empty { text-align: center; padding: 44px 0; color: #ccc; font-size: 13px; }
+
+  /* FOOTER */
+  footer { text-align: center; margin-top: 32px; font-size: 9px; color: #ccc; letter-spacing: 0.14em; padding-bottom: 24px; }
+
+  /* COPIED STATE */
+  .copied { background: var(--rust) !important; color: #fff !important; }
+
+  @media (max-width: 560px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    .params-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-name">KookifonK</span>
+    <span class="logo-tag">· UTM Manager</span>
+  </div>
+  <div class="header-btns">
+    <button class="btn btn-sm btn-active" id="btn-dashboard" onclick="showView('dashboard')">📋 Tableau</button>
+    <button class="btn btn-sm btn-ghost" id="btn-add" onclick="showView('add')">+ Nouveau</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value" id="stat-total">0</div><div class="stat-label">Influenceurs</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-plat">0</div><div class="stat-label">Plateformes</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-visites">0</div><div class="stat-label">Visites</div></div>
+    <div class="stat-card"><div class="stat-value" id="stat-conv">0</div><div class="stat-label">Conversions</div></div>
+  </div>
+
+  <!-- VUE DASHBOARD -->
+  <div id="view-dashboard">
+    <div class="filters">
+      <input type="text" placeholder="🔍 Rechercher..." id="search-input" oninput="renderList()" style="width:200px">
+      <select id="filter-plat" onchange="renderList()" style="width:170px">
+        <option value="all">Toutes plateformes</option>
+        <option value="instagram">📸 instagram</option>
+        <option value="tiktok">🎵 tiktok</option>
+        <option value="youtube">▶️ youtube</option>
+        <option value="linkedin">💼 linkedin</option>
+        <option value="twitter">🐦 twitter</option>
+      </select>
+      <span class="filter-count" id="filter-count"></span>
+    </div>
+    <div id="link-list"></div>
+  </div>
+
+  <!-- VUE AJOUT -->
+  <div id="view-add" style="display:none">
+    <div class="panel">
+      <div class="panel-title">Nouvel influenceur</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom / handle *</label>
+          <input type="text" id="f-nom" placeholder="alice_crossfit38" oninput="updatePreview()">
+          <span class="hint">→ utilisé dans utm_content</span>
+        </div>
+        <div class="form-group">
+          <label>Plateforme</label>
+          <select id="f-plat" onchange="updatePreview()">
+            <option value="instagram">📸 instagram</option>
+            <option value="tiktok">🎵 tiktok</option>
+            <option value="youtube">▶️ youtube</option>
+            <option value="linkedin">💼 linkedin</option>
+            <option value="twitter">🐦 twitter</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Medium</label>
+          <select id="f-medium" onchange="updatePreview()">
+            <option value="influencer">influencer</option>
+            <option value="nano">nano</option>
+            <option value="ugc">ugc</option>
+            <option value="ambassador">ambassador</option>
+            <option value="affiliate">affiliate</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Campagne</label>
+          <select id="f-campaign" onchange="toggleCustomCampaign(); updatePreview()">
+            <option value="lancement_mars_2026">lancement_mars_2026</option>
+            <option value="b2b_corporate">b2b_corporate</option>
+            <option value="trail_printemps">trail_printemps</option>
+            <option value="summer_2026">summer_2026</option>
+            <option value="custom">✏️ personnalisée...</option>
+          </select>
+        </div>
+        <div class="form-group full" id="custom-campaign-group" style="display:none">
+          <label>Nom campagne personnalisé</label>
+          <input type="text" id="f-campaign-custom" placeholder="ex: trail_vercors_juin" oninput="updatePreview()">
+        </div>
+        <div class="form-group">
+          <label>Lien court bit.ly (optionnel)</label>
+          <input type="text" id="f-short" placeholder="https://bit.ly/kfk-alice">
+        </div>
+        <div class="form-group">
+          <label>Notes</label>
+          <input type="text" id="f-notes" placeholder="3.8k abonnés, trail Isère...">
+        </div>
+      </div>
+
+      <div class="utm-preview" id="utm-preview" style="display:none">
+        <label>Aperçu lien UTM généré</label>
+        <div class="utm-preview-url" id="utm-preview-url"></div>
+      </div>
+
+      <div style="display:flex; gap:10px">
+        <button class="btn btn-primary" onclick="saveNew()">✓ Créer le lien</button>
+        <button class="btn btn-ghost" onclick="showView('dashboard')">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VUE DETAIL -->
+  <div id="view-detail" style="display:none">
+    <div class="panel">
+      <div class="detail-header">
+        <div class="detail-title" id="detail-title"></div>
+        <div class="detail-btns">
+          <button class="btn btn-sm btn-ghost" onclick="showView('dashboard')">← Retour</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteSelected()">Supprimer</button>
+        </div>
+      </div>
+
+      <div class="utm-box">
+        <label>Lien UTM complet</label>
+        <div class="utm-box-row">
+          <div class="utm-box-url" id="detail-utm-url"></div>
+          <button class="btn btn-sm btn-ghost" id="copy-full-btn" onclick="copyFull()">Copier</button>
+        </div>
+      </div>
+
+      <div class="params-grid" id="detail-params"></div>
+
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Lien court (bit.ly)</label>
+        <div class="short-row">
+          <input type="text" id="detail-short" placeholder="https://bit.ly/kfk-..." oninput="updateDetail('lien_court', this.value)">
+          <button class="btn btn-sm btn-ghost" id="copy-short-btn" onclick="copyShort()" style="white-space:nowrap">Copier</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px">
+        <label>Stats GA4 (saisie manuelle)</label>
+        <div class="stats-inputs">
+          <div>
+            <div style="font-size:10px;color:#888;margin-bottom:4px">Visites</div>
+            <input type="number" id="detail-visites" min="0" oninput="updateDetail('visites', parseInt(this.value)||0); updateConvRate()">
+          </div>
+          <div>
+            <div style="font-size:10px;color:#888;margin-bottom:4px">Conversions</div>
+            <input type="number" id="detail-conv" min="0" oninput="updateDetail('conversions', parseInt(this.value)||0); updateConvRate()">
+          </div>
+        </div>
+        <div class="conversion-rate" id="conv-rate"></div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:14px">
+        <label>Notes</label>
+        <textarea id="detail-notes" placeholder="Profil, abonnés, type de contenu..." oninput="updateDetail('notes', this.value)"></textarea>
+      </div>
+
+      <div class="ga4-tip" id="detail-ga4-tip"></div>
+    </div>
+  </div>
+
+  <footer>KOOKIFONK · UTM MANAGER · GRENOBLE · 2026</footer>
+</div>
+
+<script>
+const BASE_URL = "https://kookifonk.fr/";
+const STORAGE_KEY = "kfk_utm_links";
+const PLAT_EMOJI = { instagram:"📸", tiktok:"🎵", youtube:"▶️", linkedin:"💼", twitter:"🐦" };
+
+// ── DATA ──
+let links = [
+  { id:"1", nom:"alice_crossfit38", plateforme:"instagram", medium:"influencer", campaign:"lancement_mars_2026", lien_court:"", visites:0, conversions:0, date:"2026-03-07", notes:"CrossFit Grenoble, 4.2k abonnés" },
+  { id:"2", nom:"thomas_trail_isere", plateforme:"instagram", medium:"influencer", campaign:"lancement_mars_2026", lien_court:"", visites:0, conversions:0, date:"2026-03-07", notes:"Trail runner Vercors, 3.8k abonnés" },
+  { id:"3", nom:"lea_wellness_greno", plateforme:"tiktok", medium:"influencer", campaign:"lancement_mars_2026", lien_court:"", visites:0, conversions:0, date:"2026-03-07", notes:"Wellness / yoga Grenoble, 8k abonnés" },
+  { id:"4", nom:"pierre_biohack", plateforme:"linkedin", medium:"influencer", campaign:"b2b_corporate", lien_court:"", visites:0, conversions:0, date:"2026-03-07", notes:"Biohacking / performance, 2.1k followers" },
+];
+let selectedId = null;
+
+// ── PERSISTENCE ──
+function loadData() {
+  try { const d = localStorage.getItem(STORAGE_KEY); if (d) links = JSON.parse(d); } catch {}
+}
+function saveData() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(links)); } catch {}
+}
+
+// ── UTM ──
+function buildUTM(link) {
+  return `${BASE_URL}?utm_source=${link.plateforme}&utm_medium=${link.medium}&utm_campaign=${link.campaign}&utm_content=${link.nom}`;
+}
+
+// ── VIEWS ──
+function showView(view) {
+  document.getElementById("view-dashboard").style.display = view==="dashboard" ? "" : "none";
+  document.getElementById("view-add").style.display = view==="add" ? "" : "none";
+  document.getElementById("view-detail").style.display = view==="detail" ? "" : "none";
+
+  document.getElementById("btn-dashboard").className = "btn btn-sm " + (view==="dashboard" ? "btn-active" : "btn-ghost");
+  document.getElementById("btn-add").className = "btn btn-sm " + (view==="add" ? "btn-active" : "btn-ghost");
+
+  if (view === "dashboard") renderList();
+  if (view === "detail" && selectedId) renderDetail();
+}
+
+// ── STATS ──
+function updateStats() {
+  document.getElementById("stat-total").textContent = links.length;
+  document.getElementById("stat-plat").textContent = new Set(links.map(l=>l.plateforme)).size;
+  document.getElementById("stat-visites").textContent = links.reduce((a,b)=>a+(b.visites||0),0);
+  document.getElementById("stat-conv").textContent = links.reduce((a,b)=>a+(b.conversions||0),0);
+}
+
+// ── LIST ──
+function renderList() {
+  updateStats();
+  const search = document.getElementById("search-input").value.toLowerCase();
+  const plat = document.getElementById("filter-plat").value;
+  const filtered = links.filter(l =>
+    (plat==="all" || l.plateforme===plat) &&
+    (l.nom.includes(search) || (l.notes||"").toLowerCase().includes(search))
+  );
+  document.getElementById("filter-count").textContent = filtered.length + " lien" + (filtered.length>1?"s":"");
+
+  const container = document.getElementById("link-list");
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty">Aucun influenceur — cliquez sur "+ Nouveau" pour commencer</div>';
+    return;
+  }
+  container.innerHTML = filtered.map(link => {
+    const utm = buildUTM(link);
+    return `
+    <div class="link-card" onclick="openDetail('${link.id}')">
+      <div class="link-card-inner">
+        <div class="link-card-info">
+          <div class="link-card-title">
+            <span>${PLAT_EMOJI[link.plateforme]||"🔗"}</span>
+            <span class="link-card-name">${link.nom}</span>
+            <span class="campaign-badge">${link.campaign.replace(/_/g," ")}</span>
+          </div>
+          <div class="link-card-url">${utm}</div>
+          ${link.notes ? `<div class="link-card-notes">${link.notes}</div>` : ""}
+        </div>
+        <div class="link-card-actions">
+          <div class="visit-count">
+            <div class="visit-num">${link.visites||0}</div>
+            <div class="visit-lbl">vis.</div>
+          </div>
+          <button class="btn btn-sm btn-ghost" id="copy-${link.id}" onclick="event.stopPropagation(); copyLink('${link.id}')">Copier</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+// ── COPY ──
+function copyText(text, btnId) {
+  navigator.clipboard.writeText(text).catch(()=>{});
+  const btn = document.getElementById(btnId);
+  if (btn) {
+    const orig = btn.textContent;
+    btn.textContent = "✓ Copié";
+    btn.classList.add("copied");
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove("copied"); }, 2000);
+  }
+}
+function copyLink(id) {
+  const link = links.find(l=>l.id===id);
+  if (!link) return;
+  const text = link.lien_court || buildUTM(link);
+  copyText(text, "copy-"+id);
+}
+function copyFull() {
+  const link = links.find(l=>l.id===selectedId);
+  if (link) copyText(buildUTM(link), "copy-full-btn");
+}
+function copyShort() {
+  const val = document.getElementById("detail-short").value;
+  if (val) copyText(val, "copy-short-btn");
+}
+
+// ── ADD ──
+function toggleCustomCampaign() {
+  const val = document.getElementById("f-campaign").value;
+  document.getElementById("custom-campaign-group").style.display = val==="custom" ? "" : "none";
+}
+function updatePreview() {
+  const nom = document.getElementById("f-nom").value.trim().toLowerCase().replace(/\s+/g,"_");
+  const preview = document.getElementById("utm-preview");
+  if (!nom) { preview.style.display="none"; return; }
+  preview.style.display = "";
+  const plat = document.getElementById("f-plat").value;
+  const medium = document.getElementById("f-medium").value;
+  let campaign = document.getElementById("f-campaign").value;
+  if (campaign==="custom") campaign = document.getElementById("f-campaign-custom").value || "custom";
+  document.getElementById("utm-preview-url").textContent = buildUTM({ nom, plateforme:plat, medium, campaign });
+}
+function saveNew() {
+  const nom = document.getElementById("f-nom").value.trim();
+  if (!nom) return;
+  let campaign = document.getElementById("f-campaign").value;
+  if (campaign==="custom") campaign = document.getElementById("f-campaign-custom").value || "custom";
+  links.unshift({
+    id: Date.now().toString(),
+    nom: nom.toLowerCase().replace(/\s+/g,"_"),
+    plateforme: document.getElementById("f-plat").value,
+    medium: document.getElementById("f-medium").value,
+    campaign,
+    lien_court: document.getElementById("f-short").value.trim(),
+    visites: 0, conversions: 0,
+    date: new Date().toISOString().slice(0,10),
+    notes: document.getElementById("f-notes").value.trim(),
+  });
+  saveData();
+  // Reset form
+  document.getElementById("f-nom").value="";
+  document.getElementById("f-short").value="";
+  document.getElementById("f-notes").value="";
+  document.getElementById("f-campaign-custom").value="";
+  document.getElementById("utm-preview").style.display="none";
+  showView("dashboard");
+}
+
+// ── DETAIL ──
+function openDetail(id) {
+  selectedId = id;
+  showView("detail");
+}
+function renderDetail() {
+  const link = links.find(l=>l.id===selectedId);
+  if (!link) return;
+  document.getElementById("detail-title").innerHTML = `<span>${PLAT_EMOJI[link.plateforme]||"🔗"}</span><span>${link.nom}</span>`;
+  const utm = buildUTM(link);
+  document.getElementById("detail-utm-url").textContent = utm;
+  document.getElementById("detail-params").innerHTML = [
+    ["utm_source", link.plateforme],
+    ["utm_medium", link.medium],
+    ["utm_campaign", link.campaign],
+    ["utm_content", link.nom],
+  ].map(([k,v])=>`
+    <div class="param-card">
+      <div class="param-key">${k}</div>
+      <div class="param-val">${v}</div>
+    </div>`).join("");
+  document.getElementById("detail-short").value = link.lien_court || "";
+  document.getElementById("detail-visites").value = link.visites || 0;
+  document.getElementById("detail-conv").value = link.conversions || 0;
+  document.getElementById("detail-notes").value = link.notes || "";
+  document.getElementById("copy-short-btn").style.display = link.lien_court ? "" : "none";
+  document.getElementById("detail-ga4-tip").innerHTML = `<strong>GA4 :</strong> Rapports → Acquisition → Acquisition de trafic → filtrer utm_content = <strong>${link.nom}</strong>`;
+  updateConvRate();
+}
+function updateConvRate() {
+  const v = parseInt(document.getElementById("detail-visites").value)||0;
+  const c = parseInt(document.getElementById("detail-conv").value)||0;
+  const el = document.getElementById("conv-rate");
+  el.innerHTML = v>0 ? `Taux de conversion : <strong style="color:var(--rust)">${((c/v)*100).toFixed(1)}%</strong>` : "";
+}
+function updateDetail(field, val) {
+  const link = links.find(l=>l.id===selectedId);
+  if (!link) return;
+  link[field] = val;
+  saveData();
+  updateStats();
+  if (field==="lien_court") document.getElementById("copy-short-btn").style.display = val ? "" : "none";
+}
+function deleteSelected() {
+  if (!confirm("Supprimer cet influenceur ?")) return;
+  links = links.filter(l=>l.id!==selectedId);
+  saveData();
+  selectedId = null;
+  showView("dashboard");
+}
+
+// ── INIT ──
+loadData();
+renderList();
+</script>
+</body>
+</html>
