@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KookifonK · Influencer CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rust:#B85835;--dark:#1A1400;--bg:#F9F3EE;--white:#fff;
+  --border:#E8DDD5;--muted:#888;--green:#2D7A52;--blue:#2B5BA8;--red:#c0392b;--gold:#C8900A;
+}
+body{font-family:'IBM Plex Mono',monospace;background:var(--bg);color:var(--dark);min-height:100vh;font-size:13px}
+header{background:var(--dark);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:100}
+.brand{display:flex;align-items:baseline;gap:7px}
+.brand-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:var(--bg)}
+.brand-sub{font-size:8px;color:var(--rust);font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+.hbtns{display:flex;gap:3px}
+.hbtn{background:transparent;color:rgba(255,255,255,.45);border:none;padding:5px 11px;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;border-radius:3px}
+.hbtn:hover{color:#fff;background:rgba(255,255,255,.09)}
+.hbtn.on{background:var(--rust);color:#fff}
+.wrap{max-width:980px;margin:0 auto;padding:20px 14px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:18px}
+.sc{background:var(--white);border:1px solid var(--border);border-radius:7px;padding:11px;text-align:center}
+.sv{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--rust)}
+.sl{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;margin-top:1px}
+.btn{display:inline-flex;align-items:center;gap:4px;border:none;border-radius:4px;padding:8px 15px;font-size:11px;font-family:'IBM Plex Mono',monospace;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.btn-p{background:var(--rust);color:#fff}.btn-p:hover{background:#9c4a28}
+.btn-g{background:transparent;color:var(--rust);border:1px solid var(--rust)}.btn-g:hover{background:var(--rust);color:#fff}
+.btn-r{background:transparent;color:var(--red);border:1px solid var(--red)}.btn-r:hover{background:var(--red);color:#fff}
+.btn-sm{padding:4px 9px;font-size:10px}
+.btn-cp{background:var(--green)!important;color:#fff!important;border-color:var(--green)!important}
+.bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.inp{border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--dark);background:var(--white)}
+.inp:focus{outline:2px solid var(--rust);outline-offset:1px}
+.tbl-wrap{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+thead{background:var(--dark)}
+th{padding:9px 13px;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);text-align:left;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);cursor:pointer}
+tbody tr:hover{background:#FBF5F0}
+tbody tr:last-child{border-bottom:none}
+td{padding:9px 13px;vertical-align:middle}
+.tn{font-weight:700}.ts{font-size:10px;color:var(--muted)}
+.badge{display:inline-block;font-size:8px;padding:2px 7px;border-radius:20px;font-weight:700}
+.b-actif{background:#EAF4EE;color:var(--green)}
+.b-pending{background:#FFF8E1;color:var(--gold)}
+.b-pause{background:#F5EDE8;color:var(--rust)}
+.b-inactif{background:#F0F0F0;color:#999}
+.ccode{font-weight:700;color:var(--blue);font-size:12px}
+.pbar{height:5px;background:#eee;border-radius:3px;width:70px;margin-top:3px}
+.pfill{height:5px;border-radius:3px}
+.empty{text-align:center;padding:40px 0;color:#bbb;font-size:13px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,20,0,.55);z-index:200;overflow-y:auto;padding:16px}
+.overlay.show{display:block}
+.modal{background:var(--white);border-radius:10px;max-width:680px;margin:0 auto;box-shadow:0 16px 60px rgba(0,0,0,.28);max-height:calc(100vh - 32px);overflow-y:auto}
+.mhd{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--white);z-index:5}
+.mtitle{font-family:'Playfair Display',serif;font-size:17px;font-weight:700}
+.mclose{background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);line-height:1;padding:3px 6px}
+.mbody{padding:18px 22px 10px}
+.tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:16px;overflow-x:auto}
+.tb{background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;padding:7px 14px;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tb.on{color:var(--rust);border-bottom-color:var(--rust)}
+.tp{display:none}.tp.on{display:block}
+.fg{display:flex;flex-direction:column;margin-bottom:11px}
+.fg label{font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.fg input,.fg select,.fg textarea{border:1px solid #ddd;border-radius:4px;padding:8px 10px;font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--dark);background:#FAFAF8;width:100%}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:2px solid var(--rust);outline-offset:1px}
+.fg textarea{resize:vertical;min-height:56px}
+.hint{font-size:9px;color:#bbb;margin-top:3px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+.ibox{background:#EAF4EE;border-left:3px solid var(--green);border-radius:0 5px 5px 0;padding:8px 11px;font-size:10px;color:#1a5c38;margin-bottom:12px}
+.wbox{background:#FFF8E1;border-left:3px solid var(--gold);border-radius:0 5px 5px 0;padding:8px 11px;font-size:10px;color:#6b4c0a;margin-bottom:12px}
+.ubox{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 13px;margin-bottom:10px}
+.uurl{font-size:10px;color:#555;word-break:break-all;margin-top:5px;line-height:1.5}
+.ccard{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:13px}
+.ctype{font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.mfoot{padding:14px 22px 18px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center}
+.csv-ta{width:100%;min-height:110px;font-family:'IBM Plex Mono',monospace;font-size:11px;border:1px solid var(--border);border-radius:4px;padding:9px;background:#FAFAF8;resize:vertical}
+.cprev{background:var(--bg);border-radius:5px;padding:8px;margin-top:8px;max-height:170px;overflow-y:auto}
+.crow{font-size:10px;padding:3px 0;border-bottom:1px solid var(--border);display:flex;gap:8px}
+.crow:last-child{border-bottom:none}
+.cok{color:var(--green)}.cerr{color:var(--red)}
+footer{text-align:center;margin-top:24px;padding-bottom:20px;font-size:9px;color:#ccc;letter-spacing:.12em}
+@media(max-width:580px){.stats{grid-template-columns:repeat(3,1fr)}.r2,.r3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span class="brand-name">KookifonK</span>
+    <span class="brand-sub">· Influencer CRM</span>
+  </div>
+  <div class="hbtns">
+    <button class="hbtn on" id="hb-list" onclick="goPage('list')">📋 Influenceurs</button>
+    <button class="hbtn" id="hb-coupons" onclick="goPage('coupons')">🎟 Coupons</button>
+    <button class="hbtn" id="hb-content" onclick="goPage('content')">📸 Contenu</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="sc"><div class="sv" id="st0">0</div><div class="sl">Influenceurs</div></div>
+    <div class="sc"><div class="sv" id="st1">0</div><div class="sl">Actifs</div></div>
+    <div class="sc"><div class="sv" id="st2">0</div><div class="sl">Visites</div></div>
+    <div class="sc"><div class="sv" id="st3">0</div><div class="sl">Conversions</div></div>
+    <div class="sc"><div class="sv" id="st4">0</div><div class="sl">Contenus publiés</div></div>
+  </div>
+
+  <div id="pg-list">
+    <div class="bar">
+      <input class="inp" type="text" id="qs" placeholder="🔍 Rechercher..." style="width:170px" oninput="rl()">
+      <select class="inp" id="qp" style="width:145px" onchange="rl()">
+        <option value="">Toutes plateformes</option>
+        <option value="instagram">📸 Instagram</option>
+        <option value="tiktok">🎵 TikTok</option>
+        <option value="youtube">▶️ YouTube</option>
+        <option value="linkedin">💼 LinkedIn</option>
+      </select>
+      <select class="inp" id="qst" style="width:130px" onchange="rl()">
+        <option value="">Tous statuts</option>
+        <option value="actif">Actif</option>
+        <option value="pending">En attente</option>
+        <option value="pause">Pause</option>
+        <option value="inactif">Inactif</option>
+      </select>
+      <div style="margin-left:auto;display:flex;gap:7px">
+        <button class="btn btn-g btn-sm" onclick="oCSV()">⬆ CSV</button>
+        <button class="btn btn-p btn-sm" onclick="oAdd()">+ Nouveau</button>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table><thead><tr>
+        <th>Influenceur</th><th>Plateforme</th><th>Statut</th>
+        <th>Code client</th><th>Contenu</th><th>Visites</th><th>Conv.</th><th>Score</th><th></th>
+      </tr></thead><tbody id="tb"></tbody></table>
+    </div>
+    <div id="te" class="empty" style="display:none">Aucun influenceur · cliquez sur "+ Nouveau" ou importez un CSV</div>
+  </div>
+
+  <div id="pg-coupons" style="display:none">
+    <div class="wbox">Créez les codes dans votre outil de vente (Shopify, WooCommerce) puis renseignez-les ici pour le suivi centralisé.</div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Influenceur</th><th>Code CLIENT (1ère cde)</th><th>Remise</th><th>Code INFLUENCEUR (permanent)</th><th>Remise</th><th>Util. clients</th><th>Util. perso</th><th>Statut</th></tr></thead>
+      <tbody id="cptb"></tbody>
+    </table></div>
+    <div id="cpe" class="empty" style="display:none">Aucun coupon configuré</div>
+  </div>
+
+  <div id="pg-content" style="display:none">
+    <div class="ibox">Suivez les obligations contractuelles. Les deadlines dépassées apparaissent en rouge.</div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Influenceur</th><th>Plateforme</th><th>Posts req.</th><th>Publiés</th><th>Reels req.</th><th>Publiés</th><th>Stories req.</th><th>Progression</th><th>Deadline</th></tr></thead>
+      <tbody id="cttb"></tbody>
+    </table></div>
+    <div id="cte" class="empty" style="display:none">Aucun contenu à suivre</div>
+  </div>
+
+  <footer>KOOKIFONK · INFLUENCER CRM · GRENOBLE · 2026</footer>
+</div>
+
+<!-- MODAL FICHE -->
+<div class="overlay" id="om">
+  <div class="modal">
+    <div class="mhd">
+      <span class="mtitle" id="mt">Nouvel influenceur</span>
+      <button class="mclose" onclick="cOv('om')">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="tabs">
+        <button class="tb on" onclick="gTab('p')">Profil</button>
+        <button class="tb" onclick="gTab('u')">UTM &amp; Liens</button>
+        <button class="tb" onclick="gTab('c')">Coupons</button>
+        <button class="tb" onclick="gTab('co')">Contenu</button>
+        <button class="tb" onclick="gTab('s')">Stats</button>
+      </div>
+      <!-- PROFIL -->
+      <div class="tp on" id="tp-p">
+        <div class="r2">
+          <div class="fg"><label>Handle *</label><input type="text" id="fn" placeholder="alice_crossfit38"></div>
+          <div class="fg"><label>Nom réel</label><input type="text" id="frn" placeholder="Alice Martin"></div>
+        </div>
+        <div class="r3">
+          <div class="fg"><label>Plateforme</label>
+            <select id="fpl" onchange="rUTM()">
+              <option value="instagram">📸 Instagram</option>
+              <option value="tiktok">🎵 TikTok</option>
+              <option value="youtube">▶️ YouTube</option>
+              <option value="linkedin">💼 LinkedIn</option>
+            </select>
+          </div>
+          <div class="fg"><label>Statut</label>
+            <select id="fst">
+              <option value="pending">En attente</option>
+              <option value="actif">Actif</option>
+              <option value="pause">Pause</option>
+              <option value="inactif">Inactif</option>
+            </select>
+          </div>
+          <div class="fg"><label>Abonnés</label><input type="text" id="ffw" placeholder="4 200"></div>
+        </div>
+        <div class="r2">
+          <div class="fg"><label>Email</label><input type="email" id="fem" placeholder="alice@email.com"></div>
+          <div class="fg"><label>Téléphone</label><input type="text" id="fph" placeholder="+33 6 xx xx xx xx"></div>
+        </div>
+        <div class="r2">
+          <div class="fg"><label>Niche</label><input type="text" id="fni" placeholder="CrossFit, nutrition sportive"></div>
+          <div class="fg"><label>Localisation</label><input type="text" id="flo" placeholder="Grenoble, Isère"></div>
+        </div>
+        <div class="fg"><label>URL profil</label><input type="url" id="fur" placeholder="https://instagram.com/alice_crossfit38"></div>
+        <div class="fg"><label>Notes</label><textarea id="fno" placeholder="Audience cible, style de contenu, historique..."></textarea></div>
+      </div>
+      <!-- UTM -->
+      <div class="tp" id="tp-u">
+        <div class="r2">
+          <div class="fg"><label>Campagne UTM</label>
+            <select id="fca" onchange="rUTM()">
+              <option value="lancement_mars_2026">lancement_mars_2026</option>
+              <option value="b2b_corporate">b2b_corporate</option>
+              <option value="trail_printemps">trail_printemps</option>
+              <option value="summer_2026">summer_2026</option>
+              <option value="custom">✏️ Personnalisée...</option>
+            </select>
+          </div>
+          <div class="fg"><label>Medium</label>
+            <select id="fme" onchange="rUTM()">
+              <option value="influencer">influencer</option>
+              <option value="nano">nano</option>
+              <option value="ugc">ugc</option>
+              <option value="ambassador">ambassador</option>
+              <option value="affiliate">affiliate</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg" id="fgcc" style="display:none">
+          <label>Nom campagne personnalisé</label>
+          <input type="text" id="fcc" placeholder="trail_vercors_juin" oninput="rUTM()">
+        </div>
+        <div class="ubox">
+          <label style="font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Lien UTM généré</label>
+          <div class="uurl" id="ud">—</div>
+          <div style="margin-top:7px"><button class="btn btn-g btn-sm" id="bcu" onclick="cpUTMf()">Copier UTM</button></div>
+        </div>
+        <div class="fg">
+          <label>Lien court bit.ly (facultatif)</label>
+          <div style="display:flex;gap:7px">
+            <input type="url" id="fsh" placeholder="https://bit.ly/kfk-alice" style="flex:1">
+            <button class="btn btn-g btn-sm" onclick="cpShf()">Copier</button>
+          </div>
+          <span class="hint">Raccourcissez le lien UTM sur bit.ly puis collez-le ici</span>
+        </div>
+        <div class="ibox">GA4 → Rapports → Acquisition → Acquisition de trafic → filtrer par utm_content</div>
+      </div>
+      <!-- COUPONS -->
+      <div class="tp" id="tp-c">
+        <div class="wbox">Créez d'abord les codes dans votre outil de vente, puis renseignez-les ici.</div>
+        <div class="r2">
+          <div class="ccard">
+            <div class="ctype" style="color:var(--blue)">🎟 Code CLIENT — 1ère commande</div>
+            <div class="fg"><label>Code promo</label><input type="text" id="fcc2" placeholder="ALICE10" style="text-transform:uppercase;font-size:15px;font-weight:700;color:var(--blue)"></div>
+            <div class="fg"><label>% réduction</label><input type="number" id="fdc" min="1" max="50" placeholder="10"></div>
+            <div class="fg"><label>Utilisations (comptage manuel)</label><input type="number" id="fuc" min="0" placeholder="0"></div>
+            <span class="hint">Valable 1 seule fois par nouveau client</span>
+          </div>
+          <div class="ccard">
+            <div class="ctype" style="color:var(--green)">🌟 Code INFLUENCEUR — permanent</div>
+            <div class="fg"><label>Code promo</label><input type="text" id="fci" placeholder="ALICE_PRO" style="text-transform:uppercase;font-size:15px;font-weight:700;color:var(--green)"></div>
+            <div class="fg"><label>% réduction</label><input type="number" id="fdi" min="1" max="100" placeholder="20"></div>
+            <div class="fg"><label>Nombre de commandes</label><input type="number" id="fui" min="0" placeholder="0"></div>
+            <span class="hint">Actif tant que le partenariat est actif</span>
+          </div>
+        </div>
+        <div class="ibox" style="margin-top:12px">Convention recommandée : code client = <strong>NOM10</strong> · code influenceur = <strong>NOM_PRO</strong></div>
+      </div>
+      <!-- CONTENU -->
+      <div class="tp" id="tp-co">
+        <div class="ibox">Définissez les obligations contractuelles et suivez la publication effective.</div>
+        <div class="r3">
+          <div class="fg"><label>Posts requis</label><input type="number" id="frp" min="0" value="2"></div>
+          <div class="fg"><label>Reels requis</label><input type="number" id="frr" min="0" value="1"></div>
+          <div class="fg"><label>Stories requises</label><input type="number" id="frs" min="0" value="3"></div>
+        </div>
+        <div class="r2">
+          <div class="fg"><label>Début partenariat</label><input type="date" id="fsd"></div>
+          <div class="fg"><label>Deadline contenu</label><input type="date" id="fde"></div>
+        </div>
+        <div class="fg">
+          <label>URLs posts publiés (un par ligne)</label>
+          <textarea id="fpo" placeholder="https://instagram.com/p/abc&#10;https://instagram.com/p/xyz" rows="3"></textarea>
+        </div>
+        <div class="fg">
+          <label>URLs reels/vidéos publiés (un par ligne)</label>
+          <textarea id="fre" placeholder="https://instagram.com/reel/abc" rows="2"></textarea>
+        </div>
+        <div class="fg">
+          <label>Notes &amp; consignes</label>
+          <textarea id="fcn" placeholder="Mention @kookifonk obligatoire, hashtag #kookifonk, swipe-up story..." rows="2"></textarea>
+        </div>
+      </div>
+      <!-- STATS -->
+      <div class="tp" id="tp-s">
+        <div class="ibox">Saisissez les données depuis GA4 et les plateformes chaque semaine.</div>
+        <div class="r2">
+          <div class="fg"><label>Visites (GA4)</label><input type="number" id="fvi" min="0" placeholder="0" oninput="rStat()"></div>
+          <div class="fg"><label>Conversions (GA4)</label><input type="number" id="fco2" min="0" placeholder="0" oninput="rStat()"></div>
+        </div>
+        <div class="r3">
+          <div class="fg"><label>Reach (vues)</label><input type="number" id="fre2" min="0" placeholder="0"></div>
+          <div class="fg"><label>Likes</label><input type="number" id="fli" min="0" placeholder="0"></div>
+          <div class="fg"><label>Engagement %</label><input type="number" id="fen" min="0" step="0.1" placeholder="0.0"></div>
+        </div>
+        <div class="fg"><label>Dernière màj</label><input type="date" id="fsdx"></div>
+        <div style="background:var(--bg);border-radius:6px;padding:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;margin-top:6px">
+          <div><div style="font-size:20px;font-weight:900;font-family:'Playfair Display',serif;color:var(--rust)" id="ctaux">—</div><div style="font-size:9px;color:var(--muted)">Taux conversion</div></div>
+          <div><div style="font-size:20px;font-weight:900;font-family:'Playfair Display',serif;color:var(--blue)" id="csco">—</div><div style="font-size:9px;color:var(--muted)">Score global</div></div>
+          <div><div style="font-size:20px;font-weight:900;font-family:'Playfair Display',serif;color:var(--green)" id="cuse">—</div><div style="font-size:9px;color:var(--muted)">Util. coupons</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="mfoot">
+      <button class="btn btn-p" onclick="sInf()">✓ Enregistrer</button>
+      <button class="btn btn-g" onclick="cOv('om')">Annuler</button>
+      <button class="btn btn-r btn-sm" id="bdel" style="margin-left:auto;display:none" onclick="dInf()">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CSV -->
+<div class="overlay" id="ocsv">
+  <div class="modal" style="max-width:540px">
+    <div class="mhd">
+      <span class="mtitle">Import CSV</span>
+      <button class="mclose" onclick="cOv('ocsv')">✕</button>
+    </div>
+    <div class="mbody" style="padding-bottom:18px">
+      <div class="ibox">Format : <strong>handle, plateforme, abonnés, email, niche, notes</strong><br>Une ligne = un influenceur. Pas d'en-tête requis.</div>
+      <div class="fg">
+        <label>Collez votre CSV ici</label>
+        <textarea class="csv-ta" id="csvi" oninput="prvCSV()"
+          placeholder="alice_crossfit38,instagram,4200,alice@email.com,CrossFit Grenoble,Nano 4.2k&#10;thomas_trail,instagram,3800,thomas@email.com,Trail Isère,Vercors runner&#10;lea_wellness,tiktok,8000,,Wellness yoga,8k TikTok"></textarea>
+      </div>
+      <div id="cpb" style="display:none">
+        <div style="font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Aperçu</div>
+        <div class="cprev" id="cpv"></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
+        <button class="btn btn-p" id="bimp" onclick="doImp()" disabled>⬆ Importer</button>
+        <button class="btn btn-g" onclick="cOv('ocsv')">Annuler</button>
+        <span id="cmsg" style="font-size:11px;color:var(--muted)"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var SK="kfk4",BASE="https://kookifonk.fr/",PLATS=["instagram","tiktok","youtube","linkedin"];
+var PE={instagram:"📸",tiktok:"🎵",youtube:"▶️",linkedin:"💼"};
+var SL={actif:"Actif",pending:"En attente",pause:"Pause",inactif:"Inactif"};
+var SC={actif:"b-actif",pending:"b-pending",pause:"b-pause",inactif:"b-inactif"};
+var D=[],eId=null,pg="list";
+
+function sample(){return[
+  {id:"1",nom:"alice_crossfit38",rn:"Alice Martin",pl:"instagram",st:"actif",fw:"4 200",em:"alice@ex.com",ph:"",ni:"CrossFit, nutrition",lo:"Grenoble",ur:"",no:"Audience premium Grenoble",ca:"lancement_mars_2026",me:"influencer",sh:"",cc:"ALICE10",dc:10,uc:7,ci:"ALICE_PRO",di:20,ui:3,rp:2,rr:1,rs:3,po:"https://instagram.com/p/abc123",re:"https://instagram.com/reel/xyz",cn:"Mention @kookifonk obligatoire",sd:"2026-03-01",de:"2026-04-01",vi:87,co:6,rc:12000,li:340,en:4.2,sx:"2026-03-07"},
+  {id:"2",nom:"thomas_trail_isere",rn:"Thomas Dubois",pl:"instagram",st:"actif",fw:"3 800",em:"thomas@ex.com",ph:"",ni:"Trail, endurance",lo:"Vercors",ur:"",no:"Crédibilité Alpes Endurance",ca:"lancement_mars_2026",me:"influencer",sh:"",cc:"THOMAS10",dc:10,uc:3,ci:"THOMAS_PRO",di:20,ui:1,rp:2,rr:1,rs:2,po:"",re:"",cn:"",sd:"2026-03-05",de:"2026-04-15",vi:45,co:2,rc:8000,li:210,en:3.8,sx:"2026-03-07"},
+  {id:"3",nom:"lea_wellness_greno",rn:"Léa Fontaine",pl:"tiktok",st:"pending",fw:"8 000",em:"lea@ex.com",ph:"",ni:"Wellness, yoga",lo:"Grenoble",ur:"",no:"Bon potentiel Focus & Récup",ca:"lancement_mars_2026",me:"nano",sh:"",cc:"LEA10",dc:10,uc:0,ci:"LEA_PRO",di:20,ui:0,rp:3,rr:2,rs:5,po:"",re:"",cn:"Stories swipe-up",sd:"",de:"2026-04-30",vi:0,co:0,rc:0,li:0,en:0,sx:""},
+  {id:"4",nom:"pierre_biohack",rn:"Pierre Lambert",pl:"linkedin",st:"actif",fw:"2 100",em:"pierre@ex.com",ph:"",ni:"Biohacking, performance",lo:"Grenoble",ur:"",no:"B2B corporate, décideurs tech",ca:"b2b_corporate",me:"ambassador",sh:"",cc:"PIERRE10",dc:10,uc:12,ci:"PIERRE_PRO",di:30,ui:5,rp:4,rr:0,rs:0,po:"https://linkedin.com/post/1\nhttps://linkedin.com/post/2\nhttps://linkedin.com/post/3\nhttps://linkedin.com/post/4",re:"",cn:"Posts avec stats",sd:"2026-02-15",de:"2026-05-15",vi:156,co:18,rc:5000,li:89,en:6.1,sx:"2026-03-07"}
+];}
+
+function loadD(){try{var s=localStorage.getItem(SK);if(s){D=JSON.parse(s);return;}}catch(x){}D=sample();}
+function saveD(){try{localStorage.setItem(SK,JSON.stringify(D));}catch(x){}}
+function g(id){return document.getElementById(id);}
+function gv(id){var e=g(id);return e?e.value:"";}
+function sv(id,v){var e=g(id);if(e)e.value=(v==null)?"":v;}
+
+function utm(o){var c=(o.ca==="custom"?(o.cac||"custom"):(o.ca||"lancement_mars_2026"));return BASE+"?utm_source="+o.pl+"&utm_medium="+(o.me||"influencer")+"&utm_campaign="+c+"&utm_content="+o.nom;}
+function scr(o){var s=0,v=parseInt(o.vi)||0,c=parseInt(o.co)||0,pd=lines(o.po),rd=lines(o.re),rq=(parseInt(o.rp)||0)+(parseInt(o.rr)||0),us=(parseInt(o.uc)||0)+(parseInt(o.ui)||0);s+=Math.min(30,Math.round(v/5));s+=Math.min(30,c*3);if(rq>0)s+=Math.round(((pd+rd)/rq)*20);s+=Math.min(20,us*2);return Math.min(100,s);}
+function lines(t){return(t||"").split("\n").filter(function(x){return x.trim();}).length;}
+
+function goPage(p){
+  pg=p;
+  ["list","coupons","content"].forEach(function(x){g("pg-"+x).style.display=x===p?"":"none";g("hb-"+x).className="hbtn"+(x===p?" on":"");});
+  if(p==="list")rl();if(p==="coupons")rcp();if(p==="content")rct();upSt();
+}
+
+function upSt(){
+  g("st0").textContent=D.length;
+  g("st1").textContent=D.filter(function(x){return x.st==="actif";}).length;
+  g("st2").textContent=D.reduce(function(a,b){return a+(parseInt(b.vi)||0);},0);
+  g("st3").textContent=D.reduce(function(a,b){return a+(parseInt(b.co)||0);},0);
+  g("st4").textContent=D.reduce(function(a,b){return a+lines(b.po)+lines(b.re);},0);
+}
+
+function rl(){
+  upSt();
+  var q=(gv("qs")||"").toLowerCase(),fp=gv("qp"),fs=gv("qst");
+  var f=D.filter(function(d){return(!fp||d.pl===fp)&&(!fs||d.st===fs)&&(!q||d.nom.indexOf(q)>-1||(d.rn||"").toLowerCase().indexOf(q)>-1||(d.ni||"").toLowerCase().indexOf(q)>-1);});
+  var tb=g("tb");g("te").style.display=f.length?"none":"";
+  if(!f.length){tb.innerHTML="";return;}
+  tb.innerHTML=f.map(function(d){
+    var pd=lines(d.po),rd=lines(d.re),rq=(parseInt(d.rp)||0)+(parseInt(d.rr)||0)+(parseInt(d.rs)||0),dn=pd+rd;
+    var pr=rq>0?Math.round((dn/rq)*100):0,pc=pr>=100?"var(--green)":pr>=50?"var(--gold)":"var(--rust)";
+    var sc=scr(d),scol=sc>=70?"var(--green)":sc>=40?"var(--gold)":"var(--red)";
+    return "<tr onclick=\"eInf('"+d.id+"')\"><td><div class='tn'>"+d.nom+"</div><div class='ts'>"+(d.rn||"")+"</div></td>"
+      +"<td><div style='display:flex;align-items:center;gap:5px'>"+(PE[d.pl]||"")+" "+d.pl+"</div><div class='ts'>"+(d.fw||"?")+" abon.</div></td>"
+      +"<td><span class='badge "+(SC[d.st]||"b-inactif")+"'>"+(SL[d.st]||d.st)+"</span></td>"
+      +"<td><div class='ccode'>"+(d.cc||"—")+"</div><div class='ts'>"+(d.dc||0)+"% · "+(d.uc||0)+" util.</div></td>"
+      +"<td><div class='ts'>"+dn+"/"+rq+" publiés</div><div class='pbar'><div class='pfill' style='width:"+Math.min(pr,100)+"%;background:"+pc+"'></div></div></td>"
+      +"<td style='font-weight:700'>"+(d.vi||0)+"</td>"
+      +"<td style='font-weight:700;color:var(--green)'>"+(d.co||0)+"</td>"
+      +"<td><span style='font-weight:700;color:"+scol+"'>"+sc+"</span></td>"
+      +"<td><button class='btn btn-g btn-sm' id='cb"+d.id+"' onclick='event.stopPropagation();cpU(\""+d.id+"\")'>UTM</button></td>"
+      +"</tr>";
+  }).join("");
+}
+
+function cpU(id){var d=D.find(function(x){return x.id===id;});if(!d)return;var t=d.sh||utm(d);try{navigator.clipboard.writeText(t);}catch(x){}var b=g("cb"+id);if(b){b.textContent="✓";b.classList.add("btn-cp");setTimeout(function(){b.textContent="UTM";b.classList.remove("btn-cp");},2000);}}
+
+function rcp(){
+  var hd=D.filter(function(d){return d.cc||d.ci;});g("cpe").style.display=hd.length?"none":"";
+  g("cptb").innerHTML=hd.map(function(d){return "<tr onclick=\"eInf('"+d.id+"')\"><td><div class='tn'>"+d.nom+"</div><div class='ts'>"+(PE[d.pl]||"")+" "+d.pl+"</div></td>"
+    +"<td><span class='ccode'>"+(d.cc||"—")+"</span></td><td style='font-weight:700;color:var(--blue)'>"+(d.dc||0)+"%</td>"
+    +"<td><span style='font-family:monospace;font-size:13px;font-weight:700;color:var(--green)'>"+(d.ci||"—")+"</span></td>"
+    +"<td style='font-weight:700;color:var(--green)'>"+(d.di||0)+"%</td>"
+    +"<td style='text-align:center;font-weight:700;color:var(--rust)'>"+(d.uc||0)+"</td>"
+    +"<td style='text-align:center;font-weight:700;color:var(--green)'>"+(d.ui||0)+"</td>"
+    +"<td><span class='badge "+(SC[d.st]||"b-inactif")+"'>"+(SL[d.st]||d.st)+"</span></td></tr>";}).join("");
+}
+
+function rct(){
+  g("cte").style.display=D.length?"none":"";var now=new Date();
+  g("cttb").innerHTML=D.map(function(d){
+    var pd=lines(d.po),rd=lines(d.re),rp=parseInt(d.rp)||0,rr=parseInt(d.rr)||0,rs=parseInt(d.rs)||0,tot=rp+rr+rs,dn=pd+rd;
+    var pr=tot>0?Math.round((dn/tot)*100):0,pc=pr>=100?"var(--green)":pr>=50?"var(--gold)":"var(--rust)";
+    var dead=d.de?new Date(d.de):null,ds=d.de?(dead<now&&pr<100?"<span style='color:var(--red);font-weight:700'>⚠ "+d.de+"</span>":d.de):"—";
+    return "<tr onclick=\"eInf('"+d.id+"')\"><td><div class='tn'>"+d.nom+"</div></td><td>"+(PE[d.pl]||"")+" "+d.pl+"</td>"
+      +"<td style='text-align:center'>"+rp+"</td><td style='text-align:center;font-weight:700;color:"+(pd>=rp?"var(--green)":"var(--rust)")+"'>"+pd+"</td>"
+      +"<td style='text-align:center'>"+rr+"</td><td style='text-align:center;font-weight:700;color:"+(rd>=rr?"var(--green)":"var(--rust)")+"'>"+rd+"</td>"
+      +"<td style='text-align:center'>"+rs+"</td>"
+      +"<td><div style='display:flex;align-items:center;gap:7px'><div class='pbar' style='width:80px'><div class='pfill' style='width:"+Math.min(pr,100)+"%;background:"+pc+"'></div></div><span style='font-size:10px;font-weight:700;color:"+pc+"'>"+pr+"%</span></div></td>"
+      +"<td style='font-size:11px'>"+ds+"</td></tr>";}).join("");
+}
+
+function oAdd(){eId=null;rForm();g("mt").textContent="Nouvel influenceur";g("bdel").style.display="none";gTab("p");g("om").classList.add("show");}
+function eInf(id){eId=id;var d=D.find(function(x){return x.id===id;});if(!d)return;g("mt").textContent=d.nom;g("bdel").style.display="";fForm(d);gTab("p");g("om").classList.add("show");}
+function oCSV(){g("ocsv").classList.add("show");}
+function cOv(id){g(id).classList.remove("show");}
+["om","ocsv"].forEach(function(id){var el=g(id);if(el)el.addEventListener("click",function(e){if(e.target===el)el.classList.remove("show");});});
+
+function gTab(n){
+  var ns=["p","u","c","co","s"];
+  document.querySelectorAll(".tb").forEach(function(b,i){b.classList.toggle("on",ns[i]===n);});
+  document.querySelectorAll(".tp").forEach(function(p,i){p.classList.toggle("on",ns[i]===n);});
+  if(n==="u")rUTM();if(n==="s")rStat();
+}
+
+function rForm(){
+  ["fn","frn","fem","fph","fni","flo","fur","fno","fsh","fcc","fcc2","fci","fpo","fre","fcn","fsd","fde","fsdx"].forEach(function(id){sv(id,"");});
+  sv("fpl","instagram");sv("fst","pending");sv("fme","influencer");sv("fca","lancement_mars_2026");sv("ffw","");
+  sv("fdc","10");sv("fuc","0");sv("fdi","20");sv("fui","0");sv("frp","2");sv("frr","1");sv("frs","3");
+  sv("fvi","0");sv("fco2","0");sv("fre2","0");sv("fli","0");sv("fen","0");
+  g("fgcc").style.display="none";g("ud").textContent="—";
+}
+
+function fForm(d){
+  sv("fn",d.nom);sv("frn",d.rn);sv("fem",d.em);sv("fph",d.ph);sv("fni",d.ni);sv("flo",d.lo);sv("fur",d.ur);sv("fno",d.no);
+  sv("ffw",d.fw);sv("fsh",d.sh);sv("fpl",d.pl||"instagram");sv("fst",d.st||"pending");sv("fme",d.me||"influencer");sv("fca",d.ca||"lancement_mars_2026");
+  sv("fcc2",d.cc);sv("fdc",d.dc||10);sv("fuc",d.uc||0);sv("fci",d.ci);sv("fdi",d.di||20);sv("fui",d.ui||0);
+  sv("frp",d.rp||2);sv("frr",d.rr||1);sv("frs",d.rs||3);sv("fpo",d.po);sv("fre",d.re);sv("fcn",d.cn);
+  sv("fsd",d.sd);sv("fde",d.de);sv("fvi",d.vi||0);sv("fco2",d.co||0);sv("fre2",d.rc||0);sv("fli",d.li||0);sv("fen",d.en||0);sv("fsdx",d.sx);
+  g("fgcc").style.display=d.ca==="custom"?"":"none";
+  g("ud").textContent=utm(d);
+}
+
+function sInf(){
+  var nom=(gv("fn")||"").trim();if(!nom){alert("Le handle est obligatoire.");return;}
+  var ca=gv("fca");if(ca==="custom")ca=(gv("fcc")||"custom");
+  var o={id:eId||String(Date.now()),nom:nom.toLowerCase().replace(/\s+/g,"_"),rn:gv("frn"),pl:gv("fpl"),st:gv("fst"),fw:gv("ffw"),em:gv("fem"),ph:gv("fph"),ni:gv("fni"),lo:gv("flo"),ur:gv("fur"),no:gv("fno"),ca:ca,cac:gv("fcc"),me:gv("fme"),sh:gv("fsh"),cc:(gv("fcc2")||"").toUpperCase(),dc:parseInt(gv("fdc"))||10,uc:parseInt(gv("fuc"))||0,ci:(gv("fci")||"").toUpperCase(),di:parseInt(gv("fdi"))||20,ui:parseInt(gv("fui"))||0,rp:parseInt(gv("frp"))||0,rr:parseInt(gv("frr"))||0,rs:parseInt(gv("frs"))||0,po:gv("fpo"),re:gv("fre"),cn:gv("fcn"),sd:gv("fsd"),de:gv("fde"),vi:parseInt(gv("fvi"))||0,co:parseInt(gv("fco2"))||0,rc:parseInt(gv("fre2"))||0,li:parseInt(gv("fli"))||0,en:parseFloat(gv("fen"))||0,sx:gv("fsdx")};
+  if(eId){var i=D.findIndex(function(x){return x.id===eId;});if(i>-1)D[i]=o;else D.unshift(o);}else D.unshift(o);
+  saveD();cOv("om");if(pg==="list")rl();if(pg==="coupons")rcp();if(pg==="content")rct();upSt();
+}
+
+function dInf(){if(!confirm("Supprimer cet influenceur ?"))return;D=D.filter(function(x){return x.id!==eId;});saveD();cOv("om");if(pg==="list")rl();if(pg==="coupons")rcp();if(pg==="content")rct();upSt();}
+
+function rUTM(){
+  var ca=gv("fca");g("fgcc").style.display=ca==="custom"?"":"none";
+  var nom=(gv("fn")||"").trim().toLowerCase().replace(/\s+/g,"_");if(!nom){g("ud").textContent="—";return;}
+  var cc=ca==="custom"?(gv("fcc")||"custom"):ca;
+  g("ud").textContent=BASE+"?utm_source="+gv("fpl")+"&utm_medium="+gv("fme")+"&utm_campaign="+cc+"&utm_content="+nom;
+}
+
+function cpUTMf(){var t=g("ud").textContent;if(!t||t==="—")return;try{navigator.clipboard.writeText(t);}catch(x){}var b=g("bcu");b.textContent="✓ Copié";b.classList.add("btn-cp");setTimeout(function(){b.textContent="Copier UTM";b.classList.remove("btn-cp");},2000);}
+function cpShf(){var v=gv("fsh");if(!v)return;try{navigator.clipboard.writeText(v);}catch(x){};}
+
+function rStat(){
+  var d=eId?D.find(function(x){return x.id===eId;}):null;
+  var v=parseInt(gv("fvi"))||0,c=parseInt(gv("fco2"))||0;
+  g("ctaux").textContent=v>0?((c/v)*100).toFixed(1)+"%":"—";
+  if(d){g("csco").textContent=scr(d)+"/100";g("cuse").textContent=(parseInt(d.uc)||0)+(parseInt(d.ui)||0);}
+}
+
+function prvCSV(){
+  var raw=(gv("csvi")||"").trim(),pb=g("cpb"),msg=g("cmsg"),btn=g("bimp");
+  if(!raw){pb.style.display="none";msg.textContent="";btn.disabled=true;return;}
+  var rows=raw.split("\n").map(function(r){return r.trim();}).filter(function(r){return r;});
+  var valid=0,html=rows.map(function(row){var c=row.split(",").map(function(x){return x.trim();});var ok=c[0]&&PLATS.indexOf(c[1])>-1;if(ok)valid++;return "<div class='crow'><span class='"+(ok?"cok":"cerr")+"'>"+(ok?"✓":"✗")+"</span><strong>"+(c[0]||"?")+"</strong><span style='color:var(--muted)'>"+(c[1]||"?")+"</span><span style='color:var(--muted);font-size:9px'>"+(c[4]||"")+"</span></div>";}).join("");
+  g("cpv").innerHTML=html;pb.style.display="";msg.textContent=valid+" valide"+(valid>1?"s":"")+" / "+rows.length;btn.disabled=valid===0;
+}
+
+function doImp(){
+  var raw=(gv("csvi")||"").trim(),rows=raw.split("\n").map(function(r){return r.trim();}).filter(function(r){return r;}),cnt=0;
+  rows.forEach(function(row){var c=row.split(",").map(function(x){return x.trim();});var nom=c[0],pl=c[1];if(!nom||PLATS.indexOf(pl)<0)return;var sl=nom.toLowerCase().replace(/\s+/g,"_");if(D.find(function(x){return x.nom===sl;}))return;D.unshift({id:String(Date.now()+cnt),nom:sl,rn:"",pl:pl,st:"pending",fw:c[2]||"",em:c[3]||"",ph:"",ni:c[4]||"",lo:c[5]||"",ur:"",no:c[6]||"",ca:"lancement_mars_2026",me:"influencer",sh:"",cc:"",dc:10,uc:0,ci:"",di:20,ui:0,rp:2,rr:1,rs:3,po:"",re:"",cn:"",sd:"",de:"",vi:0,co:0,rc:0,li:0,en:0,sx:""});cnt++;});
+  saveD();cOv("ocsv");sv("csvi","");g("cpb").style.display="none";g("bimp").disabled=true;rl();upSt();alert(cnt+" influenceur"+(cnt>1?"s":"")+" importé"+(cnt>1?"s":"")+".");
+}
+
+loadD();rl();upSt();
+</script>
+</body>
+</html>
