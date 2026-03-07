@@ -428,6 +428,14 @@
     .cta-btns .btn { width: 100%; max-width: 320px; justify-content: center; }
   }
 </style>
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NKPNES78J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-3NKPNES78J");
+</script>
 </head>
 <body>
 
@@ -936,3 +944,15 @@
         document.querySelectorAll('.faq-q.open').forEach(function(b) {
           b.classList.remove('open');
           if (b.nextElementSibling) b.nextElementSibling.classList.remove('op
+          b.classList.remove("open");
+          if (b.nextElementSibling) b.nextElementSibling.classList.remove("open");
+        });
+        if (!isOpen) {
+          btn.classList.add("open");
+          if (btn.nextElementSibling) btn.nextElementSibling.classList.add("open");
+        }
+      }
+    </script>
+    <script src="cookie-banner.js"></script>
+    </body>
+    </html>
