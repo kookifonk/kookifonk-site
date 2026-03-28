@@ -1,1 +1,654 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comment ça marche — KookifonK · Effets en 15 min, durée 6h</title>
+<meta name="description" content="Comment KookifonK agit en 15 minutes et dure 6 heures. Explication simple de la Double Cinétique — deux matrices, deux vitesses.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream:#FDF8F0; --cream-d:#F5ECD8; --warm-white:#FFFCF7;
+    --choco:#2C1810; --caramel:#A0522D; --honey:#D4873E; --honey-l:#F0C070;
+    --terra:#C4622D; --terra-d:#A04820; --sage:#6B8F71;
+    --border:#E2CCAA; --text:#2C1810; --text-m:#6B5040; --text-l:#A08070;
+    --ff-head:'Fraunces',Georgia,serif; --ff-body:'DM Sans',system-ui,sans-serif;
+    --radius-sm:8px; --radius:16px; --radius-lg:28px;
+    --shadow:0 4px 24px rgba(44,24,16,.08); --shadow-lg:0 12px 48px rgba(44,24,16,.14);
+    --t:.25s ease;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--ff-body); background: var(--cream); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; color: inherit; }
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+
+  .btn { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--ff-body); font-size: .95rem; font-weight: 600; padding: .9rem 2rem; border-radius: 100px; border: 2px solid transparent; cursor: pointer; transition: all var(--t); }
+  .btn-primary { background: var(--terra); color: #fff; border-color: var(--terra); box-shadow: 0 4px 16px rgba(196,98,45,.3); }
+  .btn-primary:hover { background: var(--terra-d); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: var(--terra); border-color: var(--terra); }
+  .btn-outline:hover { background: var(--terra); color: #fff; transform: translateY(-1px); }
+  .btn-white { background: #fff; color: var(--terra); border-color: #fff; }
+  .btn-white:hover { background: var(--cream); }
+  .btn-full { width: 100%; justify-content: center; }
+  .btn-lg { padding: 1.1rem 2.5rem; font-size: 1.05rem; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 0; transition: all var(--t); }
+  nav.scrolled { background: rgba(253,248,240,.95); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(44,24,16,.08); padding: .65rem 0; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .nav-logo { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 900; color: var(--choco); }
+  .nav-logo span { color: var(--terra); }
+  .nav-links { display: flex; align-items: center; gap: .25rem; }
+  .nav-links a { font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); }
+  .nav-links a:hover { background: var(--cream-d); color: var(--choco); }
+  .nav-links a.active { color: var(--terra); font-weight: 600; }
+  .nav-cta { background: var(--terra) !important; color: #fff !important; font-weight: 600 !important; }
+  .nav-cta:hover { background: var(--terra-d) !important; }
+  .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: .4rem; }
+  .nav-burger span { display: block; width: 22px; height: 2px; background: var(--choco); border-radius: 2px; }
+
+  /* HERO */
+  .page-hero { padding: 140px 0 70px; text-align: center; position: relative; overflow: hidden; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 50% 60%, rgba(212,135,62,.1) 0%, transparent 70%); pointer-events: none; }
+  .page-hero-tag { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--terra); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--ff-head); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; color: var(--choco); letter-spacing: -.03em; line-height: 1.1; margin-bottom: 1.2rem; position: relative; z-index: 1; }
+  .page-hero h1 em { font-style: italic; color: var(--terra); }
+  .page-hero p { font-size: 1.1rem; color: var(--text-m); max-width: 540px; margin: 0 auto 3rem; line-height: 1.75; position: relative; z-index: 1; }
+
+  /* SECTIONS */
+  .section { padding: 7rem 0; }
+  .section--sm { padding: 4rem 0; }
+  .section--dark { background: var(--choco); }
+  .section--cream { background: var(--cream-d); }
+  .section-tag { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--terra); margin-bottom: .75rem; }
+  .section-tag--light { color: var(--honey); }
+  h2.display { font-family: var(--ff-head); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; color: var(--choco); letter-spacing: -.02em; line-height: 1.15; }
+  h2.display em { font-style: italic; color: var(--terra); }
+  h2.display--white { color: #fff; }
+  h2.display--white em { color: var(--honey); }
+  .section-sub { font-size: 1rem; color: var(--text-m); line-height: 1.75; margin-top: 1rem; max-width: 520px; }
+
+  /* PROBLÈMES */
+  .problems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .problem-card { background: var(--warm-white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem 2rem; position: relative; overflow: hidden; }
+  .problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #E0C8A8; }
+  .problem-card.solved::before { background: linear-gradient(90deg, var(--terra), var(--honey)); }
+  .problem-icon { font-size: 2.4rem; margin-bottom: 1.2rem; display: block; }
+  .problem-card h3 { font-family: var(--ff-head); font-size: 1.15rem; font-weight: 700; color: var(--choco); margin-bottom: .75rem; line-height: 1.2; }
+  .problem-card p { font-size: .88rem; color: var(--text-m); line-height: 1.7; }
+  .problem-verdict { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: .82rem; font-weight: 700; display: flex; align-items: center; gap: .4rem; }
+  .verdict-bad { color: #B04040; }
+  .verdict-good { color: var(--sage); }
+
+  /* ANATOMIE */
+  .anatomy-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: center; }
+  .anatomy-snack { background: var(--warm-white); border: 2px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+  .anatomy-layer-choco { background: linear-gradient(135deg, #2C1810, #5C3D2E); padding: 2.5rem 2.5rem 2rem; position: relative; overflow: hidden; }
+  .anatomy-layer-choco::after { content: ''; position: absolute; bottom: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(212,135,62,.12); }
+  .anatomy-layer-biscuit { background: linear-gradient(135deg, #F5ECD8, #EDD8A8); padding: 2.5rem 2.5rem 2rem; }
+  .al-speed { font-size: .65rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; margin-bottom: .6rem; display: block; }
+  .al-choco .al-speed { color: var(--honey); }
+  .al-biscuit .al-speed { color: var(--caramel); }
+  .al-title { font-family: var(--ff-head); font-size: 1.3rem; font-weight: 700; margin-bottom: .4rem; }
+  .al-choco .al-title { color: #fff; }
+  .al-biscuit .al-title { color: var(--choco); }
+  .al-desc { font-size: .82rem; line-height: 1.6; margin-bottom: 1.2rem; }
+  .al-choco .al-desc { color: rgba(255,255,255,.6); }
+  .al-biscuit .al-desc { color: var(--text-m); }
+  .al-actifs { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .al-actif { font-size: .65rem; font-weight: 600; letter-spacing: .04em; padding: .2rem .55rem; border-radius: 100px; }
+  .al-choco .al-actif { background: rgba(255,255,255,.1); color: rgba(255,255,255,.7); }
+  .al-biscuit .al-actif { background: rgba(160,82,45,.12); color: var(--caramel); }
+  .anatomy-divider { text-align: center; padding: .75rem 0; background: var(--warm-white); border-top: 1.5px dashed var(--border); border-bottom: 1.5px dashed var(--border); font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-l); display: flex; align-items: center; justify-content: center; gap: .75rem; }
+  .anatomy-visual { position: relative; }
+  .anatomy-badge { position: absolute; background: var(--warm-white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: .75rem 1.1rem; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: .6rem; z-index: 2; }
+  .anatomy-badge-1 { top: -16px; right: -20px; }
+  .anatomy-badge-2 { bottom: -16px; left: -20px; }
+  .ab-icon { font-size: 1.2rem; }
+  .ab-val { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 900; color: var(--terra); display: block; line-height: 1; }
+  .ab-label { font-size: .65rem; color: var(--text-l); display: block; }
+  .anatomy-content h2 { margin-bottom: 1.2rem; }
+  .anatomy-content p { font-size: .98rem; color: var(--text-m); line-height: 1.8; margin-bottom: 1.5rem; }
+  .anatomy-points { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .anatomy-point { display: flex; gap: 1.1rem; align-items: flex-start; padding: 1.2rem 1.4rem; background: var(--warm-white); border: 1.5px solid var(--border); border-radius: var(--radius); transition: all var(--t); }
+  .anatomy-point:hover { border-color: var(--honey); transform: translateX(4px); }
+  .ap-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .ap-title { font-size: .92rem; font-weight: 600; color: var(--choco); margin-bottom: .2rem; }
+  .ap-desc { font-size: .82rem; color: var(--text-m); margin: 0; line-height: 1.55; }
+
+  /* TIMELINE */
+  .timeline-section { background: var(--choco); padding: 7rem 0; }
+  .timeline-intro { text-align: center; margin-bottom: 5rem; }
+  .timeline-steps { display: flex; flex-direction: column; gap: 0; max-width: 860px; margin: 0 auto; position: relative; }
+  .timeline-steps::before { content: ''; position: absolute; left: 52px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, transparent 0%, rgba(212,135,62,.4) 5%, rgba(212,135,62,.4) 95%, transparent 100%); }
+  .tl-step { display: flex; gap: 2rem; align-items: flex-start; position: relative; padding-bottom: 2.5rem; }
+  .tl-step:last-child { padding-bottom: 0; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 104px; gap: .75rem; position: relative; z-index: 1; }
+  .tl-time { font-family: var(--ff-head); font-size: .78rem; font-weight: 700; color: var(--honey); text-align: center; line-height: 1.3; white-space: nowrap; }
+  .tl-bubble { width: 52px; height: 52px; border-radius: 50%; background: var(--terra); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; box-shadow: 0 0 0 6px rgba(196,98,45,.2), 0 0 0 12px rgba(196,98,45,.07); }
+  .tl-step:not(:last-child) .tl-left::after { content: ''; flex: 1; width: 2px; background: rgba(212,135,62,.25); min-height: 2rem; margin-top: .5rem; }
+  .tl-card { flex: 1; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-lg); padding: 2rem 2.5rem; transition: all var(--t); }
+  .tl-card:hover { background: rgba(255,255,255,.09); border-color: rgba(212,135,62,.35); transform: translateX(4px); }
+  .tl-card h3 { font-family: var(--ff-head); font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: .75rem; line-height: 1.2; }
+  .tl-card p { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.75; margin: 0; }
+  .tl-card p + p { margin-top: .75rem; }
+  .tl-note { margin-top: 1rem; padding-top: .9rem; border-top: 1px solid rgba(255,255,255,.08); font-size: .78rem; color: rgba(255,255,255,.3); font-style: italic; }
+  .tl-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
+  .tl-tag { font-size: .68rem; font-weight: 600; letter-spacing: .06em; padding: .2rem .65rem; border-radius: 100px; background: rgba(212,135,62,.15); color: var(--honey-l); border: 1px solid rgba(212,135,62,.25); }
+  .tl-tag.green { background: rgba(107,143,113,.15); color: #8FBF96; border-color: rgba(107,143,113,.25); }
+  .tl-summary { max-width: 860px; margin: 4rem auto 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-lg); overflow: hidden; }
+  .tls-cell { background: rgba(255,255,255,.03); padding: 1.8rem 1.5rem; text-align: center; }
+  .tls-val { font-family: var(--ff-head); font-size: 1.8rem; font-weight: 900; color: var(--honey); display: block; line-height: 1; margin-bottom: .4rem; }
+  .tls-label { font-size: .72rem; color: rgba(255,255,255,.4); letter-spacing: .04em; line-height: 1.4; }
+
+  /* DOSES */
+  .doses-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .doses-intro h2 { margin-bottom: 1.2rem; }
+  .doses-intro p { font-size: .98rem; color: var(--text-m); line-height: 1.8; margin-bottom: 1.5rem; }
+  .dose-compare-box { background: var(--warm-white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .dcb-header { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--choco); padding: 1rem 1.5rem; }
+  .dcb-header span { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+  .dcb-header span:last-child { color: var(--honey); text-align: right; }
+  .dcb-header span:nth-child(2) { text-align: center; }
+  .dcb-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: .9rem 1.5rem; border-bottom: 1px solid var(--border); align-items: center; transition: background var(--t); }
+  .dcb-row:last-child { border-bottom: none; }
+  .dcb-row:hover { background: var(--cream); }
+  .dcb-actif { font-size: .85rem; font-weight: 600; color: var(--choco); }
+  .dcb-actif small { display: block; font-size: .72rem; font-weight: 400; color: var(--text-l); }
+  .dcb-typical { text-align: center; font-size: .82rem; color: var(--text-l); }
+  .dcb-ours { text-align: right; font-family: var(--ff-head); font-size: 1rem; font-weight: 900; color: var(--terra); }
+
+  /* INGRÉDIENTS */
+  .ingredients-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .ingredient-card { background: var(--warm-white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; transition: all var(--t); }
+  .ingredient-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--honey); }
+  .ic-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+  .ic-name { font-family: var(--ff-head); font-size: 1.05rem; font-weight: 700; color: var(--choco); margin-bottom: .3rem; }
+  .ic-badge { display: inline-block; font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: rgba(196,98,45,.1); color: var(--terra); padding: .15rem .55rem; border-radius: 100px; margin-bottom: .85rem; }
+  .ic-desc { font-size: .85rem; color: var(--text-m); line-height: 1.65; margin-bottom: 1rem; }
+  .ic-result { font-size: .82rem; font-weight: 600; color: var(--terra); display: flex; align-items: center; gap: .4rem; padding-top: .9rem; border-top: 1px solid var(--border); }
+
+  /* FAQ */
+  .faq-wrap { max-width: 720px; margin: 4rem auto 0; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 1.5rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; cursor: pointer; font-family: var(--ff-head); font-size: 1.05rem; font-weight: 700; color: var(--choco); transition: color var(--t); }
+  .faq-question:hover { color: var(--terra); }
+  .faq-question.open { color: var(--terra); }
+  .faq-icon { font-size: 1.4rem; font-weight: 300; color: var(--terra); flex-shrink: 0; transition: transform var(--t); line-height: 1; }
+  .faq-question.open .faq-icon { transform: rotate(45deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+  .faq-answer.open { max-height: 500px; }
+  .faq-answer-inner { padding-bottom: 1.5rem; font-size: .93rem; color: var(--text-m); line-height: 1.8; }
+  .faq-answer-inner strong { color: var(--choco); }
+
+  /* CTA */
+  .cta-strip { background: linear-gradient(135deg, var(--terra) 0%, var(--caramel) 100%); padding: 5rem 0; text-align: center; position: relative; overflow: hidden; }
+  .cta-strip::before { content: ''; position: absolute; top: -80px; right: -80px; width: 320px; height: 320px; border-radius: 50%; background: rgba(255,255,255,.06); }
+  .cta-strip h2 { font-family: var(--ff-head); font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #fff; letter-spacing: -.02em; margin-bottom: 1rem; position: relative; z-index: 1; }
+  .cta-strip p { font-size: 1.05rem; color: rgba(255,255,255,.82); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; position: relative; z-index: 1; }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+  /* FOOTER */
+  footer { background: var(--choco); padding: 4rem 0 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 2rem; }
+  .footer-logo { font-family: var(--ff-head); font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 1rem; }
+  .footer-logo span { color: var(--honey); }
+  .footer-desc { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.7; }
+  .footer-col-title { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--honey); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: .6rem; }
+  .footer-col ul li a { font-size: .85rem; color: rgba(255,255,255,.5); transition: color var(--t); }
+  .footer-col ul li a:hover { color: rgba(255,255,255,.9); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-legal, .footer-made { font-size: .75rem; color: rgba(255,255,255,.3); }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    .problems-grid { grid-template-columns: 1fr; }
+    .anatomy-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .anatomy-visual { display: none; }
+    .doses-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .ingredients-grid { grid-template-columns: 1fr 1fr; }
+    .tl-summary { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); padding: 1rem; box-shadow: var(--shadow-lg); gap: .25rem; }
+    .nav-burger { display: flex; }
+  }
+  @media (max-width: 640px) {
+    .timeline-steps::before { left: 26px; }
+    .tl-left { width: 52px; }
+    .tl-time { display: none; }
+    .tl-bubble { width: 40px; height: 40px; font-size: 1.1rem; }
+    .tl-card { padding: 1.5rem; }
+    .tl-card h3 { font-size: 1.05rem; }
+    .tl-summary { grid-template-columns: 1fr 1fr; }
+    .ingredients-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NKPNES78J"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3NKPNES78J');</script>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">KookifonK<span>.</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="produits.html">Nos snacks</a>
+        <a href="comment.html" class="active">Double Cinétique™</a>
+        <a href="contact.html">Contact</a>
+        <a href="panier.html" class="nav-cta">Commander →</a>
+      </div>
+      <div class="nav-burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="page-hero-tag">Sans jargon · Expliqué simplement</span>
+    <h1>Pourquoi ça marche<br><em>vraiment</em> ?</h1>
+    <p>En 5 minutes, vous comprenez pourquoi KookifonK agit en 15 minutes et dure jusqu'à 6 heures — là où les gélules, les barres sucrées et le café échouent.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="#anatomie" class="btn btn-primary">Comprendre →</a>
+      <a href="produits.html" class="btn btn-outline">Voir les snacks</a>
+    </div>
+  </div>
+</div>
+
+<section class="section--sm section--cream">
+  <div class="container">
+    <div style="text-align:center; margin-bottom:1rem;">
+      <span class="section-tag">Le vrai problème</span>
+      <h2 class="display" style="max-width:580px; margin:0 auto;">Les autres solutions<br>ont toutes <em>un défaut</em></h2>
+    </div>
+    <div class="problems-grid">
+      <div class="problem-card">
+        <span class="problem-icon">☕</span>
+        <h3>Le café : rapide mais court</h3>
+        <p>La caféine agit vite — en 20 minutes. Mais elle s'épuise en 2 à 3 heures et provoque souvent un rebond de fatigue. Et seule, elle peut rendre anxieux ou tremblant.</p>
+        <div class="problem-verdict verdict-bad">✗ Crash garanti vers 11h ou 15h</div>
+      </div>
+      <div class="problem-card">
+        <span class="problem-icon">🍬</span>
+        <h3>Les barres sucrées : effet immédiat, crash immédiat</h3>
+        <p>Le sucre rapide donne de l'énergie en 5 minutes. Et en 30 minutes, votre glycémie s'effondre. Le pic insulinique provoque une fatigue encore plus intense qu'avant.</p>
+        <div class="problem-verdict verdict-bad">✗ Pic glycémique suivi d'un crash brutal</div>
+      </div>
+      <div class="problem-card solved">
+        <span class="problem-icon">🍫</span>
+        <h3>KookifonK : rapide ET durable</h3>
+        <p>Le chocolat Valrhona libère les actifs rapides en 15 minutes. Le biscuit d'épeautre les libère progressivement pendant 4 à 6 heures. Index glycémique bas 42 — aucun crash.</p>
+        <div class="problem-verdict verdict-good">✓ Effet immédiat + durée 4 à 6 heures</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="anatomie">
+  <div class="container">
+    <div class="anatomy-layout">
+      <div class="anatomy-visual">
+        <div class="anatomy-snack">
+          <div class="anatomy-layer-choco al-choco">
+            <span class="al-speed">⚡ Libération rapide · 15 à 20 min</span>
+            <div class="al-title">Enrobage Valrhona 70%</div>
+            <p class="al-desc">10g de chocolat Grand Cru. La matière grasse du cacao transporte les actifs directement dans le sang — comme une injection en douceur.</p>
+            <div class="al-actifs">
+              <span class="al-actif">Caféine 100-150mg</span>
+              <span class="al-actif">L-Théanine 200-400mg</span>
+              <span class="al-actif">CoQ10 200mg</span>
+              <span class="al-actif">Cordyceps 1,5g</span>
+            </div>
+          </div>
+          <div class="anatomy-divider"><span>↕</span><span>Deux matrices · Deux vitesses</span><span>↕</span></div>
+          <div class="anatomy-layer-biscuit al-biscuit">
+            <span class="al-speed" style="color:var(--caramel);">🌾 Libération lente · 4 à 6 heures</span>
+            <div class="al-title">Biscuit Épeautre Bio</div>
+            <p class="al-desc">45g de biscuit riche en fibres solubles. Ces fibres forment un gel dans l'intestin qui diffuse les actifs progressivement — comme un goutte-à-goutte naturel.</p>
+            <div class="al-actifs">
+              <span class="al-actif">L-Citrulline 3-5g</span>
+              <span class="al-actif">Créatine 1,5-3g</span>
+              <span class="al-actif">Ashwagandha KSM-66</span>
+              <span class="al-actif">Rhodiola 3%</span>
+              <span class="al-actif">Lion's Mane</span>
+              <span class="al-actif">Magnésium</span>
+            </div>
+          </div>
+        </div>
+        <div class="anatomy-badge anatomy-badge-1">
+          <span class="ab-icon">⚡</span>
+          <div><span class="ab-val">15 min</span><span class="ab-label">Premier effet</span></div>
+        </div>
+        <div class="anatomy-badge anatomy-badge-2">
+          <span class="ab-icon">⏱️</span>
+          <div><span class="ab-val">6h</span><span class="ab-label">Durée d'action</span></div>
+        </div>
+      </div>
+      <div class="anatomy-content">
+        <span class="section-tag">Le secret du snack</span>
+        <h2 class="display">Un snack.<br><em>Deux matrices.</em><br>Deux vitesses.</h2>
+        <p>Chaque snack KookifonK est composé de deux parties aux propriétés d'absorption opposées. Ce n'est pas accidentel — c'est conçu précisément pour ça.</p>
+        <div class="anatomy-points">
+          <div class="anatomy-point">
+            <span class="ap-icon">🍫</span>
+            <div>
+              <div class="ap-title">Le chocolat Valrhona : absorption express</div>
+              <p class="ap-desc">Les matières grasses du cacao dissolvent et transportent les actifs lipophiles directement dans la circulation sanguine en 15 à 20 minutes.</p>
+            </div>
+          </div>
+          <div class="anatomy-point">
+            <span class="ap-icon">🌾</span>
+            <div>
+              <div class="ap-title">Le biscuit épeautre : diffusion prolongée</div>
+              <p class="ap-desc">Les fibres solubles de l'épeautre gonflent et forment un gel dans votre intestin. Ce gel ralentit mécaniquement le passage des actifs pendant 4 à 6 heures.</p>
+            </div>
+          </div>
+          <div class="anatomy-point">
+            <span class="ap-icon">📈</span>
+            <div>
+              <div class="ap-title">L'effet combiné : aucun autre produit ne fait ça</div>
+              <p class="ap-desc">Vous obtenez la rapidité d'une gélule et la durée d'un patch — dans un snack au chocolat artisanal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="container">
+    <div class="timeline-intro">
+      <span class="section-tag section-tag--light">Minute par minute</span>
+      <h2 class="display display--white" style="margin-top:.5rem;">Ce qui se passe<br><em>dans votre corps</em></h2>
+      <p style="color:rgba(255,255,255,.55); font-size:.98rem; max-width:480px; margin:1rem auto 0; line-height:1.75;">De la première bouchée aux 6 heures d'action — voici le film complet.</p>
+    </div>
+    <div class="timeline-steps">
+      <div class="tl-step">
+        <div class="tl-left"><span class="tl-time">T+0</span><div class="tl-bubble">🍫</div></div>
+        <div class="tl-card">
+          <h3>Vous croquez dans le snack</h3>
+          <p>Le chocolat Valrhona fond en bouche. La salive commence à émulsifier les actifs lipophiles. Le biscuit d'épeautre commence sa dégradation mécanique. Les deux matrices sont en route.</p>
+          <div class="tl-tags"><span class="tl-tag">🍫 Chocolat en action</span><span class="tl-tag">🌾 Biscuit en route</span></div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-left"><span class="tl-time">T+15–20 min</span><div class="tl-bubble">⚡</div></div>
+        <div class="tl-card">
+          <h3>Phase 1 — Les premiers effets arrivent</h3>
+          <p>La caféine et la L-Théanine atteignent la circulation sanguine. La caféine bloque l'adénosine. La L-Théanine génère des ondes alpha cérébrales : vous êtes alerte mais pas nerveux.</p>
+          <div class="tl-tags"><span class="tl-tag">⚡ Caféine active</span><span class="tl-tag">😌 L-Théanine · ondes alpha</span></div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-left"><span class="tl-time">T+45 min–1h</span><div class="tl-bubble">🌾</div></div>
+        <div class="tl-card">
+          <h3>Phase 2 — Le biscuit entre en action</h3>
+          <p>Les fibres solubles de l'épeautre ont formé leur gel. L-Citrulline, Créatine, Rhodiola, Ashwagandha et Magnésium commencent leur diffusion progressive. La vasodilatation s'installe.</p>
+          <div class="tl-tags"><span class="tl-tag">🔴 L-Citrulline</span><span class="tl-tag">💪 Créatine</span><span class="tl-tag">🧠 Dopamine</span></div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-left"><span class="tl-time">T+1h–4h</span><div class="tl-bubble">🎯</div></div>
+        <div class="tl-card">
+          <h3>Plateau — Vous êtes au sommet</h3>
+          <p>Tous les actifs sont en circulation simultanée. Énergie stable, concentration maximale, muscles bien irrigués. Pas de pic. Pas de creux. Une performance régulière et soutenue.</p>
+          <div class="tl-tags"><span class="tl-tag green">✓ Énergie stable</span><span class="tl-tag green">✓ Concentration soutenue</span><span class="tl-tag green">✓ Zéro crash</span></div>
+        </div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-left"><span class="tl-time">T+4h–6h</span><div class="tl-bubble">🌅</div></div>
+        <div class="tl-card">
+          <h3>Fin de l'action — Une descente douce, sans crash</h3>
+          <p>Les actifs sont progressivement métabolisés. Grâce à l'index glycémique bas de l'épeautre (IG 42), il n'y a eu aucun pic d'insuline. Pas de rebond de fatigue.</p>
+          <div class="tl-note">Comparez au café : crash brutal vers T+2h30. Ou à la barre sucrée : chute glycémique à T+30 min.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tl-summary">
+      <div class="tls-cell"><span class="tls-val">15 min</span><span class="tls-label">Premier effet ressenti</span></div>
+      <div class="tls-cell"><span class="tls-val">4–6h</span><span class="tls-label">Durée d'action totale</span></div>
+      <div class="tls-cell"><span class="tls-val">IG 42</span><span class="tls-label">Pas de crash glycémique</span></div>
+      <div class="tls-cell"><span class="tls-val">0</span><span class="tls-label">Rebond de fatigue</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream">
+  <div class="container">
+    <div class="doses-layout">
+      <div class="doses-intro">
+        <span class="section-tag">La différence qui change tout</span>
+        <h2 class="display">Des doses qui<br><em>font quelque chose.</em></h2>
+        <p>La plupart des produits "fonctionnels" mettent 50mg de L-Citrulline pour écrire "L-Citrulline" sur l'étiquette. La dose efficace est 3 000mg. C'est 60 fois plus. Chez KookifonK, chaque actif est dosé pour produire un effet mesurable.</p>
+        <div style="margin-top:2rem;"><a href="panier.html" class="btn btn-primary">Commander →</a></div>
+      </div>
+      <div class="dose-compare-box">
+        <div class="dcb-header"><span>Actif</span><span>Marché typique</span><span>KookifonK</span></div>
+        <div class="dcb-row"><div class="dcb-actif">L-Citrulline<small>Vasodilatation</small></div><div class="dcb-typical">100–500mg</div><div class="dcb-ours">3 000mg</div></div>
+        <div class="dcb-row"><div class="dcb-actif">Créatine<small>Énergie & force</small></div><div class="dcb-typical">500mg–1g</div><div class="dcb-ours">1 500–3 000mg</div></div>
+        <div class="dcb-row"><div class="dcb-actif">Ashwagandha<small>Anti-stress</small></div><div class="dcb-typical">50–200mg</div><div class="dcb-ours">800mg KSM-66</div></div>
+        <div class="dcb-row"><div class="dcb-actif">Rhodiola 3%<small>Anti-fatigue</small></div><div class="dcb-typical">50–100mg</div><div class="dcb-ours">600–1 500mg</div></div>
+        <div class="dcb-row"><div class="dcb-actif">Magnésium<small>Relaxation</small></div><div class="dcb-typical">50mg oxyde</div><div class="dcb-ours">200mg bisglycinate</div></div>
+        <div class="dcb-row"><div class="dcb-actif">L-Théanine<small>Focus sans anxiété</small></div><div class="dcb-typical">25–50mg</div><div class="dcb-ours">200–400mg</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;">
+      <span class="section-tag">Les stars de la formule</span>
+      <h2 class="display" style="max-width:540px; margin:0 auto;">Les ingrédients qui<br><em>font la différence</em></h2>
+    </div>
+    <div class="ingredients-grid">
+      <div class="ingredient-card">
+        <span class="ic-icon">🍫</span>
+        <div class="ic-name">Valrhona 70%</div>
+        <span class="ic-badge">Vecteur d'absorption</span>
+        <p class="ic-desc">Les matières grasses du cacao créent une émulsion qui transporte les actifs lipophiles directement dans le sang. Un vecteur d'absorption naturel qu'aucune gélule ne peut reproduire.</p>
+        <div class="ic-result">→ Effets en 15 à 20 minutes</div>
+      </div>
+      <div class="ingredient-card">
+        <span class="ic-icon">🌾</span>
+        <div class="ic-name">Épeautre Bio</div>
+        <span class="ic-badge">Libération prolongée</span>
+        <p class="ic-desc">L'épeautre contient des arabinoxylanes et bêta-glucanes — des fibres solubles qui forment un gel visqueux dans l'intestin. Ce gel ralentit mécaniquement la libération des actifs. Index glycémique bas 42.</p>
+        <div class="ic-result">→ Action prolongée sans crash</div>
+      </div>
+      <div class="ingredient-card">
+        <span class="ic-icon">🌿</span>
+        <div class="ic-name">Ashwagandha KSM-66</div>
+        <span class="ic-badge">Extrait breveté · 12 études RCT</span>
+        <p class="ic-desc">Le seul extrait d'Ashwagandha avec des essais cliniques en double aveugle de ce niveau. KSM-66 réduit le cortisol de 28% en 60 jours. Extrait breveté à 5% de withanolides garantis.</p>
+        <div class="ic-result">→ Moins de stress, meilleure récup</div>
+      </div>
+      <div class="ingredient-card">
+        <span class="ic-icon">🔴</span>
+        <div class="ic-name">L-Citrulline</div>
+        <span class="ic-badge">Précurseur du NO</span>
+        <p class="ic-desc">La L-Citrulline est convertie en Oxyde Nitrique dans vos vaisseaux. Le NO les dilate — plus de sang, plus d'oxygène, plus d'endurance musculaire. À 3g, l'effet est réel et mesurable.</p>
+        <div class="ic-result">→ Endurance et pump musculaire</div>
+      </div>
+      <div class="ingredient-card">
+        <span class="ic-icon">🧠</span>
+        <div class="ic-name">Lion's Mane</div>
+        <span class="ic-badge">NGF · Neuroplasticité</span>
+        <p class="ic-desc">Les héricénones du Lion's Mane traversent la barrière hémato-encéphalique et stimulent le facteur de croissance nerveux (NGF). La mémoire et la concentration s'améliorent sur 2 à 4 semaines.</p>
+        <div class="ic-result">→ Mémoire et concentration améliorées</div>
+      </div>
+      <div class="ingredient-card">
+        <span class="ic-icon">🌶️</span>
+        <div class="ic-name">Poivre Noir 95%</div>
+        <span class="ic-badge">Biodisponibilité ×20</span>
+        <p class="ic-desc">La pipérine inhibe les enzymes qui dégradent les actifs avant qu'ils atteignent le sang. Les adaptogènes et polyphénols sont absorbés jusqu'à 20 fois mieux.</p>
+        <div class="ic-result">→ Tous les actifs mieux absorbés</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section--cream">
+  <div class="container">
+    <div style="text-align:center;">
+      <span class="section-tag">Questions fréquentes</span>
+      <h2 class="display" style="max-width:480px; margin:0 auto;">Vous vous demandez<br>peut-être <em>si…</em></h2>
+    </div>
+    <div class="faq-wrap">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Est-ce que ça fonctionne vraiment dès le premier snack ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Oui — pour les effets liés à la <strong>caféine et la L-Théanine</strong> (Énergie et Focus), vous ressentez la différence en 15 à 20 minutes dès le premier snack. Pour la <strong>mélatonine</strong> (Deep Sleep), idem. En revanche, certains actifs comme la Créatine ou l'Ashwagandha sont cumulatifs — leurs effets profonds s'installent sur 7 à 30 jours.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          C'est quoi la différence avec un café + une barre de céréales ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Trois différences majeures. <strong>1. La durée :</strong> café = 2-3h, KookifonK = 4-6h. <strong>2. Le crash :</strong> le café seul provoque un rebond de fatigue. KookifonK a un IG de 42 et la L-Théanine neutralise les effets anxiogènes de la caféine. <strong>3. Les actifs :</strong> un café + barre = caféine + sucre. KookifonK = actifs cliniques adaptés à votre objectif.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          La cuisson ne détruit pas les actifs ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">C'est la première question qu'on nous pose. Les <strong>acides aminés</strong> (L-Citrulline, Créatine, Glycine, L-Tyrosine) sont thermostables jusqu'à 200°C — la cuisson à 160°C ne les affecte pas. Les <strong>actifs sensibles</strong> (caféine, mélatonine, L-Théanine, CoQ10) ne sont jamais cuits — ils sont incorporés dans le chocolat tempéré à 31-32°C. Les <strong>extraits végétaux</strong> sont incorporés en fin de pétrissage à froid.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Peut-on manger plusieurs snacks par jour ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Pour les formules <strong>sans caféine</strong> (Récup Night, Alpes Endurance, Deep Sleep, Sensoria), 1 à 2 snacks par jour sont envisageables. Pour les formules <strong>avec caféine</strong> (Énergie 100mg, Focus 80mg), <strong>maximum 1 snack par jour</strong>. Nous recommandons de ne pas combiner les deux formules caféinées le même jour.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          En combien de temps je reçois ma commande ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Les snacks sont fabriqués en <strong>petits batchs frais</strong> après confirmation de votre commande. Délai de fabrication + expédition : <strong>48 heures ouvrées</strong>. Livraison Colissimo ou Chronopost. Les frais de port sont offerts dès 45€ d'achat. Vous recevez un email de suivi dès l'expédition.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Les snacks sont-ils adaptés aux sportifs de haut niveau ?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Oui — à une condition : <strong>vérifier les règles antidopage</strong> de votre fédération. Tous les actifs KookifonK sont légaux et non inscrits sur la liste WADA. Demandez les <strong>Certificats d'Analyse</strong> via le formulaire contact — ils vous donnent le titrage exact lot par lot pour votre déclaration fédérale.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip">
+  <div class="container">
+    <h2>Maintenant vous savez.<br>La question c'est : quand vous commandez ?</h2>
+    <p>Le Pack Découverte est le point de départ idéal. 6 snacks, 6 formules, 27€. Livraison sous 48h depuis Grenoble.</p>
+    <div class="cta-btns">
+      <a href="panier.html" class="btn btn-white btn-lg">Commander le Pack Découverte →</a>
+      <a href="produits.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,.5); color:#fff;">Voir toutes les formules</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">KookifonK<span>.</span></div>
+        <p class="footer-desc">Snacks fonctionnels artisanaux. Pas une cure — un outil situationnel. Chocolat Valrhona · Actifs cliniques · Fabriqué à Grenoble.</p>
+        <p class="footer-desc" style="margin-top:1rem; font-size:.72rem; opacity:.6;">Complément alimentaire. Ne se substitue pas à une alimentation variée et équilibrée. Déconseillé aux femmes enceintes et aux moins de 18 ans.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Nos snacks</div>
+        <ul>
+          <li><a href="produits.html">☀️ Énergie Morning</a></li>
+          <li><a href="produits.html">🎯 Focus Deep Work</a></li>
+          <li><a href="produits.html">🏔️ Alpes Endurance</a></li>
+          <li><a href="produits.html">🌙 Récup Night</a></li>
+          <li><a href="produits.html">💤 Deep Sleep</a></li>
+          <li><a href="produits.html">🌸 Sensoria</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Comprendre</div>
+        <ul>
+          <li><a href="#anatomie">Anatomie du snack</a></li>
+          <li><a href="comment.html">La timeline</a></li>
+          <li><a href="contact.html">Demander les CoA</a></li>
+          <li><a href="contact.html">Partenariats B2B</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="panier.html">Commander</a></li>
+          <li><a href="mailto:pascal@kookifonk.fr">pascal@kookifonk.fr</a></li>
+          <li><a href="#">Grenoble, Isère 🏔️</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">© 2026 KookifonK · <a href="legal.html" style="color:rgba(253,248,240,.65);text-decoration:underline;">Mentions légales</a> · <a href="legal.html#cgv" style="color:rgba(253,248,240,.65);text-decoration:underline;">CGV</a></div>
+      <div class="footer-made">Fait à Grenoble avec précision 🏔️</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', function() {
+    var nav = document.getElementById('nav');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  function toggleMenu() {
+    var links = document.getElementById('navLinks');
+    if (links) links.classList.toggle('open');
+  }
+
+  function toggleFaq(btn) {
+    var answer = btn.nextElementSibling;
+    var isOpen = btn.classList.contains('open');
+    document.querySelectorAll('.faq-question.open').forEach(function(b) {
+      b.classList.remove('open');
+      if (b.nextElementSibling) b.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.classList.add('open');
+      if (answer) answer.classList.add('open');
+    }
+  }
+</script>
+<script src="cookie-banner.js"></script>
+</body>
+</html>
 
