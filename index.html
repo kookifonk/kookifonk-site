@@ -1,1 +1,809 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KookifonK — Le bon biscuit. Au bon moment.</title>
+<meta name="description" content="Snacks fonctionnels situationnels. Pas une cure — un outil. Chocolat Valrhona, actifs cliniques, fait à la main à Grenoble.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --cream:      #FDF8F0;
+    --cream-d:    #F5ECD8;
+    --warm-white: #FFFCF7;
+    --choco:      #2C1810;
+    --choco-m:    #5C3D2E;
+    --caramel:    #A0522D;
+    --honey:      #D4873E;
+    --honey-l:    #F0C070;
+    --terra:      #C4622D;
+    --terra-d:    #A04820;
+    --sage:       #6B8F71;
+    --warm-gray:  #8A7A70;
+    --border:     #E2CCAA;
+    --text:       #2C1810;
+    --text-m:     #6B5040;
+    --text-l:     #A08070;
+    --ff-head: 'Fraunces', Georgia, serif;
+    --ff-body: 'DM Sans', system-ui, sans-serif;
+    --radius-sm: 8px;
+    --radius:    16px;
+    --radius-lg: 28px;
+    --shadow:    0 4px 24px rgba(44,24,16,.08);
+    --shadow-lg: 0 12px 48px rgba(44,24,16,.14);
+    --t: .25s ease;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--ff-body); background: var(--cream); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+  .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+
+  /* BOUTONS */
+  .btn { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--ff-body); font-size: .95rem; font-weight: 600; padding: .9rem 2rem; border-radius: 100px; border: 2px solid transparent; cursor: pointer; transition: all var(--t); white-space: nowrap; }
+  .btn-primary { background: var(--terra); color: #fff; border-color: var(--terra); box-shadow: 0 4px 16px rgba(196,98,45,.3); }
+  .btn-primary:hover { background: var(--terra-d); border-color: var(--terra-d); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(196,98,45,.4); }
+  .btn-outline { background: transparent; color: var(--terra); border-color: var(--terra); }
+  .btn-outline:hover { background: var(--terra); color: #fff; transform: translateY(-1px); }
+  .btn-white { background: #fff; color: var(--terra); border-color: #fff; }
+  .btn-white:hover { background: var(--cream); transform: translateY(-1px); }
+  .btn-lg { padding: 1.1rem 2.5rem; font-size: 1.05rem; }
+  .btn-full { width: 100%; justify-content: center; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 0; transition: all var(--t); }
+  nav.scrolled { background: rgba(253,248,240,.95); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(44,24,16,.08); padding: .65rem 0; }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .nav-logo { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 900; color: var(--choco); letter-spacing: -.02em; }
+  .nav-logo span { color: var(--terra); }
+  .nav-links { display: flex; align-items: center; gap: .25rem; }
+  .nav-links a { font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); }
+  .nav-links a:hover { background: var(--cream-d); color: var(--choco); }
+  .nav-cta { background: var(--terra) !important; color: #fff !important; font-weight: 600 !important; box-shadow: 0 3px 12px rgba(196,98,45,.25); }
+  .nav-cta:hover { background: var(--terra-d) !important; }
+  .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: .4rem; }
+  .nav-burger span { display: block; width: 22px; height: 2px; background: var(--choco); border-radius: 2px; transition: var(--t); }
+
+  /* TICKER */
+  .ticker { background: var(--choco); padding: .6rem 0; overflow: hidden; white-space: nowrap; }
+  .ticker-track { display: inline-flex; gap: 0; animation: ticker 32s linear infinite; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker-item { font-family: var(--ff-body); font-size: .72rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7); padding: 0 2rem; }
+  .ticker-dot { color: var(--honey); padding: 0 .5rem; }
+
+  /* HERO */
+  .hero { min-height: 100vh; padding: 120px 0 80px; display: flex; align-items: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(212,135,62,.12) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 20% 70%, rgba(196,98,45,.07) 0%, transparent 60%); pointer-events: none; }
+  .hero-inner { display: grid; grid-template-columns: 1fr 1.3fr; gap: 3rem; align-items: center; position: relative; z-index: 1; }
+  .hero-tag { display: inline-flex; align-items: center; gap: .5rem; background: rgba(212,135,62,.12); border: 1px solid rgba(212,135,62,.25); color: var(--caramel); font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: .4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
+  .hero h1 { font-family: var(--ff-head); font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 900; line-height: 1.1; color: var(--choco); margin-bottom: 1.5rem; letter-spacing: -.02em; }
+  .hero h1 em { font-style: italic; color: var(--terra); }
+  .hero-sub { font-size: 1.05rem; color: var(--text-m); line-height: 1.7; margin-bottom: 1.5rem; max-width: 480px; }
+
+  /* Badge situationnel */
+  .situ-badge { display: inline-flex; align-items: center; gap: .5rem; background: var(--choco); color: var(--honey); font-size: .82rem; font-weight: 600; padding: .55rem 1.2rem; border-radius: 100px; margin-bottom: 2rem; }
+
+  .hero-ctas { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 3rem; }
+  .hero-proof { display: flex; align-items: center; gap: 1rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .hero-proof-stars { font-size: 1rem; color: var(--honey); letter-spacing: .05em; }
+  .hero-proof-text { font-size: .85rem; color: var(--text-m); }
+  .hero-proof-text strong { color: var(--choco); }
+
+  /* Hero image */
+  .hero-visual { position: relative; overflow: hidden; min-width: 0; max-width: 100%; }
+  .hero-img-wrap { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--border); width: 100%; background: var(--cream-d); }
+  .hero-img-wrap img { width: 100%; height: auto; max-height: 320px; object-fit: contain; object-position: center; display: block; }
+  .hero-img-caption { position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%); background: var(--choco); color: var(--honey); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: .45rem 1.4rem; border-radius: 100px; white-space: nowrap; box-shadow: var(--shadow); }
+
+  /* CHIFFRES */
+  .numbers { background: var(--choco); padding: 4rem 0; }
+  .numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.08); }
+  .number-card { padding: 2.5rem 2rem; text-align: center; background: var(--choco); transition: background var(--t); }
+  .number-card:hover { background: rgba(255,255,255,.04); }
+  .number-val { font-family: var(--ff-head); font-size: 2.8rem; font-weight: 900; color: var(--honey); line-height: 1; display: block; margin-bottom: .5rem; }
+  .number-label { font-size: .82rem; color: rgba(255,255,255,.55); line-height: 1.4; }
+
+  /* SECTION */
+  .section { padding: 7rem 0; }
+  .section--sm { padding: 4rem 0; }
+  .section-tag { display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--terra); margin-bottom: 1rem; }
+  .section h2 { font-family: var(--ff-head); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.15; color: var(--choco); letter-spacing: -.02em; }
+  .section h2 em { font-style: italic; color: var(--terra); }
+  .section-center { text-align: center; }
+  .section-center h2 { margin: 0 auto; max-width: 600px; }
+  .section-center p { max-width: 520px; margin: 1rem auto 0; }
+  .section-sub { font-size: 1rem; color: var(--text-m); line-height: 1.7; margin-top: 1rem; max-width: 520px; }
+
+  /* SITUATIONNEL STRIP */
+  .situ-strip { background: var(--terra); padding: 1.2rem 0; }
+  .situ-strip-inner { display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+  .situ-item { display: flex; align-items: center; gap: .6rem; color: #fff; font-size: .85rem; font-weight: 600; }
+  .situ-sep { color: rgba(255,255,255,.35); font-size: 1.2rem; }
+
+  /* POURQUOI */
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .why-card { background: var(--warm-white); border-radius: var(--radius-lg); padding: 2.5rem; border: 1.5px solid var(--border); position: relative; overflow: hidden; transition: all var(--t); }
+  .why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--honey); }
+  .why-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--terra), var(--honey)); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .why-icon { font-size: 2.2rem; margin-bottom: 1.5rem; display: block; }
+  .why-card h3 { font-family: var(--ff-head); font-size: 1.25rem; font-weight: 700; color: var(--choco); margin-bottom: .75rem; line-height: 1.2; }
+  .why-card p { font-size: .9rem; color: var(--text-m); line-height: 1.7; }
+  .why-result { margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--border); font-size: .82rem; font-weight: 600; color: var(--terra); display: flex; align-items: center; gap: .4rem; }
+
+  /* PRODUITS */
+  .products-section { background: var(--cream-d); }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+
+  .product-card { background: var(--warm-white); border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid var(--border); transition: all var(--t); cursor: pointer; display: flex; flex-direction: column; }
+  .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+  /* Photo produit */
+  .product-img { width: 100%; height: 200px; object-fit: cover; object-position: center; display: block; }
+  .product-img-placeholder { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+
+  .product-card-header { padding: 1.2rem 1.5rem .8rem; border-bottom: 1px solid var(--border); }
+  .product-moment { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .4rem; }
+  .product-card-name { font-family: var(--ff-head); font-size: 1.3rem; font-weight: 800; color: var(--choco); margin-bottom: .2rem; }
+  .product-card-tagline { font-size: .82rem; color: var(--text-m); }
+
+  .product-card-body { padding: 1.2rem 1.5rem; flex: 1; }
+  .product-benefit { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: .65rem; font-size: .84rem; color: var(--text-m); }
+  .product-benefit::before { content: '✓'; color: var(--sage); font-weight: 700; flex-shrink: 0; }
+  .product-key-actifs { margin-top: 1rem; padding-top: .9rem; border-top: 1px solid var(--border); font-size: .72rem; font-weight: 600; color: var(--text-l); letter-spacing: .03em; }
+
+  .product-cta { margin: 0 1.5rem 1.5rem; }
+
+  /* TÉMOIGNAGES */
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .testi-card { background: var(--warm-white); border-radius: var(--radius-lg); padding: 2rem; border: 1.5px solid var(--border); position: relative; transition: all var(--t); }
+  .testi-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .testi-card:first-child { grid-column: span 2; background: var(--choco); border-color: transparent; }
+  .testi-stars { color: var(--honey); font-size: .9rem; margin-bottom: 1rem; letter-spacing: .06em; }
+  .testi-card:first-child .testi-stars { color: var(--honey-l); }
+  .testi-text { font-family: var(--ff-head); font-size: 1.05rem; font-style: italic; color: var(--choco); line-height: 1.6; margin-bottom: 1.5rem; }
+  .testi-card:first-child .testi-text { font-size: 1.2rem; color: #fff; }
+  .testi-author { display: flex; align-items: center; gap: .75rem; }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; background: var(--cream-d); }
+  .testi-card:first-child .testi-avatar { background: rgba(255,255,255,.1); }
+  .testi-name { font-size: .88rem; font-weight: 600; color: var(--choco); }
+  .testi-card:first-child .testi-name { color: #fff; }
+  .testi-role { font-size: .75rem; color: var(--text-l); margin: 0; }
+  .testi-card:first-child .testi-role { color: rgba(255,255,255,.5); }
+  .testi-product { display: inline-block; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .65rem; border-radius: 100px; margin-top: .4rem; background: rgba(212,135,62,.12); color: var(--caramel); }
+  .testi-card:first-child .testi-product { background: rgba(255,255,255,.1); color: var(--honey-l); }
+
+  /* COMPARATIF */
+  .compare-section { background: var(--cream-d); }
+  .compare-table-wrap { margin-top: 4rem; overflow-x: auto; border-radius: var(--radius-lg); border: 1.5px solid var(--border); box-shadow: var(--shadow); }
+  .compare-table { width: 100%; border-collapse: collapse; min-width: 640px; background: var(--warm-white); }
+  .compare-table thead tr { background: var(--choco); }
+  .compare-table th { font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 1.2rem 1.5rem; text-align: left; color: rgba(255,255,255,.6); }
+  .compare-table th:last-child { color: var(--honey); }
+  .compare-table td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: .9rem; color: var(--text-m); }
+  .compare-table td:first-child { font-weight: 600; color: var(--choco); }
+  .compare-table td:last-child { color: var(--choco); font-weight: 500; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: var(--cream); }
+  .c-yes { color: var(--sage) !important; font-weight: 700 !important; }
+  .c-no  { color: #CCC !important; }
+  .c-maybe { color: var(--honey) !important; }
+
+  /* OFFRES */
+  .offres-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .offre-card { background: var(--warm-white); border-radius: var(--radius-lg); padding: 2rem 1.5rem; border: 1.5px solid var(--border); text-align: center; position: relative; transition: all var(--t); display: flex; flex-direction: column; }
+  .offre-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--honey); }
+  .offre-card.featured { background: var(--choco); border-color: var(--honey); box-shadow: var(--shadow-lg); }
+  .offre-featured-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--honey); color: var(--choco); font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .25rem .85rem; border-radius: 100px; white-space: nowrap; }
+  .offre-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .offre-name { font-family: var(--ff-head); font-size: 1.05rem; font-weight: 700; color: var(--choco); margin-bottom: .5rem; line-height: 1.2; }
+  .offre-card.featured .offre-name { color: #fff; }
+  .offre-desc { font-size: .8rem; color: var(--text-m); line-height: 1.5; margin-bottom: 1.5rem; flex: 1; }
+  .offre-card.featured .offre-desc { color: rgba(255,255,255,.6); }
+  .offre-price { font-family: var(--ff-head); font-size: 2rem; font-weight: 900; color: var(--terra); line-height: 1; margin-bottom: .3rem; }
+  .offre-card.featured .offre-price { color: var(--honey); }
+  .offre-per { font-size: .72rem; color: var(--text-l); margin-bottom: 1.5rem; }
+  .offre-card.featured .offre-per { color: rgba(255,255,255,.4); }
+
+  /* GARANTIE */
+  .guarantee { background: linear-gradient(135deg, var(--terra) 0%, var(--caramel) 100%); padding: 5rem 0; text-align: center; position: relative; overflow: hidden; }
+  .guarantee h2 { font-family: var(--ff-head); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; color: #fff; margin-bottom: 1rem; letter-spacing: -.02em; position: relative; z-index: 1; }
+  .guarantee p { font-size: 1.05rem; color: rgba(255,255,255,.8); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; position: relative; z-index: 1; }
+  .guarantee .btn { position: relative; z-index: 1; }
+  .guarantee-pills { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; position: relative; z-index: 1; }
+  .g-pill { display: flex; align-items: center; gap: .5rem; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); color: #fff; font-size: .78rem; font-weight: 500; padding: .5rem 1.1rem; border-radius: 100px; }
+
+  /* ENGAGEMENTS */
+  .engagements-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
+  .engagement-card { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .engagement-icon { font-size: 1.8rem; flex-shrink: 0; background: var(--cream-d); width: 52px; height: 52px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
+  .engagement-card h3 { font-family: var(--ff-head); font-size: 1rem; font-weight: 700; color: var(--choco); margin-bottom: .4rem; }
+  .engagement-card p { font-size: .84rem; color: var(--text-m); line-height: 1.6; }
+
+  /* FOOTER */
+  footer { background: var(--choco); padding: 4rem 0 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 2rem; }
+  .footer-logo { font-family: var(--ff-head); font-size: 1.6rem; font-weight: 900; color: #fff; margin-bottom: 1rem; }
+  .footer-logo span { color: var(--honey); }
+  .footer-desc { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.7; }
+  .footer-col-title { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--honey); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: .6rem; }
+  .footer-col ul li a { font-size: .85rem; color: rgba(255,255,255,.5); transition: color var(--t); }
+  .footer-col ul li a:hover { color: rgba(255,255,255,.9); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-legal { font-size: .75rem; color: rgba(255,255,255,.3); }
+  .footer-made { font-size: .75rem; color: rgba(255,255,255,.3); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1100px) {
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .offres-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 860px) {
+    .container { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(253,248,240,.98); backdrop-filter: blur(12px); padding: 1rem 1.25rem 1.5rem; box-shadow: 0 12px 40px rgba(44,24,16,.12); gap: .25rem; z-index: 99; }
+    .nav-links.open a { padding: .75rem 1rem; border-radius: var(--radius-sm); }
+    .nav-burger { display: flex; }
+    .hero { min-height: auto; padding: 90px 0 50px; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .hero h1 { font-size: clamp(2.2rem, 8vw, 3rem); }
+    .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 4rem 0; }
+    .why-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .testi-card:first-child { grid-column: span 1; }
+    .engagements-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .situ-strip-inner { gap: 1rem; }
+    .situ-sep { display: none; }
+    .offres-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .container { padding: 0 1rem; }
+    .hero { padding: 80px 0 40px; }
+    .hero h1 { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+    .hero-ctas { flex-wrap: wrap; }
+    .hero-ctas .btn { flex: 1 1 100%; max-width: 100%; justify-content: center; }
+    .ticker-item { font-size: .65rem; padding: 0 1rem; }
+    .numbers-grid { gap: 1px; }
+    .number-card { padding: 1.5rem 1rem; }
+    .number-val { font-size: 1.9rem; }
+    .section { padding: 3rem 0; }
+    .section h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-card { padding: 1.75rem 1.5rem; }
+    .products-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { gap: .75rem; }
+    .compare-table th, .compare-table td { padding: .7rem .9rem; font-size: .78rem; }
+    .offres-grid { grid-template-columns: 1fr; gap: .75rem; }
+    .engagements-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NKPNES78J"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-3NKPNES78J');</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">KookifonK<span>.</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="produits.html">Nos snacks</a>
+        <a href="comment.html">Double Cinétique™</a>
+        <a href="contact.html">Contact</a>
+        <a href="panier.html" class="nav-cta">Commander →</a>
+      </div>
+      <div class="nav-burger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker" style="margin-top:60px;">
+  <div class="ticker-track">
+    <span class="ticker-item">Pas une cure — un outil</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Chocolat Valrhona Grand Cru</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Effets en 15 minutes</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Durée 4 à 6 heures</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Fabriqué à Grenoble</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">6 snacks · 6 moments précis</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Clean Label · Zéro additif</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Double Cinétique™</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Pas une cure — un outil</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Chocolat Valrhona Grand Cru</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Effets en 15 minutes</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Durée 4 à 6 heures</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Fabriqué à Grenoble</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">6 snacks · 6 moments précis</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Clean Label · Zéro additif</span><span class="ticker-dot">·</span>
+    <span class="ticker-item">Double Cinétique™</span><span class="ticker-dot">·</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag">🏔️ Artisanal · Grenoble · Double Cinétique™</div>
+        <h1>Le bon biscuit.<br><em>Au bon moment.</em><br>Pas une cure.</h1>
+        <p class="hero-sub">6 snacks fonctionnels artisanaux, chacun conçu pour un moment précis. Énergie, focus, endurance, récupération, sommeil, cycle féminin. Vous le prenez quand vous en avez besoin — pas tous les jours par obligation.</p>
+        <div class="situ-badge">⚡ Outil situationnel · Prenez-le quand ça compte</div>
+        <div class="hero-ctas">
+          <a href="produits.html" class="btn btn-primary btn-lg">Découvrir les 6 snacks →</a>
+          <a href="panier.html" class="btn btn-outline">Commander</a>
+        </div>
+        <div class="hero-proof">
+          <div class="hero-proof-stars">★★★★★</div>
+          <div class="hero-proof-text"><strong>9 clients sur 10</strong> ressentent les effets dès le premier snack</div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-img-wrap">
+          <img src="images/produits/hero-gamme.png" alt="La gamme complète KookifonK — 6 snacks fonctionnels artisanaux" loading="eager">
+        </div>
+        <div class="hero-img-caption">6 snacks · 6 moments · 1 seul chocolat</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP SITUATIONNEL -->
+<div class="situ-strip">
+  <div class="container">
+    <div class="situ-strip-inner">
+      <div class="situ-item">☀️ Avant ce qui compte ce matin</div>
+      <div class="situ-sep">·</div>
+      <div class="situ-item">🎯 20 min avant de travailler</div>
+      <div class="situ-sep">·</div>
+      <div class="situ-item">🏔️ Avant de partir en trail</div>
+      <div class="situ-sep">·</div>
+      <div class="situ-item">🌙 Après l'effort du soir</div>
+      <div class="situ-sep">·</div>
+      <div class="situ-item">💤 Avant une nuit qui compte</div>
+      <div class="situ-sep">·</div>
+      <div class="situ-item">🌸 Les 7 jours avant</div>
+    </div>
+  </div>
+</div>
+
+<!-- CHIFFRES -->
+<div class="numbers">
+  <div class="container">
+    <div class="numbers-grid">
+      <div class="number-card">
+        <span class="number-val">15 min</span>
+        <span class="number-label">Premiers effets<br>Phase 1 Valrhona</span>
+      </div>
+      <div class="number-card">
+        <span class="number-val">4–6h</span>
+        <span class="number-label">Durée d'action<br>Phase 2 épeautre</span>
+      </div>
+      <div class="number-card">
+        <span class="number-val">6</span>
+        <span class="number-label">Snacks · 6 moments<br>précis dans la journée</span>
+      </div>
+      <div class="number-card">
+        <span class="number-val">0</span>
+        <span class="number-label">Obligation quotidienne<br>Prenez-le quand ça compte</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POURQUOI ÇA MARCHE -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">Pourquoi c'est différent</span>
+      <h2>La Double Cinétique™ —<br><em>deux phases, un biscuit</em></h2>
+      <p class="section-sub">Pas de miracle. Juste de la science bien appliquée dans un snack que vous aurez envie de manger.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">⚡</span>
+        <h3>Phase 1 — Valrhona agit en 15 min</h3>
+        <p>L'enrobage Valrhona libère immédiatement les actifs liposolubles rapides. Vous sentez la différence avant même d'avoir terminé votre café.</p>
+        <div class="why-result">✓ Effet ressenti dès la première bouchée</div>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">⏱️</span>
+        <h3>Phase 2 — Épeautre libère sur 4–6h</h3>
+        <p>Le biscuit d'épeautre bio libère ses actifs progressivement. Pas de pic, pas de crash. L'effet s'installe et reste — sans obligation de le reprendre.</p>
+        <div class="why-result">✓ Fini le coup de barre de 15h</div>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">🎯</span>
+        <h3>Doses cliniques, pas marketing</h3>
+        <p>Chaque actif est dosé pour être efficace — pas pour figurer sur l'étiquette. Nous utilisons les mêmes doses que les études cliniques. Transparence totale.</p>
+        <div class="why-result">✓ Pas du marketing. De la biochimie.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LES 6 PRODUITS -->
+<section class="section products-section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">La gamme</span>
+      <h2>6 snacks. <em>6 moments précis.</em><br>Pas une cure — un outil.</h2>
+      <p class="section-sub">Vous le prenez 20 minutes avant le moment qui compte. Pas tous les jours. Quand vous en avez besoin.</p>
+    </div>
+    <div class="products-grid">
+
+      <!-- ÉNERGIE MORNING -->
+      <div class="product-card">
+        <img src="images/produits/energie-morning.png" alt="Énergie Morning KookifonK" class="product-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#8B4513,#C27D2B); display:none;">☀️</div>
+        <div class="product-card-header">
+          <div class="product-moment" style="color:#C27D2B;">☀️ Avant ce qui compte ce matin</div>
+          <div class="product-card-name">Énergie Morning</div>
+          <div class="product-card-tagline">Valrhona Noir 70% · Énergie soutenue sans crash</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-benefit">Énergie soutenue 4–6h, zéro crash</div>
+          <div class="product-benefit">Vasodilatation & oxygénation musculaire</div>
+          <div class="product-benefit">Adaptogènes pour tenir la durée</div>
+          <div class="product-key-actifs">Rhodiola · Créatine · Cordyceps · L-Citrulline · Caféine 100mg</div>
+        </div>
+        <div class="product-cta">
+          <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.85rem;">Commander →</a>
+        </div>
+      </div>
+
+      <!-- FOCUS DEEP WORK -->
+      <div class="product-card">
+        <img src="images/produits/focus-deep-work.png" alt="Focus Deep Work KookifonK" class="product-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#1A3A70,#2B5BA8); display:none;">🎯</div>
+        <div class="product-card-header">
+          <div class="product-moment" style="color:#2B5BA8;">🎯 20 min avant de travailler</div>
+          <div class="product-card-name">Focus Deep Work</div>
+          <div class="product-card-tagline">Valrhona Noir 70% · Concentration profonde sans anxiété</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-benefit">Clarté mentale longue durée</div>
+          <div class="product-benefit">Mémoire de travail & neuroplasticité</div>
+          <div class="product-benefit">Zéro anxiété, zéro dispersion cognitive</div>
+          <div class="product-key-actifs">L-Tyrosine · Lion's Mane · Créatine · Ashwagandha · Caféine 80mg</div>
+        </div>
+        <div class="product-cta">
+          <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.85rem;">Commander →</a>
+        </div>
+      </div>
+
+      <!-- ALPES ENDURANCE -->
+      <div class="product-card">
+        <img src="images/produits/alpes-endurance.png" alt="Alpes Endurance KookifonK" class="product-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#1A4A32,#2D7A52); display:none;">🏔️</div>
+        <div class="product-card-header">
+          <div class="product-moment" style="color:#1A4A7A;">🏔️ Avant de partir en trail / vélo / rando</div>
+          <div class="product-card-name">Alpes Endurance</div>
+          <div class="product-card-tagline">Valrhona Noir 70% · Noix Grenoble IGP · Miel Vercors AOP</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-benefit">Endurance & VO₂ max — trail, vélo, rando</div>
+          <div class="product-benefit">Anti-crampes & osmorégulation musculaire</div>
+          <div class="product-benefit">Terroir alpin — Grenoble, Vercors, Alpes</div>
+          <div class="product-key-actifs">Citrulline · Rhodiola · Cordyceps · Taurine · Noix IGP</div>
+        </div>
+        <div class="product-cta">
+          <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.85rem;">Commander →</a>
+        </div>
+      </div>
+
+      <!-- RÉCUP NIGHT -->
+      <div class="product-card">
+        <img src="images/produits/recup-night.png" alt="Récup Night KookifonK" class="product-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#4A2A70,#7B5EA7); display:none;">🌙</div>
+        <div class="product-card-header">
+          <div class="product-moment" style="color:#5A2A8A;">🌙 Le soir après l'effort</div>
+          <div class="product-card-name">Récup Night</div>
+          <div class="product-card-tagline">Valrhona Noir 70% · Reconstruction musculaire nocturne</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-benefit">Reconstruction fibres musculaires pendant le sommeil</div>
+          <div class="product-benefit">Anti-inflammatoire naturel — Cerise Montmorency</div>
+          <div class="product-benefit">Réduction DOMS & récupération accélérée</div>
+          <div class="product-key-actifs">Glutamine · Citrulline · Créatine · Cerise Montmorency · Zinc</div>
+        </div>
+        <div class="product-cta">
+          <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.85rem;">Commander →</a>
+        </div>
+      </div>
+
+      <!-- DEEP SLEEP -->
+      <div class="product-card">
+        <img src="images/produits/deep-sleep.png" alt="Deep Sleep KookifonK" class="product-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#12142E,#2B3A8A); display:none;">💤</div>
+        <div class="product-card-header">
+          <div class="product-moment" style="color:#3A5A9B;">💤 15 min avant de dormir</div>
+          <div class="product-card-name">Deep Sleep</div>
+          <div class="product-card-tagline">Valrhona Blanc · Sommeil profond · Zéro dépendance</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-benefit">Sommeil profond N3 — récupération nocturne optimale</div>
+          <div class="product-benefit">Mélatonine 1,5mg — dose validée EFSA, sans dépendance</div>
+          <div class="product-benefit">Quand la nuit qui suit compte vraiment</div>
+          <div class="product-key-actifs">Mélatonine · Ashwagandha KSM-66 · Reishi · Apigénine · L-Tryptophane</div>
+        </div>
+        <div class="product-cta">
+          <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.85rem;">Commander →</a>
+        </div>
+      </div>
+
+      <!-- SENSORIA -->
+      <div class="product-card">
+        <img src="images/produits/sensoria.png" alt="Sensoria KookifonK" class="product-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="product-img-placeholder" style="background:linear-gradient(135deg,#6B1A4A,#9B4A6B); display:none;">🌸</div>
+        <div class="product-card-header">
+          <div class="product-moment" style="color:#9B4A6B;">🌸 Les 7 jours avant les règles</div>
+          <div class="product-card-name">Sensoria</div>
+          <div class="product-card-tagline">Valrhona Noir 70% · Framboises · Équilibre féminin</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-benefit">1 biscuit / jour pendant les 7 jours avant</div>
+          <div class="product-benefit">Humeur, crampes, cortisol, ballonnements</div>
+          <div class="product-benefit">Safran Affron® — 6 études cliniques sur l'humeur</div>
+          <div class="product-key-actifs">Safran Affron · Magnésium · Ashwagandha · Shatavari · Oméga-3</div>
+        </div>
+        <div class="product-cta">
+          <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.85rem;">Commander →</a>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="produits.html" class="btn btn-primary btn-lg">Voir toutes les formules en détail →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">Ils l'ont utilisé au bon moment</span>
+      <h2>Ce qu'ils disent<br>après le <em>premier snack</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"J'ai pris le Focus 20 min avant une présentation importante. La différence était réelle — concentration nette, sans la nervosité du café. Et ça a tenu tout l'après-midi. C'est devenu mon outil pour les moments qui comptent vraiment."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨‍💼</div>
+          <div>
+            <span class="testi-name">Thomas D.</span>
+            <p class="testi-role">Directeur de projet · Lyon</p>
+            <span class="testi-product">🎯 Focus Deep Work</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Le Récup le soir après mon trail — les courbatures du lendemain étaient vraiment réduites. Pas magique, mais clairement efficace."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🏃‍♀️</div>
+          <div>
+            <span class="testi-name">Sarah M.</span>
+            <p class="testi-role">Traileuse · Grenoble</p>
+            <span class="testi-product">🌙 Récup Night</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"L'Alpes Endurance avant mes sorties vélo de 3h+. Je sens clairement la différence sur les relances. Le goût Valrhona c'est un vrai bonus."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🚴</div>
+          <div>
+            <span class="testi-name">Pierre L.</span>
+            <p class="testi-role">Cycliste · Isère</p>
+            <span class="testi-product">🏔️ Alpes Endurance</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Sensoria pendant mes J-7 — humeur plus stable, crampes moins intenses. Un paquet par cycle, c'est tout. Pas une cure, juste ce qu'il faut au bon moment."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🌸</div>
+          <div>
+            <span class="testi-name">Marie-Claire B.</span>
+            <p class="testi-role">Coach · Paris</p>
+            <span class="testi-product">🌸 Sensoria</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIF -->
+<section class="section compare-section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">Comparatif honnête</span>
+      <h2>KookifonK vs <em>les autres solutions</em></h2>
+      <p class="section-sub">On aurait pu ne pas faire ce tableau. On l'a fait quand même.</p>
+    </div>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Ce qui compte vraiment</th>
+            <th>Café ☕</th>
+            <th>Barre sucrée 🍬</th>
+            <th>Gélules 💊</th>
+            <th>KookifonK 🍫</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Effet en moins de 20 min</td><td class="c-yes">✓ Oui</td><td class="c-yes">✓ Oui</td><td class="c-no">✗ 45-90 min</td><td class="c-yes">✓ 15 min</td></tr>
+          <tr><td>Dure plus de 4 heures</td><td class="c-no">✗ 2-3h</td><td class="c-no">✗ 1-2h</td><td class="c-maybe">~ 3-5h</td><td class="c-yes">✓ 4 à 6h</td></tr>
+          <tr><td>Pas de crash énergétique</td><td class="c-no">✗ Souvent</td><td class="c-no">✗ Pic glycémique</td><td class="c-yes">✓ Oui</td><td class="c-yes">✓ IG bas 42</td></tr>
+          <tr><td>Doses actifs cliniquement efficaces</td><td class="c-no">✗ Caféine seule</td><td class="c-no">✗ Sucre seul</td><td class="c-no">✗ Souvent sous-dosé</td><td class="c-yes">✓ Doses cliniques</td></tr>
+          <tr><td>Bon au goût</td><td class="c-yes">✓ Oui</td><td class="c-yes">✓ Oui</td><td class="c-no">✗ Non</td><td class="c-yes">✓ Valrhona Grand Cru</td></tr>
+          <tr><td>Zéro additif · Clean Label</td><td class="c-maybe">~ Dépend</td><td class="c-no">✗ Additifs fréquents</td><td class="c-maybe">~ Variable</td><td class="c-yes">✓ Garanti</td></tr>
+          <tr><td>Pas une cure imposée</td><td class="c-no">✗ Habitude</td><td class="c-no">✗ Habitude</td><td class="c-no">✗ Cure quotidienne</td><td class="c-yes">✓ Situationnel</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center; font-size:.78rem; color:var(--text-l); margin-top:1rem;">* Le prix de KookifonK est plus élevé. C'est normal : Valrhona, actifs standardisés, fabrication artisanale à Grenoble.</p>
+  </div>
+</section>
+
+<!-- OFFRES -->
+<section class="section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-tag">Formats & Prix</span>
+      <h2>Commencez au format<br>qui vous <em>convient</em></h2>
+      <p class="section-sub">Pas d'abonnement forcé. Pas de cure imposée. Vous choisissez.</p>
+    </div>
+    <div class="offres-grid">
+      <div class="offre-card">
+        <div class="offre-icon">🍪</div>
+        <div class="offre-name">À l'unité</div>
+        <p class="offre-desc">1 snack pour tester le moment qui vous correspond.</p>
+        <div class="offre-price">4<sup style="font-size:.9rem;">,50€</sup></div>
+        <div class="offre-per">1 snack · sans engagement</div>
+        <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.82rem; padding:.65rem 1rem; margin-top:auto;">Commander</a>
+      </div>
+      <div class="offre-card featured">
+        <div class="offre-featured-badge">✦ Le plus populaire</div>
+        <div class="offre-icon">🎁</div>
+        <div class="offre-name">Pack Découverte</div>
+        <p class="offre-desc">1 de chaque formule. La façon parfaite de trouver votre moment.</p>
+        <div class="offre-price">27<sup style="font-size:.9rem;">€</sup></div>
+        <div class="offre-per">4,50€/snack · tous les 6 snacks</div>
+        <a href="panier.html" class="btn btn-white btn-full" style="font-size:.82rem; margin-top:auto;">Commander</a>
+      </div>
+      <div class="offre-card">
+        <div class="offre-icon">📦</div>
+        <div class="offre-name">Sachet — 10 snacks</div>
+        <p class="offre-desc">10 snacks d'une même formule. Pour le moment qui revient souvent.</p>
+        <div class="offre-price">45<sup style="font-size:.9rem;">€</sup></div>
+        <div class="offre-per">4,50€/snack · meilleure valeur</div>
+        <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.82rem; padding:.65rem 1rem; margin-top:auto;">Commander</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIE -->
+<div class="guarantee">
+  <div class="container">
+    <h2>Pas convaincu·e ?<br>Essayez. Vous verrez.</h2>
+    <p>Commandez le Pack Découverte. 6 snacks, 6 moments, 27€. Si vous ne sentez rien — écrivez-nous, on en parle.</p>
+    <a href="panier.html" class="btn btn-white btn-lg">Commander le Pack Découverte →</a>
+    <div class="guarantee-pills">
+      <div class="g-pill">📦 Expédition sous 48h</div>
+      <div class="g-pill">🍫 Chocolat Valrhona garanti</div>
+      <div class="g-pill">🏔️ Fabriqué à Grenoble</div>
+      <div class="g-pill">✅ Pas une cure</div>
+    </div>
+  </div>
+</div>
+
+<!-- ENGAGEMENTS -->
+<section class="section">
+  <div class="container">
+    <div class="section-center" style="margin-bottom:1rem;">
+      <span class="section-tag">Nos engagements</span>
+      <h2>On ne fait pas de <em>compromis</em><br>sur ce qui compte</h2>
+    </div>
+    <div class="engagements-grid">
+      <div class="engagement-card">
+        <div class="engagement-icon">🍫</div>
+        <div><h3>Valrhona Grand Cru, toujours</h3><p>On utilise uniquement des couvertures Valrhona. Pas de chocolat industriel, jamais.</p></div>
+      </div>
+      <div class="engagement-card">
+        <div class="engagement-icon">🔬</div>
+        <div><h3>Doses cliniques, pas symboliques</h3><p>Chaque actif est à la dose des études cliniques. Pas à la dose symbolique pour figurer sur l'étiquette.</p></div>
+      </div>
+      <div class="engagement-card">
+        <div class="engagement-icon">🌿</div>
+        <div><h3>Clean Label garanti</h3><p>Zéro additif, zéro conservateur, zéro arôme artificiel. Vous lisez l'étiquette et vous comprenez tout.</p></div>
+      </div>
+      <div class="engagement-card">
+        <div class="engagement-icon">⚡</div>
+        <div><h3>Situationnel — pas une cure</h3><p>Prenez-le quand vous en avez besoin. Pas tous les jours par obligation. C'est un outil, pas un abonnement.</p></div>
+      </div>
+      <div class="engagement-card">
+        <div class="engagement-icon">🏔️</div>
+        <div><h3>Fabriqué à Grenoble</h3><p>Artisanal, en petits batchs. Fraîcheur garantie, DDM 45-65 jours, pas de stock qui traîne.</p></div>
+      </div>
+      <div class="engagement-card">
+        <div class="engagement-icon">🤝</div>
+        <div><h3>Contact humain direct</h3><p>Vous écrivez à Pascal, le fondateur. Pas à un service client externalisé. Réponse sous 24h, vraiment.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">KookifonK<span>.</span></div>
+        <p class="footer-desc">Snacks fonctionnels artisanaux. Pas une cure — un outil situationnel. Chocolat Valrhona · Actifs cliniques · Fabriqué à Grenoble.</p>
+        <p class="footer-desc" style="margin-top:1rem; font-size:.72rem; opacity:.6;">Complément alimentaire. Ne se substitue pas à une alimentation variée et équilibrée. Déconseillé aux femmes enceintes et aux moins de 18 ans.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Nos snacks</div>
+        <ul>
+          <li><a href="produits.html">☀️ Énergie Morning</a></li>
+          <li><a href="produits.html">🎯 Focus Deep Work</a></li>
+          <li><a href="produits.html">🏔️ Alpes Endurance</a></li>
+          <li><a href="produits.html">🌙 Récup Night</a></li>
+          <li><a href="produits.html">💤 Deep Sleep</a></li>
+          <li><a href="produits.html">🌸 Sensoria</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Informations</div>
+        <ul>
+          <li><a href="comment.html">Double Cinétique™</a></li>
+          <li><a href="contact.html">Formats & Prix</a></li>
+          <li><a href="contact.html">Partenariats B2B</a></li>
+          <li><a href="contact.html">Demander les CoA</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul>
+          <li><a href="panier.html">Commander</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#0878697b6b69644863676763616e676663266e7a"><span class="__cf_email__" data-cfemail="3d4d5c4e5e5c517d56525256545b525356135b4f">[email&#160;protected]</span></a></li>
+          <li><a href="#">Grenoble, Isère 🏔️</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">© 2026 KookifonK · <a href="legal.html" style="color:rgba(253,248,240,.65);text-decoration:underline;">Mentions légales</a> · <a href="legal.html#cgv" style="color:rgba(253,248,240,.65);text-decoration:underline;">CGV</a> · <a href="legal.html#confidentialite" style="color:rgba(253,248,240,.65);text-decoration:underline;">Confidentialité</a></div>
+      <div class="footer-made">Fait à Grenoble avec précision 🏔️</div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  window.addEventListener('scroll', function() {
+    var nav = document.getElementById('nav');
+    if (nav) nav.classList.t
