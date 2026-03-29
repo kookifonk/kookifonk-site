@@ -15,15 +15,16 @@ header{background:var(--dark);height:54px;display:flex;align-items:center;justif
 .back:hover{color:#fff}
 .wrap{max-width:1100px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:1fr 360px;gap:28px}
 h2{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.section{margin-bottom:24px}
+.section{margin-bottom:28px}
 .section-title{font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--rust);margin-bottom:10px}
-.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
 .product-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:13px;transition:all .15s;position:relative}
 .product-card:hover{border-color:var(--rust);box-shadow:0 2px 12px rgba(184,88,53,.12)}
 .product-card.in-cart{border-color:var(--rust);background:#FDF7F4}
-.pc-emoji{font-size:22px;margin-bottom:6px}
-.pc-name{font-size:11px;font-weight:700;line-height:1.3;margin-bottom:3px}
-.pc-desc{font-size:9px;color:var(--muted);margin-bottom:8px;line-height:1.4}
+.pc-emoji{font-size:20px;margin-bottom:5px}
+.pc-name{font-size:10px;font-weight:700;line-height:1.3;margin-bottom:2px}
+.pc-choco{font-size:8px;color:var(--muted);margin-bottom:2px;font-style:italic}
+.pc-moment{font-size:8px;color:var(--rust);margin-bottom:6px;line-height:1.3}
 .pc-price{font-size:14px;font-weight:700;color:var(--rust);font-family:'Playfair Display',serif}
 .pc-qty{position:absolute;top:8px;right:8px;background:var(--rust);color:#fff;border-radius:50%;width:20px;height:20px;display:none;align-items:center;justify-content:center;font-size:10px;font-weight:700}
 .product-card.in-cart .pc-qty{display:flex}
@@ -35,7 +36,10 @@ h2{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bo
 .pack-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;transition:all .15s}
 .pack-card:hover{border-color:var(--rust);box-shadow:0 2px 12px rgba(184,88,53,.12)}
 .pack-card.in-cart{border-color:var(--rust);background:#FDF7F4}
+.pack-card.sensoria{border-color:rgba(155,74,107,.35)}
+.pack-card.sensoria:hover{border-color:rgb(155,74,107)}
 .pack-badge{display:inline-block;font-size:8px;background:var(--rust);color:#fff;padding:2px 7px;border-radius:20px;font-weight:700;letter-spacing:.06em;margin-bottom:6px}
+.pack-badge.rose{background:rgb(155,74,107)}
 .pack-name{font-size:12px;font-weight:700;margin-bottom:3px}
 .pack-desc{font-size:9px;color:var(--muted);margin-bottom:8px;line-height:1.4}
 .pack-price{font-size:16px;font-weight:900;color:var(--rust);font-family:'Playfair Display',serif}
@@ -71,18 +75,20 @@ h2{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bo
 <div class="wrap">
   <div>
     <h2>Choisissez vos snacks</h2>
+
+    <!-- À L'UNITÉ -->
     <div class="section">
       <div class="section-title">À l'unité — 4,90 €</div>
       <div class="product-grid" id="grid-unite"></div>
     </div>
+
+    <!-- PACK 4 -->
     <div class="section">
-      <div class="section-title">Demi-sachet · 5 snacks identiques — 22,50 €</div>
-      <div class="product-grid" id="grid-demi"></div>
+      <div class="section-title">Pack 4 snacks identiques — 18,00 €</div>
+      <div class="product-grid" id="grid-pack4"></div>
     </div>
-    <div class="section">
-      <div class="section-title">Sachet · 10 snacks identiques — 45,00 €</div>
-      <div class="product-grid" id="grid-sachet"></div>
-    </div>
+
+    <!-- PACKS -->
     <div class="section">
       <div class="section-title">Packs — meilleur prix</div>
       <div class="pack-grid" id="grid-packs"></div>
@@ -110,120 +116,276 @@ h2{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bo
 <div class="toast" id="toast"></div>
 
 <script>
-var PRODUITS=[
-  {id:"energie",nom:"Énergie",emoji:"⚡",desc:"Guarana · Ginseng · B12"},
-  {id:"focus",nom:"Focus",emoji:"🎯",desc:"L-Tyrosine · Bacopa · Rhodiola"},
-  {id:"recup",nom:"Récup",emoji:"💪",desc:"Glycine · Magnésium · Curcuma"},
-  {id:"alpes",nom:"Alpes Endurance",emoji:"🏔️",desc:"Noix AOP · Miel Vercors · Maca"},
-  {id:"umami",nom:"Umami Energy",emoji:"🌿",desc:"Shiitake · L-Carnitine · B6"},
+// ── PRODUITS ──
+var PRODUITS = [
+  {
+    id:"energie",
+    nom:"Énergie Morning",
+    emoji:"☀️",
+    choco:"Valrhona Noir 70%",
+    moment:"Avant ce qui compte ce matin"
+  },
+  {
+    id:"focus",
+    nom:"Focus Deep Work",
+    emoji:"🎯",
+    choco:"Valrhona Framboise",
+    moment:"20 min avant de travailler"
+  },
+  {
+    id:"alpes",
+    nom:"Alpes Endurance",
+    emoji:"🏔️",
+    choco:"Valrhona Blanc",
+    moment:"Avant trail · vélo · rando"
+  },
+  {
+    id:"recup",
+    nom:"Récup Night",
+    emoji:"🌙",
+    choco:"Valrhona Lait",
+    moment:"Le soir après l'effort"
+  },
+  {
+    id:"deepsleep",
+    nom:"Deep Sleep",
+    emoji:"💤",
+    choco:"Valrhona Blanc",
+    moment:"15 min avant de dormir"
+  },
+  {
+    id:"sensoria",
+    nom:"Sensoria",
+    emoji:"🌸",
+    choco:"Valrhona Framboise",
+    moment:"Les 7 jours avant"
+  }
 ];
-var FORMATS={
-  unite:{label:"x1",prix:4.90,priceIds:{energie:"price_1T8TEIHDPI45iJSiaNXC37zI",focus:"price_1T8StWHDPI45iJSiEXowq1Yw",recup:"price_1T8TSCHDPI45iJSijo99ymwP",alpes:"price_1T8THqHDPI45iJSiZ6aZnXaK",umami:"price_1T8fzXHDPI45iJSidQbJ79CT"}},
-  demi:{label:"x5",prix:22.50,priceIds:{energie:"price_1T8g8yHDPI45iJSiQNwGITE5",focus:"price_1T8gCrHDPI45iJSi7NIvShdA",recup:"price_1T8gIIHDPI45iJSiLOlNQi8X",alpes:"price_1T8gMdHDPI45iJSiZJ7ohejN",umami:"price_1T8gW7HDPI45iJSi1iBbqU0f"}},
-  sachet:{label:"x10",prix:45.00,priceIds:{energie:"price_1T8gZ9HDPI45iJSitEgU4xcV",focus:"price_1T8gbXHDPI45iJSiWrzUUXRs",recup:"price_1T8ge8HDPI45iJSiELnhX3zQ",alpes:"price_1T8ghNHDPI45iJSi0aHNIhun",umami:"price_1T8gkpHDPI45iJSildC5MEUL"}},
-};
-var PACKS=[
-  {id:"decouverte",nom:"Pack Découverte",emoji:"🎁",desc:"Sachet de 5 · 1 snack Énergie + Focus + Récup + Alpes + Umami",prix:24.50,priceId:"price_1T8hCQHDPI45iJSi15nO1DaR"},
-  {id:"complet",nom:"Pack Complet",emoji:"🏆",desc:"Sachet de 10 · 2 snacks Énergie + Focus + Récup + Alpes + Umami",prix:49.90,priceId:"price_1T8hEuHDPI45iJSiiZjLtWkL"},
-];
-var cart=[];
-function cartKey(id,f){return id+"_"+f;}
-function fmt(n){return n.toFixed(2).replace(".",",")+" €";}
 
-function addToCart(prodId,format){
-  var fmt2=FORMATS[format],prod=PRODUITS.find(function(p){return p.id===prodId;}),key=cartKey(prodId,format),item=cart.find(function(x){return x.key===key;});
-  if(item){item.qte++;}else{cart.push({key:key,prodId:prodId,nom:prod.nom,label:fmt2.label,priceId:fmt2.priceIds[prodId],prix:fmt2.prix,qte:1});}
-  renderCart();updateCardState(prodId,format);showToast(prod.nom+" "+fmt2.label+" ajouté ✓");
+// ── PRICE IDs STRIPE ──
+// Remplacer PRICE_ID_A_CREER par les vrais IDs Stripe quand créés
+var FORMATS = {
+  unite: {
+    label:"x1",
+    prix:4.90,
+    priceIds:{
+      energie:   "price_1T8TEIHDPI45iJSiaNXC37zI",
+      focus:     "price_1T8StWHDPI45iJSiEXowq1Yw",
+      alpes:     "price_1T8THqHDPI45iJSiZ6aZnXaK",
+      recup:     "price_1T8TSCHDPI45iJSijo99ymwP",
+      deepsleep: "PRICE_ID_A_CREER",
+      sensoria:  "PRICE_ID_A_CREER"
+    }
+  },
+  pack4: {
+    label:"x4",
+    prix:18.00,
+    priceIds:{
+      energie:   "PRICE_ID_A_CREER",
+      focus:     "PRICE_ID_A_CREER",
+      alpes:     "PRICE_ID_A_CREER",
+      recup:     "PRICE_ID_A_CREER",
+      deepsleep: "PRICE_ID_A_CREER",
+      sensoria:  "PRICE_ID_A_CREER"
+    }
+  }
+};
+
+// ── PACKS ──
+var PACKS = [
+  {
+    id:"decouverte",
+    nom:"Pack Découverte",
+    emoji:"🎁",
+    badge:"PACK",
+    badgeClass:"",
+    cardClass:"",
+    desc:"1 de chaque formule · 6 snacks · 6 moments différents",
+    prix:27.00,
+    priceId:"price_1T8hCQHDPI45iJSi15nO1DaR"
+  },
+  {
+    id:"sensoria7",
+    nom:"Pack Sensoria",
+    emoji:"🌸",
+    badge:"CYCLE FÉMININ",
+    badgeClass:"rose",
+    cardClass:"sensoria",
+    desc:"7 biscuits Sensoria · 1 paquet = 1 cycle complet · Phase lutéale",
+    prix:28.00,
+    priceId:"PRICE_ID_A_CREER"
+  }
+];
+
+// ── PANIER ──
+var cart = [];
+
+function cartKey(id, f) { return id + "_" + f; }
+function fmt(n) { return n.toFixed(2).replace(".", ",") + " €"; }
+
+function addToCart(prodId, format) {
+  var f = FORMATS[format];
+  var priceId = f.priceIds[prodId];
+  if (priceId === "PRICE_ID_A_CREER") {
+    showToast("⚠️ Ce produit sera disponible très bientôt !");
+    return;
+  }
+  var prod = PRODUITS.find(function(p){ return p.id === prodId; });
+  var key = cartKey(prodId, format);
+  var item = cart.find(function(x){ return x.key === key; });
+  if (item) { item.qte++; }
+  else { cart.push({ key:key, prodId:prodId, nom:prod.nom, label:f.label, priceId:priceId, prix:f.prix, qte:1 }); }
+  renderCart(); updateCardState(prodId, format); showToast(prod.nom + " " + f.label + " ajouté ✓");
 }
-function addPackToCart(packId){
-  var pack=PACKS.find(function(p){return p.id===packId;}),item=cart.find(function(x){return x.key===packId;});
-  if(item){item.qte++;}else{cart.push({key:packId,nom:pack.nom,label:"",priceId:pack.priceId,prix:pack.prix,qte:1});}
-  renderCart();updatePackState(packId);showToast(pack.nom+" ajouté ✓");
+
+function addPackToCart(packId) {
+  var pack = PACKS.find(function(p){ return p.id === packId; });
+  if (pack.priceId === "PRICE_ID_A_CREER") {
+    showToast("⚠️ Ce pack sera disponible très bientôt !");
+    return;
+  }
+  var item = cart.find(function(x){ return x.key === packId; });
+  if (item) { item.qte++; }
+  else { cart.push({ key:packId, nom:pack.nom, label:"", priceId:pack.priceId, prix:pack.prix, qte:1 }); }
+  renderCart(); updatePackState(packId); showToast(pack.nom + " ajouté ✓");
 }
-function removeFromCart(key){
-  cart=cart.filter(function(x){return x.key!==key;});
-  renderCart();var p=key.split("_");if(p.length===2)updateCardState(p[0],p[1]);else updatePackState(key);
+
+function removeFromCart(key) {
+  cart = cart.filter(function(x){ return x.key !== key; });
+  renderCart();
+  var p = key.split("_");
+  if (p.length === 2) updateCardState(p[0], p[1]);
+  else updatePackState(key);
 }
-function changeQty(key,delta){
-  var item=cart.find(function(x){return x.key===key;});if(!item)return;
-  item.qte=Math.max(0,item.qte+delta);
-  if(item.qte===0)removeFromCart(key);else{renderCart();var p=key.split("_");if(p.length===2)updateCardState(p[0],p[1]);else updatePackState(key);}
+
+function changeQty(key, delta) {
+  var item = cart.find(function(x){ return x.key === key; });
+  if (!item) return;
+  item.qte = Math.max(0, item.qte + delta);
+  if (item.qte === 0) removeFromCart(key);
+  else { renderCart(); var p = key.split("_"); if (p.length === 2) updateCardState(p[0], p[1]); else updatePackState(key); }
 }
-function changeQtyCard(prodId,format,delta){
-  var key=cartKey(prodId,format),item=cart.find(function(x){return x.key===key;});
-  if(!item&&delta>0){addToCart(prodId,format);return;}if(item)changeQty(key,delta);
+
+function changeQtyCard(prodId, format, delta) {
+  var key = cartKey(prodId, format);
+  var item = cart.find(function(x){ return x.key === key; });
+  if (!item && delta > 0) { addToCart(prodId, format); return; }
+  if (item) changeQty(key, delta);
 }
-function renderCart(){
-  var empty=document.getElementById("cart-empty"),items=document.getElementById("cart-items"),totals=document.getElementById("cart-totals"),count=document.getElementById("cart-count");
-  if(cart.length===0){empty.style.display="";items.style.display="none";totals.style.display="none";count.textContent="";return;}
-  empty.style.display="none";items.style.display="";totals.style.display="";
-  var total=cart.reduce(function(a,b){return a+b.prix*b.qte;},0);
-  count.textContent="("+cart.reduce(function(a,b){return a+b.qte;},0)+")";
-  items.innerHTML=cart.map(function(item){
-    return "<div class='cart-item'><div style='flex:1'><div style='font-size:11px;font-weight:700'>"+item.nom+(item.label?" <span style='color:var(--rust)'>"+item.label+"</span>":"")+"</div>"
-      +"<div style='display:flex;align-items:center;gap:6px;margin-top:4px'>"
-      +"<button class='pc-btn' style='width:20px;height:20px;font-size:12px' onclick='changeQty(\""+item.key+"\",-1)'>−</button>"
-      +"<span style='font-size:11px;font-weight:700'>"+item.qte+"</span>"
-      +"<button class='pc-btn' style='width:20px;height:20px;font-size:12px' onclick='changeQty(\""+item.key+"\",1)'>+</button>"
-      +"</div></div>"
-      +"<div style='text-align:right'><div class='ci-price'>"+fmt(item.prix*item.qte)+"</div>"
-      +"<button class='ci-rm' onclick='removeFromCart(\""+item.key+"\")'>✕</button></div></div>";
+
+function renderCart() {
+  var empty = document.getElementById("cart-empty");
+  var items = document.getElementById("cart-items");
+  var totals = document.getElementById("cart-totals");
+  var count = document.getElementById("cart-count");
+  if (cart.length === 0) {
+    empty.style.display = ""; items.style.display = "none"; totals.style.display = "none"; count.textContent = "";
+    return;
+  }
+  empty.style.display = "none"; items.style.display = ""; totals.style.display = "";
+  var total = cart.reduce(function(a, b){ return a + b.prix * b.qte; }, 0);
+  count.textContent = "(" + cart.reduce(function(a, b){ return a + b.qte; }, 0) + ")";
+  items.innerHTML = cart.map(function(item) {
+    return "<div class='cart-item'><div style='flex:1'>"
+      + "<div style='font-size:11px;font-weight:700'>" + item.nom
+      + (item.label ? " <span style='color:var(--rust)'>" + item.label + "</span>" : "") + "</div>"
+      + "<div style='display:flex;align-items:center;gap:6px;margin-top:4px'>"
+      + "<button class='pc-btn' style='width:20px;height:20px;font-size:12px' onclick='changeQty(\"" + item.key + "\",-1)'>−</button>"
+      + "<span style='font-size:11px;font-weight:700'>" + item.qte + "</span>"
+      + "<button class='pc-btn' style='width:20px;height:20px;font-size:12px' onclick='changeQty(\"" + item.key + "\",1)'>+</button>"
+      + "</div></div>"
+      + "<div style='text-align:right'><div class='ci-price'>" + fmt(item.prix * item.qte) + "</div>"
+      + "<button class='ci-rm' onclick='removeFromCart(\"" + item.key + "\")'>✕</button></div></div>";
   }).join("");
-  document.getElementById("subtotal").textContent=fmt(total);
-  document.getElementById("cart-total").textContent=fmt(total);
+  document.getElementById("subtotal").textContent = fmt(total);
+  document.getElementById("cart-total").textContent = fmt(total);
 }
-function updateCardState(prodId,format){
-  var key=cartKey(prodId,format),item=cart.find(function(x){return x.key===key;}),qte=item?item.qte:0;
-  var card=document.getElementById("card-"+prodId+"-"+format);
-  var pq=document.getElementById("pq-"+prodId+"-"+format);
-  var qd=document.getElementById("qd-"+prodId+"-"+format);
-  if(card)card.classList.toggle("in-cart",qte>0);
-  if(pq){pq.textContent=qte;pq.style.display=qte>0?"flex":"none";}
-  if(qd)qd.textContent=qte;
+
+function updateCardState(prodId, format) {
+  var key = cartKey(prodId, format);
+  var item = cart.find(function(x){ return x.key === key; });
+  var qte = item ? item.qte : 0;
+  var card = document.getElementById("card-" + prodId + "-" + format);
+  var pq = document.getElementById("pq-" + prodId + "-" + format);
+  var qd = document.getElementById("qd-" + prodId + "-" + format);
+  if (card) card.classList.toggle("in-cart", qte > 0);
+  if (pq) { pq.textContent = qte; pq.style.display = qte > 0 ? "flex" : "none"; }
+  if (qd) qd.textContent = qte;
 }
-function updatePackState(packId){
-  var item=cart.find(function(x){return x.key===packId;}),card=document.getElementById("card-pack-"+packId);
-  if(card)card.classList.toggle("in-cart",!!(item&&item.qte>0));
+
+function updatePackState(packId) {
+  var item = cart.find(function(x){ return x.key === packId; });
+  var card = document.getElementById("card-pack-" + packId);
+  if (card) card.classList.toggle("in-cart", !!(item && item.qte > 0));
 }
-function goCheckout(){
-  if(cart.length===0)return;
-  var btn=document.getElementById("checkout-btn");
-  btn.disabled=true;btn.textContent="Redirection en cours...";
-  fetch("https://kookifonk-checkout.kookifonk.workers.dev",{
-    method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({line_items:cart.map(function(i){return{price:i.priceId,quantity:i.qte};}),success_url:window.location.origin+"/merci.html",cancel_url:window.location.origin+"/panier.html"})
-  }).then(function(r){return r.json();}).then(function(data){
-    if(data.url)window.location.href=data.url;
-    else{alert("Erreur: "+(data.error||"inconnue"));btn.disabled=false;btn.textContent="🔒 Payer avec Stripe";}
-  }).catch(function(){alert("Erreur de connexion.");btn.disabled=false;btn.textContent="🔒 Payer avec Stripe";});
+
+function goCheckout() {
+  if (cart.length === 0) return;
+  var btn = document.getElementById("checkout-btn");
+  btn.disabled = true; btn.textContent = "Redirection en cours...";
+  fetch("https://kookifonk-checkout.kookifonk.workers.dev", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      line_items: cart.map(function(i){ return { price: i.priceId, quantity: i.qte }; }),
+      success_url: window.location.origin + "/merci.html",
+      cancel_url: window.location.origin + "/panier.html"
+    })
+  }).then(function(r){ return r.json(); }).then(function(data) {
+    if (data.url) window.location.href = data.url;
+    else { alert("Erreur: " + (data.error || "inconnue")); btn.disabled = false; btn.textContent = "🔒 Payer avec Stripe"; }
+  }).catch(function() {
+    alert("Erreur de connexion.");
+    btn.disabled = false; btn.textContent = "🔒 Payer avec Stripe";
+  });
 }
-function renderGrid(gridId,format){
-  document.getElementById(gridId).innerHTML=PRODUITS.map(function(p){
-    return "<div class='product-card' id='card-"+p.id+"-"+format+"'>"
-      +"<div class='pc-emoji'>"+p.emoji+"</div><div class='pc-name'>"+p.nom+"</div>"
-      +"<div class='pc-desc'>"+p.desc+"</div><div class='pc-price'>"+fmt(FORMATS[format].prix)+"</div>"
-      +"<div class='pc-btns'><button class='pc-btn' onclick='changeQtyCard(\""+p.id+"\",\""+format+"\",-1)'>−</button>"
-      +"<span class='pc-qty-disp' id='qd-"+p.id+"-"+format+"'>0</span>"
-      +"<button class='pc-btn' onclick='addToCart(\""+p.id+"\",\""+format+"\")'>+</button></div>"
-      +"<div class='pc-qty' id='pq-"+p.id+"-"+format+"'>0</div></div>";
+
+function renderGrid(gridId, format) {
+  document.getElementById(gridId).innerHTML = PRODUITS.map(function(p) {
+    var unavail = FORMATS[format].priceIds[p.id] === "PRICE_ID_A_CREER";
+    return "<div class='product-card" + (unavail ? "' style='opacity:.55" : "") + "' id='card-" + p.id + "-" + format + "'>"
+      + "<div class='pc-emoji'>" + p.emoji + "</div>"
+      + "<div class='pc-name'>" + p.nom + "</div>"
+      + "<div class='pc-choco'>" + p.choco + "</div>"
+      + "<div class='pc-moment'>" + p.moment + "</div>"
+      + "<div class='pc-price'>" + fmt(FORMATS[format].prix) + "</div>"
+      + "<div class='pc-btns'>"
+      + "<button class='pc-btn' onclick='changeQtyCard(\"" + p.id + "\",\"" + format + "\",-1)'>−</button>"
+      + "<span class='pc-qty-disp' id='qd-" + p.id + "-" + format + "'>0</span>"
+      + "<button class='pc-btn' onclick='addToCart(\"" + p.id + "\",\"" + format + "\")'>+</button>"
+      + "</div>"
+      + (unavail ? "<div style='font-size:8px;color:var(--muted);margin-top:4px'>Bientôt disponible</div>" : "")
+      + "<div class='pc-qty' id='pq-" + p.id + "-" + format + "'>0</div></div>";
   }).join("");
 }
-function renderPacks(){
-  var s={decouverte:(5*4.90-24.50).toFixed(2).replace(".",","),complet:(10*4.90-49.90).toFixed(2).replace(".",",")};
-  document.getElementById("grid-packs").innerHTML=PACKS.map(function(pk){
-    return "<div class='pack-card' id='card-pack-"+pk.id+"' onclick='addPackToCart(\""+pk.id+"\")'>"
-      +"<div class='pack-badge'>PACK</div><div class='pack-name'>"+pk.emoji+" "+pk.nom+"</div>"
-      +"<div class='pack-desc'>"+pk.desc+"</div>"
-      +"<div style='display:flex;align-items:baseline;gap:8px'><div class='pack-price'>"+fmt(pk.prix)+"</div>"
-      +"<span class='pack-save'>éco. "+s[pk.id]+" €</span></div></div>";
+
+function renderPacks() {
+  document.getElementById("grid-packs").innerHTML = PACKS.map(function(pk) {
+    var unavail = pk.priceId === "PRICE_ID_A_CREER";
+    var eco = pk.id === "decouverte" ? (6 * 4.90 - 27.00).toFixed(2).replace(".", ",") : null;
+    return "<div class='pack-card " + pk.cardClass + "' id='card-pack-" + pk.id + "' onclick='addPackToCart(\"" + pk.id + "\")'>"
+      + "<div class='pack-badge " + pk.badgeClass + "'>" + pk.badge + "</div>"
+      + "<div class='pack-name'>" + pk.emoji + " " + pk.nom + "</div>"
+      + "<div class='pack-desc'>" + pk.desc + "</div>"
+      + "<div style='display:flex;align-items:baseline;gap:8px'>"
+      + "<div class='pack-price'>" + fmt(pk.prix) + "</div>"
+      + (eco ? "<span class='pack-save'>éco. " + eco + " €</span>" : "")
+      + "</div>"
+      + (unavail ? "<div style='font-size:8px;color:var(--muted);margin-top:6px'>Bientôt disponible</div>" : "")
+      + "</div>";
   }).join("");
 }
-function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(function(){t.classList.remove("show");},2000);}
-renderGrid("grid-unite","unite");
-renderGrid("grid-demi","demi");
-renderGrid("grid-sachet","sachet");
+
+function showToast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  setTimeout(function(){ t.classList.remove("show"); }, 2500);
+}
+
+// ── INIT ──
+renderGrid("grid-unite", "unite");
+renderGrid("grid-pack4", "pack4");
 renderPacks();
-renderCart();
 </script>
 </body>
 </html>
