@@ -340,8 +340,9 @@ function goCheckout() {
   });
 }
 
-function renderGrid(gridId, format) {
-  document.getElementById(gridId).innerHTML = PRODUITS.map(function(p) {
+function renderGrid(gridId, format, prodList) {
+  var list = prodList || PRODUITS;
+  document.getElementById(gridId).innerHTML = list.map(function(p) {
     var unavail = FORMATS[format].priceIds[p.id] === "PRICE_ID_A_CREER";
     return "<div class='product-card" + (unavail ? "' style='opacity:.55" : "") + "' id='card-" + p.id + "-" + format + "'>"
       + "<div class='pc-emoji'>" + p.emoji + "</div>"
@@ -382,9 +383,10 @@ function showToast(msg) {
   setTimeout(function(){ t.classList.remove("show"); }, 2500);
 }
 
-// ── INIT ──
-renderGrid("grid-unite", "unite");
-renderGrid("grid-pack4", "pack4");
+// ── PRODUITS (sans Sensoria pour le pack 4) ──
+var PRODUITS_PACK4 = PRODUITS.filter(function(p){ return p.id !== "sensoria"; });
+renderGrid("grid-unite", "unite", PRODUITS);
+renderGrid("grid-pack4", "pack4", PRODUITS_PACK4);
 renderPacks();
 </script>
 </body>
