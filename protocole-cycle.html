@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocole Cycle Féminin · Sensoria · KookifonK</title>
+<meta name="description" content="7 jours avant tes règles, 1 biscuit par soir. Moins d'irritabilité, moins de crampes, un sommeil qui tient. Résultats dès le 2e cycle.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FDF8F0;--cream-d:#F5ECD8;--warm-white:#FFFCF7;
+  --choco:#2C1810;--choco-m:#5C3D2E;--caramel:#A0522D;
+  --honey:#D4873E;--honey-l:#F0C070;
+  --terra:#C4622D;--terra-d:#A04820;
+  --sage:#6B8F71;--warm-gray:#8A7A70;
+  --border:#E2CCAA;--text:#2C1810;--text-m:#6B5040;--text-l:#A08070;
+  --ff-head:'Fraunces',Georgia,serif;--ff-body:'DM Sans',system-ui,sans-serif;
+  --radius-sm:8px;--radius:16px;--radius-lg:28px;
+  --shadow:0 4px 24px rgba(44,24,16,.08);--shadow-lg:0 12px 48px rgba(44,24,16,.14);
+  --t:.25s ease;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-body);background:var(--cream);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.container{max-width:1060px;margin:0 auto;padding:0 2rem}
+.container-sm{max-width:680px;margin:0 auto;padding:0 2rem}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--ff-body);font-size:.95rem;font-weight:600;padding:.9rem 2rem;border-radius:100px;border:2px solid transparent;cursor:pointer;transition:all var(--t);text-decoration:none;white-space:nowrap}
+.btn-primary{background:var(--terra);color:#fff;border-color:var(--terra);box-shadow:0 4px 16px rgba(196,98,45,.3)}
+.btn-primary:hover{background:var(--terra-d);transform:translateY(-1px);box-shadow:0 6px 24px rgba(196,98,45,.4)}
+.btn-lg{padding:1.1rem 2.5rem;font-size:1.05rem}
+.btn-full{width:100%;justify-content:center}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 0;transition:all var(--t)}
+nav.scrolled{background:rgba(253,248,240,.95);backdrop-filter:blur(12px);box-shadow:0 2px 20px rgba(44,24,16,.08);padding:.65rem 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.nav-logo{font-family:var(--ff-head);font-size:1.5rem;font-weight:900;color:var(--choco);letter-spacing:-.02em}
+.nav-logo span{color:var(--terra)}
+.nav-back{font-size:.88rem;font-weight:500;color:var(--terra);padding:.4rem .9rem;border-radius:100px;border:1.5px solid var(--border);transition:all var(--t)}
+.nav-back:hover{background:var(--cream-d)}
+
+/* TICKER */
+.ticker{background:var(--choco);padding:.6rem 0;overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;animation:ticker 32s linear infinite}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);padding:0 2rem}
+.ticker-dot{color:var(--honey);padding:0 .5rem}
+
+/* HERO */
+.hero{padding:110px 0 70px}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+@media(max-width:760px){.hero-inner{grid-template-columns:1fr}}
+
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--cream-d);border:1.5px solid var(--border);padding:.4rem 1rem;border-radius:100px;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);margin-bottom:1.4rem}
+
+.hero h1{font-family:var(--ff-head);font-size:clamp(2.8rem,5vw,4rem);font-weight:900;line-height:1.05;letter-spacing:-.02em;color:var(--choco);margin-bottom:1.2rem}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero-sub{font-size:1.05rem;color:var(--text-m);line-height:1.8;margin-bottom:2rem;max-width:460px}
+
+/* Note honnête */
+.honest-note{display:flex;gap:.75rem;background:var(--cream-d);border:1.5px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:2rem;max-width:460px}
+.honest-icon{font-size:1.2rem;flex-shrink:0;margin-top:.1rem}
+.honest-text{font-size:.88rem;color:var(--text-m);line-height:1.65}
+.honest-text strong{color:var(--choco)}
+
+/* Carte produit héro */
+.hero-card{background:var(--cream-d);border-radius:var(--radius-lg);padding:2.2rem;box-shadow:var(--shadow-lg);text-align:center}
+.hero-card-emoji{font-size:4.5rem;margin-bottom:.9rem}
+.hero-card-name{font-family:var(--ff-head);font-size:1.4rem;font-weight:700;color:var(--choco);margin-bottom:.3rem}
+.hero-card-tagline{font-size:.88rem;color:var(--text-m);margin-bottom:1.4rem;line-height:1.55}
+.hero-card-usage{background:var(--warm-white);border-radius:var(--radius-sm);padding:.9rem 1rem;font-size:.85rem;color:var(--text-m);border:1px solid var(--border)}
+.hero-card-usage strong{color:var(--terra);display:block;margin-bottom:.2rem;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}
+
+/* SECTIONS */
+.section{padding:5rem 0}
+.section-alt{background:var(--cream-d)}
+.slabel{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:.8rem}
+.section h2{font-family:var(--ff-head);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:var(--choco);margin-bottom:1rem}
+.section h2 em{font-style:italic;color:var(--terra)}
+.intro{font-size:1rem;color:var(--text-m);line-height:1.78;margin-bottom:2rem}
+
+/* SYMPTÔMES GRID */
+.sympt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.8rem}
+@media(max-width:640px){.sympt-grid{grid-template-columns:1fr 1fr}}
+.sympt-card{background:var(--warm-white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.2rem;text-align:center}
+.sympt-icon{font-size:1.8rem;margin-bottom:.5rem}
+.sympt-name{font-weight:600;font-size:.88rem;color:var(--choco);margin-bottom:.3rem}
+.sympt-desc{font-size:.78rem;color:var(--text-l);line-height:1.5}
+
+/* CE QUE TU RESSENS - simple */
+.effects-list{display:flex;flex-direction:column;gap:.75rem;margin-top:1.8rem}
+.effect-item{display:flex;align-items:flex-start;gap:.9rem;background:var(--warm-white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.3rem}
+.effect-item.cycle1{border-color:var(--sage)}
+.effect-item.cycle2{border-color:var(--terra)}
+.effect-label{flex-shrink:0;font-family:var(--ff-head);font-size:.82rem;font-weight:700;padding:.25rem .7rem;border-radius:100px;white-space:nowrap;align-self:flex-start;margin-top:.1rem}
+.effect-label.c1{background:#E8F4ED;color:var(--sage)}
+.effect-label.c2{background:#FBF0EB;color:var(--terra)}
+.effect-content{}
+.effect-title{font-weight:600;font-size:.95rem;color:var(--choco);margin-bottom:.3rem}
+.effect-desc{font-size:.85rem;color:var(--text-m);line-height:1.6}
+
+/* COMMENT UTILISER - ultra simple */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.8rem}
+@media(max-width:600px){.how-grid{grid-template-columns:1fr}}
+.how-step{background:var(--warm-white);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.4rem;text-align:center;position:relative}
+.how-step.featured{border-color:var(--terra);background:var(--cream)}
+.how-num{font-family:var(--ff-head);font-size:2.2rem;font-weight:900;color:var(--cream-d);margin-bottom:.5rem;line-height:1}
+.how-step.featured .how-num{color:var(--terra);opacity:.3}
+.how-title{font-weight:700;font-size:.95rem;color:var(--choco);margin-bottom:.4rem}
+.how-desc{font-size:.83rem;color:var(--text-m);line-height:1.55}
+
+/* INGRÉDIENTS - version vulgarisée */
+.ingr-list{display:flex;flex-direction:column;gap:.6rem;margin-top:1.8rem}
+.ingr-item{display:grid;grid-template-columns:180px 1fr;gap:1rem;align-items:start;background:var(--warm-white);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:.9rem 1.1rem}
+@media(max-width:580px){.ingr-item{grid-template-columns:1fr}}
+.ingr-name{font-weight:600;font-size:.88rem;color:var(--choco)}
+.ingr-role{font-size:.83rem;color:var(--text-m);line-height:1.55}
+.ingr-badge{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:.12rem .45rem;border-radius:100px;margin-top:.25rem}
+.ingr-badge.now{background:#E8F4ED;color:var(--sage)}
+.ingr-badge.later{background:#FBF0EB;color:var(--terra)}
+
+/* CE QUE CE N'EST PAS */
+.nope-list{display:flex;flex-direction:column;gap:.6rem;margin-top:1.5rem}
+.nope-item{display:flex;align-items:flex-start;gap:.7rem;font-size:.88rem;color:var(--text-m);line-height:1.6;background:var(--warm-white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1rem}
+.nope-item::before{content:'—';color:var(--text-l);flex-shrink:0;font-weight:700}
+
+/* PACK */
+.pack-wrap{max-width:500px;margin:0 auto;text-align:center}
+.pack-card{background:var(--warm-white);border:2px solid var(--terra);border-radius:var(--radius-lg);padding:2.4rem;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.pack-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--terra),var(--honey))}
+.pack-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--terra);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .85rem;border-radius:100px;margin-bottom:1.1rem}
+.pack-title{font-family:var(--ff-head);font-size:1.9rem;font-weight:900;letter-spacing:-.02em;color:var(--choco);margin-bottom:.4rem}
+.pack-sub{font-size:.9rem;color:var(--text-m);margin-bottom:1.6rem;line-height:1.6}
+.pack-items{text-align:left;margin-bottom:1.6rem}
+.pitem{display:flex;align-items:center;gap:.55rem;font-size:.88rem;color:var(--text-m);margin-bottom:.45rem}
+.pitem::before{content:'✓';color:var(--sage);font-weight:700;flex-shrink:0}
+.pack-price{font-family:var(--ff-head);font-size:2.9rem;font-weight:900;color:var(--choco);letter-spacing:-.03em}
+.promo-badge{display:inline-block;background:#E8F4ED;color:var(--sage);font-size:.75rem;font-weight:700;padding:.12rem .45rem;border-radius:100px;margin-left:.35rem;vertical-align:middle}
+.pack-note{font-size:.82rem;color:var(--text-l);margin-top:.2rem}
+.pack-original{font-size:.8rem;color:var(--text-l);text-decoration:line-through}
+.pack-cta-wrap{margin:1.4rem 0 .8rem}
+.pack-code{font-size:.8rem;color:var(--terra);font-weight:600}
+.pack-livraison{font-size:.73rem;color:var(--text-l);margin-top:.35rem}
+
+footer{background:var(--choco);padding:2.5rem 0;text-align:center}
+footer p{font-size:.82rem;color:rgba(255,255,255,.5)}
+footer a{color:var(--honey)}
+footer a:hover{color:var(--honey-l)}
+
+@media(max-width:768px){.section{padding:3.5rem 0}.hero{padding:85px 0 45px}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Kookifonk<span>.</span></a>
+      <a href="/sensoria.html" class="nav-back">← Sensoria</a>
+    </div>
+  </div>
+</nav>
+
+<div class="ticker"><div class="ticker-track">
+  <span class="ticker-item">Sensoria</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">1 biscuit par soir</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">7 jours avant les règles</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">Valrhona Framboise</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">Fait à Grenoble</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">Sensoria</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">1 biscuit par soir</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">7 jours avant les règles</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">Valrhona Framboise</span><span class="ticker-dot">·</span>
+  <span class="ticker-item">Fait à Grenoble</span><span class="ticker-dot">·</span>
+</div></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">🌸 Protocole Cycle Féminin</div>
+        <h1>Ces 7 jours<br>avant tes règles.<br><em>En mieux.</em></h1>
+        <p class="hero-sub">Irritabilité, crampes, fatigue, sommeil qui part — tout ça a une cause biologique réelle. Sensoria agit dessus. Pas de miracle, mais un vrai soutien, au bon moment.</p>
+
+        <div class="honest-note">
+          <div class="honest-icon">💬</div>
+          <div class="honest-text"><strong>On te dit la vérité :</strong> le premier cycle, tu commences à le sentir. C'est au deuxième que tu le vois vraiment. C'est comme ça que ça fonctionne — pas du jour au lendemain.</div>
+        </div>
+
+        <a href="#pack" class="btn btn-primary btn-lg">Voir le Pack Protocole Cycle →</a>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-emoji">🌸</div>
+        <div class="hero-card-name">Sensoria</div>
+        <div class="hero-card-tagline">Un biscuit au chocolat Valrhona Framboise.<br>1 par soir. Les 7 jours avant tes règles.</div>
+        <div class="hero-card-usage">
+          <strong>Comment l'utiliser</strong>
+          7 jours avant tes règles → 1 biscuit chaque soir → le cycle recommence.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CE QUE TU VIS -->
+<section class="section section-alt">
+  <div class="container-sm">
+    <div class="slabel">Pourquoi ces 7 jours sont différents</div>
+    <h2>Ce n'est pas<br><em>dans ta tête.</em></h2>
+    <p class="intro">Juste avant tes règles, tes hormones chutent brutalement. Ça impacte ta sérotonine, ton sommeil, ta tolérance au stress. C'est documenté — et c'est ce que Sensoria cible.</p>
+
+    <div class="sympt-grid">
+      <div class="sympt-card">
+        <div class="sympt-icon">😤</div>
+        <div class="sympt-name">Irritabilité</div>
+        <div class="sympt-desc">La chute de sérotonine rend tout plus difficile à encaisser</div>
+      </div>
+      <div class="sympt-card">
+        <div class="sympt-icon">🤕</div>
+        <div class="sympt-name">Crampes</div>
+        <div class="sympt-desc">L'inflammation locale crée des contractions douloureuses</div>
+      </div>
+      <div class="sympt-card">
+        <div class="sympt-icon">💤</div>
+        <div class="sympt-name">Sommeil perturbé</div>
+        <div class="sympt-desc">La progestérone qui chute emporte aussi la qualité des nuits</div>
+      </div>
+      <div class="sympt-card">
+        <div class="sympt-icon">😰</div>
+        <div class="sympt-name">Anxiété</div>
+        <div class="sympt-desc">Le système nerveux réagit à la chute hormonale</div>
+      </div>
+      <div class="sympt-card">
+        <div class="sympt-icon">🫃</div>
+        <div class="sympt-name">Ballonnements</div>
+        <div class="sympt-desc">La rétention d'eau et l'inflammation font gonfler le ventre</div>
+      </div>
+      <div class="sympt-card">
+        <div class="sympt-icon">🌫️</div>
+        <div class="sympt-name">Brouillard mental</div>
+        <div class="sympt-desc">La concentration et la clarté baissent avec les hormones</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CE QUE TU RESSENS CYCLE PAR CYCLE -->
+<section class="section">
+  <div class="container-sm">
+    <div class="slabel">Ce que tu vas ressentir</div>
+    <h2>Cycle 1 et cycle 2 :<br><em>deux expériences différentes.</em></h2>
+    <p class="intro">Sensoria ne fonctionne pas comme un médicament — les effets s'installent progressivement. Voilà exactement ce à quoi tu peux t'attendre.</p>
+
+    <div class="effects-list">
+      <div class="effect-item cycle1">
+        <div class="effect-label c1">Cycle 1</div>
+        <div class="effect-content">
+          <div class="effect-title">Tu commences à sentir quelque chose</div>
+          <div class="effect-desc">Les crampes sont moins violentes dès le premier cycle — le Magnésium et le Gingembre agissent immédiatement. L'irritabilité commence à être moins intense. Le sommeil pendant ces 7 jours s'améliore légèrement. Pour certaines, l'effet est déjà net dès le premier mois.</div>
+        </div>
+      </div>
+      <div class="effect-item cycle2">
+        <div class="effect-label c2">Cycle 2</div>
+        <div class="effect-content">
+          <div class="effect-title">Là où l'effet devient vraiment visible</div>
+          <div class="effect-desc">Le Safran a eu le temps de s'installer. L'humeur pendant la phase difficile est nettement plus stable. Les crampes sont mieux gérées. Certaines semaines tu réalises que les 7 jours sont passés sans que tu les aies vraiment subis.</div>
+        </div>
+      </div>
+      <div class="effect-item">
+        <div class="effect-label c1">Cycle 3+</div>
+        <div class="effect-content">
+          <div class="effect-title">Les résultats se stabilisent</div>
+          <div class="effect-desc">L'effet est là, régulier, prévisible. Tu connais ton cycle, tu sais quand commencer, et le pack de 2 cycles te donne exactement ce qu'il faut pour voir la différence.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMENT L'UTILISER -->
+<section class="section section-alt">
+  <div class="container-sm">
+    <div class="slabel">Comment ça marche</div>
+    <h2>Simple.<br><em>1 biscuit, 7 soirs.</em></h2>
+    <p class="intro">Pas de planning compliqué. Tu suis tes règles, tu commences 7 jours avant.</p>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <div class="how-title">Repère J-7</div>
+        <div class="how-desc">7 jours avant la date habituelle de tes règles. Si ton cycle est irrégulier — aux premiers signes de tension.</div>
+      </div>
+      <div class="how-step featured">
+        <div class="how-num">2</div>
+        <div class="how-title">1 biscuit chaque soir</div>
+        <div class="how-desc">Le soir, de préférence après dîner. Pas besoin de le prendre à une heure précise — l'important c'est la régularité sur les 7 jours.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <div class="how-title">Recommence le mois suivant</div>
+        <div class="how-desc">Le deuxième cycle est là où tu vois la vraie différence. Les effets s'installent dans le temps.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CE QU'IL Y A DEDANS - vulgarisé -->
+<section class="section">
+  <div class="container-sm">
+    <div class="slabel">Ce qu'il y a dans Sensoria</div>
+    <h2>7 ingrédients.<br><em>Chacun pour une raison.</em></h2>
+    <p class="intro">On t'explique ce que chaque ingrédient fait concrètement — sans le jargon.</p>
+
+    <div class="ingr-list">
+      <div class="ingr-item" style="border-color:var(--terra)">
+        <div>
+          <div class="ingr-name">Safran Affron®</div>
+          <div class="ingr-badge later">effet au cycle 2</div>
+        </div>
+        <div class="ingr-role">Il agit sur la sérotonine — l'hormone de l'humeur. Moins d'irritabilité, moins de coups de cafard pendant ces 7 jours. C'est l'ingrédient principal. Il faut 2 cycles pour qu'il soit pleinement actif.</div>
+      </div>
+      <div class="ingr-item">
+        <div>
+          <div class="ingr-name">Magnésium</div>
+          <div class="ingr-badge now">dès le 1er cycle</div>
+        </div>
+        <div class="ingr-role">Il détend les muscles — donc il réduit les crampes. Il aide aussi le système nerveux à moins réagir au stress. Forme bisglycinate — la mieux absorbée par l'organisme.</div>
+      </div>
+      <div class="ingr-item">
+        <div>
+          <div class="ingr-name">Ashwagandha</div>
+          <div class="ingr-badge later">effet progressif</div>
+        </div>
+        <div class="ingr-role">Réduit le cortisol — l'hormone du stress. Ces 7 jours sont souvent plus stressants hormonalement. L'Ashwagandha aide le corps à mieux les encaisser.</div>
+      </div>
+      <div class="ingr-item">
+        <div>
+          <div class="ingr-name">Gingembre</div>
+          <div class="ingr-badge now">dès le 1er cycle</div>
+        </div>
+        <div class="ingr-role">Agit contre l'inflammation responsable des crampes. Des études montrent une réduction des douleurs menstruelles dès la première prise.</div>
+      </div>
+      <div class="ingr-item">
+        <div>
+          <div class="ingr-name">Shatavari</div>
+          <div class="ingr-badge later">effet progressif</div>
+        </div>
+        <div class="ingr-role">Plante ayurvédique qui soutient l'équilibre hormonal féminin au fil des cycles. Résultats sur le long terme.</div>
+      </div>
+      <div class="ingr-item">
+        <div>
+          <div class="ingr-name">Oméga-3</div>
+          <div class="ingr-badge later">effet progressif</div>
+        </div>
+        <div class="ingr-role">Réduit l'inflammation globale — dont celle qui provoque les douleurs menstruelles. Agit aussi sur l'humeur sur le long terme.</div>
+      </div>
+      <div class="ingr-item">
+        <div>
+          <div class="ingr-name">Vitamine B6</div>
+          <div class="ingr-badge now">dès le 1er cycle</div>
+        </div>
+        <div class="ingr-role">Aide le corps à fabriquer de la sérotonine — l'hormone qui manque précisément pendant ces 7 jours. Forme P5P, la plus efficace.</div>
+      </div>
+    </div>
+
+    <p style="font-size:.82rem;color:var(--text-l);margin-top:1.2rem;line-height:1.6">+ Valrhona Framboise Grand Cru comme vecteur. Les actifs liposolubles passent dans le sang via les matières grasses du chocolat en 15–20 minutes.</p>
+  </div>
+</section>
+
+<!-- CE QUE CE N'EST PAS -->
+<section class="section section-alt">
+  <div class="container-sm">
+    <div class="slabel">Soyons honnêtes</div>
+    <h2>Ce que Sensoria<br><em>ne fait pas.</em></h2>
+    <p class="intro">On préfère te le dire avant.</p>
+
+    <div class="nope-list">
+      <div class="nope-item">Ce n'est pas un médicament. Si tes symptômes sont vraiment invalidants chaque mois (douleurs qui t'empêchent de bouger, humeur très sévèrement impactée), parle-en d'abord à ton médecin.</div>
+      <div class="nope-item">Ça ne marche pas forcément dès le premier mois sur tous les symptômes. Le Safran et l'Ashwagandha ont besoin de temps. Le cycle 2 est souvent là où tu vois la vraie différence.</div>
+      <div class="nope-item">Ce n'est pas un contraceptif ni un traitement hormonal. Il n'agit pas sur tes hormones directement — il soutient les conséquences de leur variation.</div>
+      <div class="nope-item">Les résultats varient selon les personnes. Certaines voient une vraie différence dès le premier mois, d'autres après trois cycles. C'est individuel.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PACK CTA -->
+<section class="section" id="pack">
+  <div class="container">
+    <div class="pack-wrap">
+      <div class="pack-card">
+        <div class="pack-badge">🌸 Pack dédié</div>
+        <div class="pack-title">Pack Protocole Cycle Féminin</div>
+        <div class="pack-sub">14 biscuits Sensoria · 2 cycles complets · Là où l'effet devient visible</div>
+        <div class="pack-items">
+          <div class="pitem">14 biscuits Sensoria · Valrhona Framboise Grand Cru</div>
+          <div class="pitem">7 ingrédients actifs · doses validées par des études</div>
+          <div class="pitem">2 cycles complets — le temps que l'effet s'installe vraiment</div>
+          <div class="pitem">Planning J-7 simple inclus dans le packaging</div>
+        </div>
+        <div class="pack-price">52 €<span class="promo-badge">−24%</span></div>
+        <div class="pack-note">Livraison en sus</div>
+        <div class="pack-original">68,60 € au détail</div>
+        <div class="pack-cta-wrap">
+          <button id="btn-cycle" class="btn btn-primary btn-full btn-lg">Commander le Pack Protocole Cycle</button>
+        </div>
+        <div class="pack-code">🎟️ Code BIENVENUE10 → −10% sur ta première commande</div>
+        <div class="pack-livraison">📦 Livraison sous 48h depuis Grenoble · Fabriqué à la commande · Chocolat Valrhona artisanal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><a href="/">kookifonk.fr</a> · Snacks fonctionnels artisanaux · Grenoble 🏔️</p>
+    <p style="margin-top:.4rem">KookifonK SAS · SIREN 988 708 657 · 9 Avenue Paul Cocat, 38100 Grenoble</p>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+document.getElementById('btn-cycle').addEventListener('click', async () => {
+  try {
+    const r = await fetch('https://kookifonk-checkout.kookifonk.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ priceId: 'PRICE_ID_PACK_CYCLE_A_CREER', quantity: 1 })
+    });
+    const { url } = await r.json();
+    if (url) window.location.href = url;
+  } catch(e) {
+    alert('Erreur lors du paiement. Réessaie dans un instant.');
+  }
+});
+</script>
+</body>
+</html>

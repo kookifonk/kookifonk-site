@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Protocole Récup · Récup Night · KookifonK</title>
+<meta name="description" content="Le protocole de récupération sportive sur 3 semaines. Magnésium bisglycinate, L-Glutamine, Reishi.">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FDF8F0;--cream-d:#F5ECD8;--choco:#2C1810;--choco-m:#5C3D2E;
+  --caramel:#A0522D;--honey:#D4873E;--honey-l:#F0C070;--terra:#C4622D;--terra-d:#A04820;
+  --warm-gray:#8A7A70;--border:#E2CCAA;--text:#2C1810;--text-m:#6B5040;--text-l:#A08070;
+  --recup:#5A3A8A;--recup-l:#8060B8;--recup-bg:#F2EEF8;
+  --lait:#A07830;--lait-bg:#FDF5E0;
+  --ff-head:'Fraunces',Georgia,serif;--ff-body:'DM Sans',system-ui,sans-serif;
+  --radius-sm:8px;--radius:16px;--radius-lg:28px;
+  --shadow:0 4px 24px rgba(44,24,16,.08);--shadow-lg:0 12px 48px rgba(44,24,16,.14);--t:.25s ease;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-body);background:var(--cream);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.container{max-width:1000px;margin:0 auto;padding:0 2rem}
+.container-n{max-width:720px;margin:0 auto;padding:0 2rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--ff-body);font-size:.95rem;font-weight:600;padding:.9rem 2rem;border-radius:100px;border:2px solid transparent;cursor:pointer;transition:all var(--t);white-space:nowrap;text-decoration:none}
+.btn-p{background:var(--terra);color:#fff;border-color:var(--terra);box-shadow:0 4px 16px rgba(196,98,45,.3)}
+.btn-p:hover{background:var(--terra-d);transform:translateY(-1px)}
+.btn-lg{padding:1.1rem 2.5rem;font-size:1.05rem}
+.btn-full{width:100%;justify-content:center}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.9rem 0;transition:all var(--t)}
+nav.scrolled{background:rgba(253,248,240,.95);backdrop-filter:blur(12px);box-shadow:0 2px 20px rgba(44,24,16,.08);padding:.65rem 0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--ff-head);font-size:1.4rem;font-weight:900;color:var(--choco)}
+.nav-logo span{color:var(--terra)}
+.nav-back{font-size:.85rem;font-weight:500;color:var(--text-m);padding:.4rem .9rem;border-radius:100px;transition:all var(--t)}
+.nav-back:hover{background:var(--cream-d);color:var(--choco)}
+.divider{height:1px;background:var(--border)}
+.label{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);margin-bottom:1rem}
+.s{padding:5rem 0}
+h2{font-family:var(--ff-head);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:var(--choco);margin-bottom:1.2rem}
+h2 em{font-style:italic;color:var(--recup-l);font-weight:700}
+.intro{font-size:1rem;color:var(--text-m);line-height:1.75;max-width:560px;margin-bottom:2.5rem}
+.hero{min-height:100vh;padding:120px 0 80px;display:flex;align-items:center;background:linear-gradient(160deg,var(--cream) 0%,var(--recup-bg) 100%)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--recup);background:var(--recup-bg);border:1px solid rgba(90,58,138,.2);padding:.4rem 1rem;border-radius:100px;margin-bottom:1.5rem}
+.hero h1{font-family:var(--ff-head);font-size:clamp(2.8rem,5vw,4.2rem);font-weight:900;line-height:1.05;letter-spacing:-.02em;color:var(--choco);margin-bottom:1.2rem}
+.hero h1 em{font-style:italic;color:var(--recup-l)}
+.hero-sub{font-size:1.05rem;color:var(--text-m);line-height:1.75;margin-bottom:2rem}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:2.5rem}
+.pill{font-size:.82rem;font-weight:600;padding:.5rem 1.1rem;border-radius:100px}
+.pill-v{background:var(--recup-bg);color:var(--recup);border:1px solid rgba(90,58,138,.2)}
+.pill-l{background:var(--lait-bg);color:var(--lait);border:1px solid rgba(160,120,48,.2)}
+.hero-card{background:var(--choco);border-radius:var(--radius-lg);padding:2.5rem;color:#fff;box-shadow:var(--shadow-lg)}
+.hero-card h3{font-family:var(--ff-head);font-size:1.05rem;font-weight:700;margin-bottom:1.5rem;color:var(--honey-l)}
+.vr{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.vr:last-child{border:none}
+.vr-n{font-size:.88rem;font-weight:500;color:rgba(255,255,255,.85)}
+.vr-d{font-size:.75rem;color:var(--honey);margin-top:.1rem}
+.tag{font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.18rem .5rem;border-radius:100px}
+.tag-v{background:rgba(90,58,138,.25);color:#B090E8}
+.tag-l{background:rgba(160,120,48,.2);color:var(--honey-l)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:640px){.two{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.8rem;box-shadow:var(--shadow)}
+.card-label{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.4rem;padding-bottom:.8rem;border-bottom:2px solid}
+.card-label.v{color:var(--recup);border-color:var(--recup-bg)}
+.card-label.l{color:var(--lait);border-color:var(--lait-bg)}
+.ai{margin-bottom:1.4rem}.ai:last-child{margin-bottom:0}
+.ai-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.25rem}
+.ai-name{font-weight:700;font-size:.95rem;color:var(--choco)}
+.ai-dose{font-size:.78rem;font-weight:600;color:var(--caramel);margin-bottom:.3rem}
+.ai-desc{font-size:.85rem;color:var(--text-m);line-height:1.6}
+.ttag{font-size:.68rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.18rem .5rem;border-radius:100px}
+.ttag-v{background:var(--recup-bg);color:var(--recup)}
+.ttag-l{background:var(--lait-bg);color:var(--lait)}
+.tl{display:flex;flex-direction:column;gap:.9rem}
+.tl-item{display:grid;grid-template-columns:140px 1fr;gap:1.5rem;align-items:start;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem 1.5rem;box-shadow:var(--shadow)}
+.tl-item.feat{border-color:rgba(90,58,138,.3);background:var(--recup-bg)}
+.tl-item.dim{opacity:.7}
+.tl-w{font-family:var(--ff-head);font-size:1rem;font-weight:700;color:var(--choco)}
+.tl-f{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:.2rem}
+.tl-f.v{color:var(--recup)}.tl-f.m{color:var(--text-l)}
+.tl-title{font-weight:700;font-size:.93rem;margin-bottom:.3rem;color:var(--choco)}
+.tl-desc{font-size:.85rem;color:var(--text-m);line-height:1.6}
+.tl-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.65rem}
+.tl-t{font-size:.7rem;font-weight:600;padding:.16rem .52rem;border-radius:100px;background:var(--cream-d);color:var(--caramel);border:1px solid var(--border)}
+.tl-t.v{background:var(--recup-bg);color:var(--recup);border-color:rgba(90,58,138,.2)}
+.profils{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:640px){.profils{grid-template-columns:1fr}}
+.p-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow)}
+.p-icon{font-size:1.9rem;margin-bottom:.7rem}
+.p-title{font-weight:700;font-size:.93rem;color:var(--choco);margin-bottom:.35rem}
+.p-desc{font-size:.83rem;color:var(--text-m);line-height:1.6}
+.pack-bg{background:var(--choco);padding:6rem 0}
+.pack-box{max-width:480px;margin:0 auto;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius-lg);padding:3rem 2.5rem;text-align:center}
+.pk-l{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--honey);margin-bottom:1rem}
+.pk-t{font-family:var(--ff-head);font-size:2.4rem;font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:.5rem}
+.pk-s{font-size:.9rem;color:rgba(255,255,255,.5);margin-bottom:2rem}
+.pk-items{text-align:left;margin-bottom:2rem}
+.pk-i{display:flex;align-items:flex-start;gap:.65rem;font-size:.88rem;color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.pk-i::before{content:'✓';color:var(--honey);font-weight:700;flex-shrink:0}
+.pk-price{font-family:var(--ff-head);font-size:3.2rem;font-weight:900;color:#fff;letter-spacing:-.03em}
+.pk-price span{font-size:1rem;font-weight:400;color:rgba(255,255,255,.4);font-family:var(--ff-body)}
+.pk-orig{font-size:.82rem;color:rgba(255,255,255,.3);text-decoration:line-through;margin:.2rem 0 1.8rem}
+.pk-code{font-size:.8rem;color:var(--honey-l);margin-top:1rem}
+.pk-ship{font-size:.75rem;color:rgba(255,255,255,.3);margin-top:.5rem}
+footer{padding:3rem 0;border-top:1px solid var(--border);text-align:center}
+footer p{font-size:.82rem;color:var(--text-l)}
+footer a{color:var(--terra)}
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr}.hero-card{display:none}
+  .hero{padding:100px 0 60px}.s{padding:3.5rem 0}.tl-item{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Kookifonk<span>.</span></a>
+      <a href="/recup-night.html" class="nav-back">← Récup Night</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge">🌙 Protocole Récupération Sportive</div>
+        <h1>La récup<br>se passe<br><em>la nuit.</em></h1>
+        <p class="hero-sub">70% de la reconstruction musculaire se passe pendant le sommeil. Récup Night optimise chaque nuit qui suit un effort intense — dès la première nuit et sur 3 semaines.</p>
+        <div class="hero-pills">
+          <span class="pill pill-v">🌙 Dès la 1ère nuit · Magnésium aigu</span>
+          <span class="pill pill-l">📅 2–3 semaines · Reconstruction profonde</span>
+        </div>
+        <a href="#pack" class="btn btn-p btn-lg">Voir le Pack Protocole Récup →</a>
+      </div>
+      <div class="hero-card">
+        <h3>Les actifs de Récup Night</h3>
+        <div class="vr"><div><div class="vr-n">Magnésium bisglycinate</div><div class="vr-d">300 mg · 28% absorption</div></div><span class="tag tag-v">Immédiat</span></div>
+        <div class="vr"><div><div class="vr-n">Valrhona Lait</div><div class="vr-d">Phase 1 · Sans caféine</div></div><span class="tag tag-v">T+15 min</span></div>
+        <div class="vr"><div><div class="vr-n">L-Glutamine</div><div class="vr-d">3 000 mg</div></div><span class="tag tag-l">Cumulatif</span></div>
+        <div class="vr"><div><div class="vr-n">Reishi 30%</div><div class="vr-d">800 mg · titré</div></div><span class="tag tag-l">Cumulatif</span></div>
+        <div class="vr"><div><div class="vr-n">Cerise Montmorency</div><div class="vr-d">800 mg</div></div><span class="tag tag-l">Sem. 1–2</span></div>
+        <div class="vr"><div><div class="vr-n">Zinc bisglycinate</div><div class="vr-d">15 mg</div></div><span class="tag tag-v">Immédiat</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="s">
+  <div class="container">
+    <div class="label">Comment ça fonctionne</div>
+    <h2>Deux vitesses de récupération,<br><em>un seul biscuit.</em></h2>
+    <p class="intro">Récup Night contient des actifs à effet immédiat — tu les ressens dès la première nuit. Et des actifs cumulatifs qui construisent une récupération profonde sur 2 à 3 semaines.</p>
+    <div class="two">
+      <div class="card">
+        <div class="card-label v">🌙 Actifs immédiats · Dès la 1ère nuit</div>
+        <div class="ai">
+          <div class="ai-head"><div class="ai-name">Magnésium bisglycinate</div><span class="ttag ttag-v">Nuit 1</span></div>
+          <div class="ai-dose">300 mg · forme bisglycinate</div>
+          <div class="ai-desc">Relaxation musculaire, prévention des crampes nocturnes. La forme bisglycinate est absorbée à 28% vs 4% pour l'oxyde. Effet dès la première nuit.</div>
+        </div>
+        <div class="ai">
+          <div class="ai-head"><div class="ai-name">Valrhona Lait</div><span class="ttag ttag-v">T+15 min</span></div>
+          <div class="ai-dose">Phase 1 · Libération immédiate</div>
+          <div class="ai-desc">Les actifs liposolubles passent dans le sang via les phospholipides du cacao en 15 min. Conçu pour le soir — sans caféine.</div>
+        </div>
+        <div class="ai">
+          <div class="ai-head"><div class="ai-name">Zinc bisglycinate</div><span class="ttag ttag-v">Nuit 1</span></div>
+          <div class="ai-dose">15 mg · forme bisglycinate</div>
+          <div class="ai-desc">Soutien immunitaire post-effort, synthèse protéique. Forme hautement biodisponible, absorbée même en état de fatigue.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label l">📅 Actifs cumulatifs · 2–3 semaines</div>
+        <div class="ai">
+          <div class="ai-head"><div class="ai-name">L-Glutamine</div><span class="ttag ttag-l">Semaines 2–3</span></div>
+          <div class="ai-dose">3 000 mg</div>
+          <div class="ai-desc">Réparation de la muqueuse intestinale stressée par l'effort. Immunité post-entraînement. Effets profonds après 2 semaines de prise régulière.</div>
+        </div>
+        <div class="ai">
+          <div class="ai-head"><div class="ai-name">Reishi 30%</div><span class="ttag ttag-l">Semaines 2–3</span></div>
+          <div class="ai-dose">800 mg · titré 30%</div>
+          <div class="ai-desc">Modulation immunitaire, réduction de l'inflammation systémique post-effort. Effet documenté sur 2–3 semaines de prise continue.</div>
+        </div>
+        <div class="ai">
+          <div class="ai-head"><div class="ai-name">Cerise Montmorency</div><span class="ttag ttag-l">Semaines 1–2</span></div>
+          <div class="ai-dose">800 mg</div>
+          <div class="ai-desc">Anti-DOMS documenté. Réduction des douleurs musculaires d'apparition retardée. Études solides sur 5–7 jours de prise.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="s">
+  <div class="container-n">
+    <div class="label">Le protocole</div>
+    <h2>3 semaines <em>autour d'un bloc</em> d'entraînement.</h2>
+    <p class="intro">1 biscuit après chaque séance intense — pas tous les soirs, uniquement après les efforts qui demandent une vraie récupération.</p>
+    <div class="tl">
+      <div class="tl-item feat">
+        <div><div class="tl-w">Semaine 1</div><div class="tl-f v">3–4× après séance</div></div>
+        <div>
+          <div class="tl-title">Initiation — effets immédiats visibles</div>
+          <div class="tl-desc">Dès les premières nuits : moins de crampes nocturnes, sommeil plus récupérateur. Le Magnésium agit immédiatement. La Cerise Montmorency commence à réduire les DOMS.</div>
+          <div class="tl-tags"><span class="tl-t v">Magnésium ✓</span><span class="tl-t">Cerise début</span></div>
+        </div>
+      </div>
+      <div class="tl-item feat">
+        <div><div class="tl-w">Semaine 2</div><div class="tl-f v">3–4× après séance</div></div>
+        <div>
+          <div class="tl-title">Construction — récupération profonde</div>
+          <div class="tl-desc">La L-Glutamine commence à réparer la muqueuse intestinale stressée par l'effort. Le Reishi démarre sa modulation immunitaire. Moins de fatigue résiduelle entre les séances.</div>
+          <div class="tl-tags"><span class="tl-t v">L-Glutamine</span><span class="tl-t">Reishi début</span><span class="tl-t v">Anti-DOMS ✓</span></div>
+        </div>
+      </div>
+      <div class="tl-item feat">
+        <div><div class="tl-w">Semaine 3</div><div class="tl-f v">3–4× après séance</div></div>
+        <div>
+          <div class="tl-title">Plein effet — récupération systémique</div>
+          <div class="tl-desc">Tous les actifs sont à leur niveau optimal. L'inflammation post-effort est mieux régulée. Tu encaisses mieux les blocs d'entraînement intensifs.</div>
+          <div class="tl-tags"><span class="tl-t v">Reishi ✓</span><span class="tl-t v">L-Glutamine ✓</span><span class="tl-t v">Immunité ✓</span></div>
+        </div>
+      </div>
+      <div class="tl-item dim">
+        <div><div class="tl-w">Jours de repos</div><div class="tl-f m">Optionnel</div></div>
+        <div>
+          <div class="tl-title">Pas obligatoire les jours de repos</div>
+          <div class="tl-desc">Récup Night est conçu pour suivre les efforts intenses, pas pour être pris quotidiennement sans effort associé.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="s" style="background:var(--cream-d)">
+  <div class="container">
+    <div class="label">Pour qui</div>
+    <h2>Quel sportif <em>es-tu ?</em></h2>
+    <div class="profils">
+      <div class="p-card"><div class="p-icon">🏃</div><div class="p-title">Traileur / Coureur</div><div class="p-desc">Après chaque sortie longue ou trail avec D+. Les DOMS sur les descentes sont la cible principale.</div></div>
+      <div class="p-card" style="border-color:rgba(90,58,138,.25)"><div class="p-icon">🏋️</div><div class="p-title">Pratiquant de muscu</div><div class="p-desc">Après une séance intensive hypertrophie. La reconstruction musculaire se passe la nuit — pas pendant l'effort.</div></div>
+      <div class="p-card"><div class="p-icon">🚴</div><div class="p-title">Cycliste / Randonneur</div><div class="p-desc">Après une sortie 3h+ ou une journée en montagne. Jambes lourdes et muscles sollicités bénéficient du protocole.</div></div>
+      <div class="p-card"><div class="p-icon">⚽</div><div class="p-title">Sportif de compétition</div><div class="p-desc">Blocs rapprochés. L'immunité, la fatigue neuro et l'inflammation sont les 3 cibles de Récup Night.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="pack-bg" id="pack">
+  <div class="container">
+    <div class="pack-box">
+      <div class="pk-l">Pack dédié</div>
+      <div class="pk-t">Pack Protocole Récup</div>
+      <div class="pk-s">12 biscuits Récup Night · 3 semaines de récupération sportive complète</div>
+      <div class="pk-items">
+        <div class="pk-i">12 biscuits Récup Night · Valrhona Lait Grand Cru</div>
+        <div class="pk-i">Magnésium bisglycinate · L-Glutamine · Reishi 30%</div>
+        <div class="pk-i">Cerise Montmorency · Zinc bisglycinate · L-Théanine</div>
+        <div class="pk-i">Sans caféine · Conçu pour le soir</div>
+      </div>
+      <div class="pk-price">46 € <span>· livraison en sus</span></div>
+      <div class="pk-orig">58,80 € au détail — économie de 22%</div>
+      <button class="btn btn-p btn-lg btn-full" id="btn-r">Commander le Pack Protocole Récup</button>
+      <div class="pk-code">🎟️ Code BIENVENUE10 → −10% sur ta première commande</div>
+      <div class="pk-ship">📦 Livraison 48h · Fabriqué à la commande · Grenoble</div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="container"><p><a href="/">kookifonk.fr</a> · Snacks fonctionnels artisanaux · KookifonK SAS · Grenoble 🏔️</p></div></footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+document.getElementById('btn-r').addEventListener('click',async()=>{
+  try{
+    const r=await fetch('https://kookifonk-checkout.kookifonk.workers.dev',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({priceId:'PRICE_ID_PACK_RECUP_A_CREER',quantity:1})});
+    const{url}=await r.json();
+    if(url)window.location.href=url;
+  }catch(e){alert('Erreur de connexion au paiement. Réessaie dans un instant.');}
+});
+</script>
+</body>
+</html>
