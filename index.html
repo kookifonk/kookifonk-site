@@ -56,7 +56,7 @@
   .btn-full { width: 100%; justify-content: center; }
 
   /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 0; transition: all var(--t); }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 0; transition: all var(--t); background: rgba(253,248,240,.97); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(44,24,16,.08); }
   nav.scrolled { background: rgba(253,248,240,.95); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(44,24,16,.08); padding: .65rem 0; }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
   .nav-logo { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 900; color: var(--choco); letter-spacing: -.02em; }
@@ -95,7 +95,7 @@
   .hero-proof-text strong { color: var(--choco); }
 
   /* Hero image */
-  .hero-visual { position: relative; overflow: hidden; min-width: 0; max-width: 100%; }
+  .hero-visual { position: relative; min-width: 0; max-width: 100%; }
   .hero-img-wrap { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 2px solid var(--border); width: 100%; background: var(--cream-d); }
   .hero-img-wrap img { width: 100%; height: auto; max-height: 320px; object-fit: contain; object-position: center; display: block; }
   .hero-img-caption { position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%); background: var(--choco); color: var(--honey); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: .45rem 1.4rem; border-radius: 100px; white-space: nowrap; box-shadow: var(--shadow); }
@@ -138,24 +138,18 @@
   /* PRODUITS */
   .products-section { background: var(--cream-d); }
   .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 4rem; }
-
   .product-card { background: var(--warm-white); border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid var(--border); transition: all var(--t); cursor: pointer; display: flex; flex-direction: column; }
   .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-
-  /* Photo produit */
   .product-img { width: 100%; height: 200px; object-fit: cover; object-position: center; display: block; }
   .product-img-placeholder { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
-
   .product-card-header { padding: 1.2rem 1.5rem .8rem; border-bottom: 1px solid var(--border); }
   .product-moment { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .4rem; }
   .product-card-name { font-family: var(--ff-head); font-size: 1.3rem; font-weight: 800; color: var(--choco); margin-bottom: .2rem; }
   .product-card-tagline { font-size: .82rem; color: var(--text-m); }
-
   .product-card-body { padding: 1.2rem 1.5rem; flex: 1; }
   .product-benefit { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: .65rem; font-size: .84rem; color: var(--text-m); }
   .product-benefit::before { content: '✓'; color: var(--sage); font-weight: 700; flex-shrink: 0; }
   .product-key-actifs { margin-top: 1rem; padding-top: .9rem; border-top: 1px solid var(--border); font-size: .72rem; font-weight: 600; color: var(--text-l); letter-spacing: .03em; }
-
   .product-cta { margin: 0 1.5rem 1.5rem; }
 
   /* TÉMOIGNAGES */
@@ -301,14 +295,14 @@
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">KookifonK<span>.</span></a>
       <div class="nav-links" id="navLinks">
-  <a href="produits.html">Nos snacks</a>
-  <a href="comment.html">Double Cinétique™</a>
-  <a href="protocole-trail.html">🏔️ Protocole Trail</a>
-  <a href="protocole-recup.html">🌙 Protocole Récup</a>
-  <a href="protocole-cycle.html">🌸 Protocole Cycle</a>
-  <a href="contact.html">Contact</a>
-  <a href="panier.html" class="nav-cta">Commander →</a>
-</div>
+        <a href="produits.html">Nos snacks</a>
+        <a href="comment.html">Double Cinétique™</a>
+        <a href="protocole-trail.html">🏔️ Protocole Trail</a>
+        <a href="protocole-recup.html">🌙 Protocole Récup</a>
+        <a href="protocole-cycle.html">🌸 Protocole Cycle</a>
+        <a href="contact.html">Contact</a>
+        <a href="panier.html" class="nav-cta">Commander →</a>
+      </div>
       <div class="nav-burger" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </div>
@@ -343,7 +337,6 @@
   <div class="container">
     <div class="hero-inner">
       <div class="hero-content">
-        <div class="hero-tag">🏔️ Artisanal · Grenoble · Double Cinétique™</div>
         <h1>Le bon biscuit.<br><em>Au bon moment.</em><br>Pas une cure.</h1>
         <p class="hero-sub">6 snacks fonctionnels artisanaux, chacun conçu pour un moment précis. Énergie, focus, endurance, récupération, sommeil, cycle féminin. Vous le prenez quand vous en avez besoin — pas tous les jours par obligation.</p>
         <div class="situ-badge">⚡ Outil situationnel · Prenez-le quand ça compte</div>
@@ -362,6 +355,7 @@
           <img src="images/produits/hero-gamme.png" alt="La gamme complète KookifonK — 6 snacks fonctionnels artisanaux" loading="eager">
         </div>
         <div class="hero-img-caption">6 snacks · 6 moments · 1 seul chocolat</div>
+        <div class="hero-tag" style="margin-top:2rem; display:flex; justify-content:center;">🏔️ Artisanal · Grenoble · Double Cinétique™</div>
       </div>
     </div>
   </div>
@@ -680,8 +674,8 @@
       <h2>Commencez au format<br>qui vous <em>convient</em></h2>
       <p class="section-sub">Pas d'abonnement forcé. Pas de cure imposée. Vous choisissez.</p>
     </div>
-    <div class="offres-grid" style="grid-template-columns:repeat(4,1fr);">
-      <div class="offre-card">
+    <div class="offres-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="offre-card" style="grid-column:1/2; margin-left:auto; width:100%;">
         <div class="offre-icon">🍪</div>
         <div class="offre-name">À l'unité</div>
         <p class="offre-desc">1 snack pour tester le moment qui vous correspond.</p>
@@ -698,21 +692,31 @@
         <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.82rem; padding:.65rem 1rem; margin-top:auto;">Commander</a>
       </div>
       <div class="offre-card featured">
-        <div class="offre-featured-badge">✦ Le plus populaire</div>
-        <div class="offre-icon">🎁</div>
-        <div class="offre-name">Pack Découverte</div>
-        <p class="offre-desc">1 de chaque formule. 6 snacks, 6 moments. La façon parfaite de commencer.</p>
-        <div class="offre-price">27<sup style="font-size:.9rem;">€</sup></div>
-        <div class="offre-per">4,50€ / snack · tous les 6</div>
-        <a href="panier.html" class="btn btn-white btn-full" style="font-size:.82rem; margin-top:auto;">Commander</a>
+        <div class="offre-featured-badge">🏔️ Protocole</div>
+        <div class="offre-icon">🏔️</div>
+        <div class="offre-name">Pack Protocole Trail</div>
+        <p class="offre-desc">8 biscuits Alpes Endurance. 3 semaines de préparation + jour J. Le protocole complet.</p>
+        <div class="offre-price">32<sup style="font-size:.9rem;">€</sup></div>
+        <div class="offre-per">−18% vs l'unité · Livraison en sus</div>
+        <a href="protocole-trail.html" class="btn btn-white btn-full" style="font-size:.82rem; margin-top:auto;">Voir le protocole →</a>
       </div>
-      <div class="offre-card" style="border-color:rgba(155,74,107,.3);">
+      <div class="offre-card featured">
+        <div class="offre-featured-badge">🌙 Protocole</div>
+        <div class="offre-icon">🌙</div>
+        <div class="offre-name">Pack Protocole Récup</div>
+        <p class="offre-desc">12 biscuits Récup Night. 3 semaines de récupération sportive complète.</p>
+        <div class="offre-price">46<sup style="font-size:.9rem;">€</sup></div>
+        <div class="offre-per">−22% vs l'unité · Livraison en sus</div>
+        <a href="protocole-recup.html" class="btn btn-white btn-full" style="font-size:.82rem; margin-top:auto;">Voir le protocole →</a>
+      </div>
+      <div class="offre-card featured">
+        <div class="offre-featured-badge">🌸 Protocole</div>
         <div class="offre-icon">🌸</div>
-        <div class="offre-name">Pack Sensoria</div>
-        <p class="offre-desc">7 biscuits Sensoria — 1 paquet = 1 cycle complet. Phase lutéale.</p>
-        <div class="offre-price">28<sup style="font-size:.9rem;">€</sup></div>
-        <div class="offre-per">4€ / biscuit · 1 cycle entier</div>
-        <a href="panier.html" class="btn btn-outline btn-full" style="font-size:.82rem; padding:.65rem 1rem; margin-top:auto;">Commander</a>
+        <div class="offre-name">Pack Protocole Cycle</div>
+        <p class="offre-desc">14 biscuits Sensoria. 2 cycles complets — là où l'effet est documenté.</p>
+        <div class="offre-price">52<sup style="font-size:.9rem;">€</sup></div>
+        <div class="offre-per">−24% vs l'unité · Livraison en sus</div>
+        <a href="protocole-cycle.html" class="btn btn-white btn-full" style="font-size:.82rem; margin-top:auto;">Voir le protocole →</a>
       </div>
     </div>
   </div>
@@ -799,11 +803,12 @@
         </ul>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Contact</div>
+        <div class="footer-col-title">Protocoles</div>
         <ul>
+          <li><a href="protocole-trail.html">🏔️ Protocole Trail</a></li>
+          <li><a href="protocole-recup.html">🌙 Protocole Récup</a></li>
+          <li><a href="protocole-cycle.html">🌸 Protocole Cycle</a></li>
           <li><a href="panier.html">Commander</a></li>
-          <li><a href="/cdn-cgi/l/email-protection#0878697b6b69644863676763616e676663266e7a"><span class="__cf_email__" data-cfemail="3d4d5c4e5e5c517d56525256545b525356135b4f">[email&#160;protected]</span></a></li>
-          <li><a href="#">Grenoble, Isère 🏔️</a></li>
         </ul>
       </div>
     </div>
@@ -814,7 +819,17 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   window.addEventListener('scroll', function() {
     var nav = document.getElementById('nav');
-    if (nav) nav.classList.t
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  function toggleMenu() {
+    var links = document.getElementById('navLinks');
+    if (links) links.classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
