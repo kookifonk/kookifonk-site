@@ -41,6 +41,18 @@
   .nav-links a { font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); }
   .nav-links a:hover { background: var(--cream-d); color: var(--choco); }
   .nav-links a.active { color: var(--terra); font-weight: 600; }
+  /* DROPDOWN */
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-btn { font-family: var(--ff-body); font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: .3rem; border: none; background: none; }
+  .nav-dropdown-btn::after { content: '▾'; font-size: .65rem; color: var(--text-l); transition: transform var(--t); }
+  .nav-dropdown:hover .nav-dropdown-btn { background: var(--cream-d); color: var(--choco); }
+  .nav-dropdown:hover .nav-dropdown-btn::after { transform: rotate(180deg); }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(-6px); background: var(--warm-white); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: .5rem; min-width: 200px; opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s; z-index: 200; }
+  .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .nav-dropdown-menu a { display: flex; align-items: center; gap: .6rem; font-size: .83rem; font-weight: 500; color: var(--text-m); padding: .6rem .9rem; border-radius: 10px; transition: all var(--t); white-space: nowrap; }
+  .nav-dropdown-menu a:hover { background: var(--cream-d); color: var(--choco); }
+  .nav-dropdown-menu a span { font-size: .75rem; color: var(--text-l); }
+  .nav-dropdown-divider { height: 1px; background: var(--border); margin: .3rem .5rem; }
   .nav-cta { background: var(--terra) !important; color: #fff !important; font-weight: 600 !important; }
   .nav-cta:hover { background: var(--terra-d) !important; }
   .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: .4rem; }
@@ -166,10 +178,18 @@
       <div class="nav-links" id="navLinks">
         <a href="produits.html" class="active">Nos snacks</a>
         <a href="comment.html">Double Cinétique™</a>
-        <a href="protocole-trail.html">🏔️ Protocole Trail</a>
-        <a href="protocole-recup.html">🌙 Protocole Récup</a>
-        <a href="protocole-cycle.html">🌸 Protocole Cycle</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn">Nos protocoles</button>
+          <div class="nav-dropdown-menu">
+            <a href="protocole-trail.html">🏔️ Protocole Trail <span>Alpes Endurance</span></a>
+            <div class="nav-dropdown-divider"></div>
+            <a href="protocole-recup.html">🌙 Protocole Récup <span>Récup Night</span></a>
+            <div class="nav-dropdown-divider"></div>
+            <a href="protocole-cycle.html">🌸 Protocole Cycle <span>Sensoria</span></a>
+          </div>
+        </div>
         <a href="contact.html">Contact</a>
+        <a href="apropos.html">À propos</a>
         <a href="panier.html" class="nav-cta">Commander →</a>
       </div>
       <div class="nav-burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
