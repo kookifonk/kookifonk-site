@@ -38,9 +38,20 @@
   .nav-logo { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 900; color: var(--choco); letter-spacing: -.02em; }
   .nav-logo span { color: var(--terra); }
   .nav-links { display: flex; align-items: center; gap: .25rem; }
-  .nav-links a { font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); }
-  .nav-links a:hover { background: var(--cream-d); color: var(--choco); }
-  .nav-links a.active { color: var(--terra); font-weight: 600; }
+  .nav-links > a { font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); }
+  .nav-links > a:hover { background: var(--cream-d); color: var(--choco); }
+  .nav-links > a.active { color: var(--terra); font-weight: 600; }
+  .nav-dropdown { position: relative; display: flex; align-items: center; }
+  .nav-dropdown-btn { font-family: var(--ff-body); font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: .3rem; border: none; background: none; line-height: 1; }
+  .nav-dropdown-btn::after { content: '▾'; font-size: .6rem; color: var(--text-l); transition: transform var(--t); display: inline-block; }
+  .nav-dropdown:hover .nav-dropdown-btn { background: var(--cream-d); color: var(--choco); }
+  .nav-dropdown:hover .nav-dropdown-btn::after { transform: rotate(180deg); }
+  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-4px); background: var(--warm-white); border: 1.5px solid var(--border); border-radius: 14px; box-shadow: 0 12px 40px rgba(44,24,16,.14); padding: .5rem; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s; z-index: 999; pointer-events: none; }
+  .nav-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+  .nav-dropdown-menu a { display: flex; align-items: center; gap: .6rem; font-size: .84rem; font-weight: 500; color: var(--text-m); padding: .65rem .9rem; border-radius: 10px; transition: all var(--t); white-space: nowrap; text-decoration: none; background: none; }
+  .nav-dropdown-menu a:hover { background: var(--cream-d); color: var(--choco); }
+  .nav-dropdown-menu a .dd-sub { font-size: .72rem; color: var(--text-l); margin-left: auto; }
+  .nav-dropdown-divider { height: 1px; background: var(--border); margin: .25rem .5rem; }
   /* DROPDOWN */
   .nav-dropdown { position: relative; }
   .nav-dropdown-btn { font-family: var(--ff-body); font-size: .9rem; font-weight: 500; color: var(--text-m); padding: .45rem 1rem; border-radius: 100px; transition: all var(--t); white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: .3rem; border: none; background: none; }
@@ -177,19 +188,18 @@
       <a href="index.html" class="nav-logo">KookifonK<span>.</span></a>
       <div class="nav-links" id="navLinks">
         <a href="produits.html" class="active">Nos snacks</a>
-        <a href="comment.html">Double Cinétique™</a>
         <div class="nav-dropdown">
           <button class="nav-dropdown-btn">Nos protocoles</button>
           <div class="nav-dropdown-menu">
-            <a href="protocole-trail.html">🏔️ Protocole Trail <span>Alpes Endurance</span></a>
+            <a href="protocole-trail.html">🏔️ Protocole Trail <span class="dd-sub">Alpes Endurance</span></a>
             <div class="nav-dropdown-divider"></div>
-            <a href="protocole-recup.html">🌙 Protocole Récup <span>Récup Night</span></a>
+            <a href="protocole-recup.html">🌙 Protocole Récup <span class="dd-sub">Récup Night</span></a>
             <div class="nav-dropdown-divider"></div>
-            <a href="protocole-cycle.html">🌸 Protocole Cycle <span>Sensoria</span></a>
+            <a href="protocole-cycle.html">🌸 Protocole Cycle <span class="dd-sub">Sensoria</span></a>
           </div>
         </div>
-        <a href="contact.html">Contact</a>
         <a href="apropos.html">À propos</a>
+        <a href="contact.html">Contact</a>
         <a href="panier.html" class="nav-cta">Commander →</a>
       </div>
       <div class="nav-burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
