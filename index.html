@@ -76,7 +76,7 @@
   .nav-dropdown.open .nav-dropdown-btn { background: var(--cream-d); color: var(--choco); }
   .nav-dropdown:hover .nav-dropdown-btn::after,
   .nav-dropdown.open .nav-dropdown-btn::after { transform: rotate(180deg); }
-  .nav-dropdown-menu { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-4px); background: var(--warm-white); border: 1.5px solid var(--border); border-radius: 14px; box-shadow: 0 12px 40px rgba(44,24,16,.14); padding: .5rem; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s; z-index: 999; pointer-events: none; }
+  .nav-dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(-4px); background: var(--warm-white); border: 1.5px solid var(--border); border-radius: 14px; box-shadow: 0 12px 40px rgba(44,24,16,.14); padding: .5rem; min-width: 210px; opacity: 0; visibility: hidden; transition: opacity .2s ease, transform .2s ease, visibility .2s; z-index: 999; pointer-events: none; }
   .nav-dropdown:hover .nav-dropdown-menu,
   .nav-dropdown.open .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
   .nav-dropdown-menu a { display: flex; align-items: center; gap: .6rem; font-size: .84rem; font-weight: 500; color: var(--text-m); padding: .65rem .9rem; border-radius: 10px; transition: all var(--t); white-space: nowrap; text-decoration: none; background: none; border: none; }
@@ -314,7 +314,7 @@
       <div class="nav-links" id="navLinks">
         <a href="produits.html">Nos snacks</a>
         <div class="nav-dropdown">
-          <button class="nav-dropdown-btn">Nos protocoles</button>
+          <button class="nav-dropdown-btn" onclick="toggleDD(this)">Nos protocoles</button>
           <div class="nav-dropdown-menu">
             <a href="protocole-trail.html">🏔️ Protocole Trail <span class="dd-sub">Alpes Endurance</span></a>
             <div class="nav-dropdown-divider"></div>
@@ -858,20 +858,16 @@
     if (links) links.classList.toggle('open');
   }
 
-  // Dropdown click toggle
-  document.querySelectorAll('.nav-dropdown-btn').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var dropdown = btn.closest('.nav-dropdown');
-      var isOpen = dropdown.classList.contains('open');
-      // Ferme tous les dropdowns ouverts
-      document.querySelectorAll('.nav-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
-      if (!isOpen) dropdown.classList.add('open');
-    });
-  });
-  // Ferme au clic en dehors
-  document.addEventListener('click', function() {
-    document.querySelectorAll('.nav-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+  function toggleDD(btn) {
+    var dd = btn.parentElement;
+    var wasOpen = dd.classList.contains('open');
+    document.querySelectorAll('.nav-dropdown').forEach(function(d){ d.classList.remove('open'); });
+    if (!wasOpen) dd.classList.add('open');
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(function(d){ d.classList.remove('open'); });
+    }
   });
 </script>
 
