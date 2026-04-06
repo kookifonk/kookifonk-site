@@ -3,111 +3,282 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KookifonK · Commander</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Commander — KookifonK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--rust:#B85835;--dark:#1A1400;--bg:#F9F3EE;--white:#fff;--border:#E8DDD5;--muted:#888;--green:#2D7A52}
-body{font-family:'IBM Plex Mono',monospace;background:var(--bg);color:var(--dark);min-height:100vh}
-header{background:var(--dark);height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
-.logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--bg);text-decoration:none}
-.back{font-size:10px;color:rgba(255,255,255,.5);text-decoration:none;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.back:hover{color:#fff}
-.wrap{max-width:1100px;margin:0 auto;padding:28px 16px;display:grid;grid-template-columns:1fr 360px;gap:28px}
-h2{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-.section{margin-bottom:28px}
-.section-title{font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--rust);margin-bottom:10px}
-.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px}
-.product-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:13px;transition:all .15s;position:relative}
-.product-card:hover{border-color:var(--rust);box-shadow:0 2px 12px rgba(184,88,53,.12)}
-.product-card.in-cart{border-color:var(--rust);background:#FDF7F4}
-.pc-emoji{font-size:20px;margin-bottom:5px}
-.pc-name{font-size:10px;font-weight:700;line-height:1.3;margin-bottom:2px}
-.pc-choco{font-size:8px;color:var(--muted);margin-bottom:2px;font-style:italic}
-.pc-moment{font-size:8px;color:var(--rust);margin-bottom:6px;line-height:1.3}
-.pc-price{font-size:14px;font-weight:700;color:var(--rust);font-family:'Playfair Display',serif}
-.pc-qty{position:absolute;top:8px;right:8px;background:var(--rust);color:#fff;border-radius:50%;width:20px;height:20px;display:none;align-items:center;justify-content:center;font-size:10px;font-weight:700}
-.product-card.in-cart .pc-qty{display:flex}
-.pc-btns{display:flex;align-items:center;gap:6px;margin-top:8px}
-.pc-btn{background:transparent;border:1px solid var(--border);border-radius:3px;width:24px;height:24px;cursor:pointer;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--dark)}
-.pc-btn:hover{border-color:var(--rust);color:var(--rust)}
-.pc-qty-disp{font-size:12px;font-weight:700;min-width:16px;text-align:center}
-.pack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-.pack-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;cursor:pointer;transition:all .15s}
-.pack-card:hover{border-color:var(--rust);box-shadow:0 2px 12px rgba(184,88,53,.12)}
-.pack-card.in-cart{border-color:var(--rust);background:#FDF7F4}
-.pack-card.sensoria{border-color:rgba(155,74,107,.35)}
-.pack-card.sensoria:hover{border-color:rgb(155,74,107)}
-.pack-badge{display:inline-block;font-size:8px;background:var(--rust);color:#fff;padding:2px 7px;border-radius:20px;font-weight:700;letter-spacing:.06em;margin-bottom:6px}
-.pack-badge.rose{background:rgb(155,74,107)}
-.pack-name{font-size:12px;font-weight:700;margin-bottom:3px}
-.pack-desc{font-size:9px;color:var(--muted);margin-bottom:8px;line-height:1.4}
-.pack-price{font-size:16px;font-weight:900;color:var(--rust);font-family:'Playfair Display',serif}
-.pack-save{font-size:9px;color:var(--green);margin-left:6px;font-weight:700}
-.cart-panel{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:20px;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow-y:auto}
-.cart-empty{text-align:center;padding:28px 0;color:#ccc;font-size:12px}
-.cart-items{margin-bottom:14px}
-.cart-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
-.cart-item:last-child{border-bottom:none}
-.ci-price{font-size:12px;font-weight:700;color:var(--rust);white-space:nowrap}
-.ci-rm{background:none;border:none;color:#ccc;cursor:pointer;font-size:14px;padding:0 2px}
-.ci-rm:hover{color:#c0392b}
-.cart-sep{border:none;border-top:1px solid var(--border);margin:10px 0}
-.cart-row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px}
-.cart-row.total{font-size:14px;font-weight:700;margin-top:6px}
-.cart-row.total span:last-child{color:var(--rust);font-family:'Playfair Display',serif;font-size:18px}
-.checkout-btn{width:100%;background:var(--rust);color:#fff;border:none;border-radius:6px;padding:14px;font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .15s;margin-top:12px}
-.checkout-btn:hover{background:#9c4a28}
-.checkout-btn:disabled{opacity:.5;cursor:not-allowed}
-.security{text-align:center;margin-top:8px;font-size:9px;color:#bbb}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:10px 20px;border-radius:6px;font-size:11px;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
-.toast.show{opacity:1}
-@media(max-width:740px){.wrap{grid-template-columns:1fr}.cart-panel{position:static}.product-grid{grid-template-columns:repeat(2,1fr)}}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #FDF8F0; --cream-d: #F5ECD8; --warm-white: #FFFCF7;
+  --choco: #2C1810; --choco-m: #5C3D2E;
+  --honey: #D4873E; --honey-l: #F0C070;
+  --terra: #C4622D; --terra-d: #A04820;
+  --sage: #6B8F71; --rose: #9B4A6B;
+  --border: #E2CCAA; --text-m: #6B5040; --text-l: #A08070;
+  --ff-head: 'Fraunces', Georgia, serif;
+  --ff-body: 'DM Sans', system-ui, sans-serif;
+  --radius: 16px; --radius-lg: 24px;
+  --shadow: 0 4px 24px rgba(44,24,16,.08);
+  --shadow-lg: 0 12px 48px rgba(44,24,16,.14);
+  --t: .2s ease;
+}
+body { font-family: var(--ff-body); background: var(--cream); color: var(--choco); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+/* ── NAV ── */
+nav { background: var(--choco); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; position: sticky; top: 0; z-index: 100; }
+.nav-logo { font-family: var(--ff-head); font-size: 1.4rem; font-weight: 900; color: var(--cream); text-decoration: none; letter-spacing: -.02em; }
+.nav-logo span { color: var(--honey); }
+.nav-back { font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.5); text-decoration: none; letter-spacing: .06em; transition: color var(--t); display: flex; align-items: center; gap: .4rem; }
+.nav-back:hover { color: var(--honey); }
+
+/* ── LAYOUT ── */
+.page { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem 5rem; display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; align-items: start; }
+
+/* ── SECTION TITLES ── */
+.section { margin-bottom: 2.5rem; }
+.section-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--terra); margin-bottom: .6rem; display: block; }
+.section-title { font-family: var(--ff-head); font-size: 1.3rem; font-weight: 900; color: var(--choco); margin-bottom: 1.2rem; letter-spacing: -.01em; }
+
+/* ── PRODUCT CARDS ── */
+.product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; }
+
+.product-card {
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  position: relative;
+  transition: all var(--t);
+  cursor: default;
+}
+.product-card:hover { border-color: var(--honey); box-shadow: var(--shadow); transform: translateY(-2px); }
+.product-card.in-cart { border-color: var(--terra); background: rgba(196,98,45,.05); }
+
+.pc-emoji { font-size: 1.8rem; margin-bottom: .6rem; line-height: 1; }
+.pc-name { font-family: var(--ff-head); font-size: .95rem; font-weight: 700; color: var(--choco); margin-bottom: .2rem; line-height: 1.2; }
+.pc-choco { font-size: .72rem; color: var(--text-l); margin-bottom: .3rem; font-style: italic; }
+.pc-moment { font-size: .72rem; color: var(--terra); margin-bottom: .7rem; line-height: 1.4; font-weight: 500; }
+.pc-price { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 900; color: var(--choco); }
+
+/* Badge quantité */
+.pc-qty {
+  position: absolute; top: .7rem; right: .7rem;
+  background: var(--terra); color: #fff;
+  border-radius: 50%; width: 22px; height: 22px;
+  display: none; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 700;
+}
+.product-card.in-cart .pc-qty { display: flex; }
+
+/* Boutons +/- */
+.pc-btns { display: flex; align-items: center; gap: .5rem; margin-top: .8rem; }
+.pc-btn {
+  background: transparent; border: 1.5px solid var(--border);
+  border-radius: 8px; width: 28px; height: 28px;
+  cursor: pointer; font-size: 1rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--choco); transition: all var(--t); font-family: var(--ff-body);
+}
+.pc-btn:hover { border-color: var(--terra); color: var(--terra); background: rgba(196,98,45,.06); }
+.pc-qty-disp { font-size: .9rem; font-weight: 700; min-width: 18px; text-align: center; color: var(--choco); }
+
+/* ── PACK CARDS ── */
+.pack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; }
+
+.pack-card {
+  background: var(--choco);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  cursor: pointer;
+  transition: all var(--t);
+  position: relative;
+  overflow: hidden;
+}
+.pack-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(212,135,62,.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.pack-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--honey); }
+.pack-card.in-cart { border-color: var(--terra); }
+.pack-card.sensoria { background: linear-gradient(135deg, #2C1528, #1C1020); }
+.pack-badge {
+  display: inline-block; font-size: .62rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: var(--terra); color: #fff;
+  padding: .2rem .7rem; border-radius: 100px; margin-bottom: .7rem;
+}
+.pack-badge.rose { background: var(--rose); }
+.pack-name { font-family: var(--ff-head); font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .4rem; line-height: 1.2; }
+.pack-desc { font-size: .78rem; color: rgba(255,255,255,.5); margin-bottom: .9rem; line-height: 1.5; }
+.pack-price { font-family: var(--ff-head); font-size: 1.5rem; font-weight: 900; color: var(--honey-l); }
+.pack-save { font-size: .72rem; color: var(--sage); font-weight: 700; margin-left: .4rem; }
+
+/* ── PANIER STICKY ── */
+.cart-panel {
+  background: var(--warm-white);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem;
+  position: sticky;
+  top: 80px;
+  box-shadow: var(--shadow);
+}
+
+.cart-header { font-family: var(--ff-head); font-size: 1.2rem; font-weight: 900; color: var(--choco); margin-bottom: 1.2rem; display: flex; align-items: center; justify-content: space-between; }
+.cart-count-badge { background: var(--terra); color: #fff; border-radius: 100px; font-size: .72rem; font-weight: 700; padding: .15rem .6rem; font-family: var(--ff-body); }
+
+.cart-empty { text-align: center; padding: 2rem 0; color: var(--text-l); font-size: .88rem; line-height: 1.7; }
+.cart-empty-icon { font-size: 2.5rem; margin-bottom: .8rem; opacity: .4; }
+
+.cart-items { margin-bottom: 1rem; }
+.cart-item { display: flex; align-items: flex-start; gap: .8rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
+.cart-item:last-child { border-bottom: none; }
+.ci-info { flex: 1; }
+.ci-name { font-size: .88rem; font-weight: 600; color: var(--choco); margin-bottom: .15rem; }
+.ci-label { font-size: .72rem; color: var(--terra); font-weight: 600; }
+.ci-controls { display: flex; align-items: center; gap: .4rem; margin-top: .4rem; }
+.ci-ctrl { background: none; border: 1px solid var(--border); border-radius: 6px; width: 22px; height: 22px; cursor: pointer; font-size: .85rem; display: flex; align-items: center; justify-content: center; color: var(--choco); transition: all var(--t); font-family: var(--ff-body); }
+.ci-ctrl:hover { border-color: var(--terra); color: var(--terra); }
+.ci-qte { font-size: .82rem; font-weight: 700; min-width: 16px; text-align: center; }
+.ci-right { text-align: right; }
+.ci-price { font-family: var(--ff-head); font-size: .95rem; font-weight: 700; color: var(--terra); white-space: nowrap; }
+.ci-rm { background: none; border: none; color: var(--text-l); cursor: pointer; font-size: .85rem; padding: .1rem; transition: color var(--t); margin-top: .2rem; display: block; width: 100%; text-align: right; }
+.ci-rm:hover { color: var(--terra); }
+
+.cart-divider { border: none; border-top: 1px solid var(--border); margin: .9rem 0; }
+.cart-row { display: flex; justify-content: space-between; font-size: .85rem; color: var(--text-m); margin-bottom: .4rem; }
+.cart-row.total { font-size: 1rem; font-weight: 700; color: var(--choco); margin-top: .4rem; }
+.cart-row.total span:last-child { font-family: var(--ff-head); font-size: 1.3rem; color: var(--terra); }
+
+.checkout-btn {
+  width: 100%; background: var(--terra); color: #fff;
+  border: none; border-radius: 100px;
+  padding: 1rem 2rem; font-size: .95rem;
+  font-family: var(--ff-body); font-weight: 700;
+  cursor: pointer; transition: all var(--t);
+  margin-top: 1.2rem; display: flex; align-items: center; justify-content: center; gap: .5rem;
+  box-shadow: 0 4px 16px rgba(196,98,45,.3);
+}
+.checkout-btn:hover { background: var(--terra-d); transform: translateY(-1px); }
+.checkout-btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.security { text-align: center; margin-top: .7rem; font-size: .72rem; color: var(--text-l); line-height: 1.6; }
+
+/* Promo banner */
+.promo-banner {
+  background: rgba(212,135,62,.1);
+  border: 1px solid rgba(212,135,62,.25);
+  border-radius: 10px;
+  padding: .7rem 1rem;
+  font-size: .78rem;
+  color: var(--text-m);
+  margin-top: .8rem;
+  text-align: center;
+}
+.promo-banner strong { color: var(--terra); }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+  background: var(--choco); color: #fff;
+  padding: .75rem 1.5rem; border-radius: 100px;
+  font-size: .85rem; font-weight: 600;
+  opacity: 0; transition: opacity .3s;
+  pointer-events: none; z-index: 999;
+  white-space: nowrap;
+  box-shadow: 0 8px 32px rgba(44,24,16,.25);
+}
+.toast.show { opacity: 1; }
+
+/* ── PAGE HEADER ── */
+.page-header { padding: 2rem 0 0; }
+.page-header h1 { font-family: var(--ff-head); font-size: 1.8rem; font-weight: 900; color: var(--choco); letter-spacing: -.02em; margin-bottom: .4rem; }
+.page-header h1 em { font-style: italic; color: var(--terra); }
+.page-header p { font-size: .9rem; color: var(--text-m); margin-bottom: 2rem; }
+
+/* Indisponible */
+.unavail-note { font-size: .7rem; color: var(--text-l); margin-top: .5rem; font-style: italic; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .page { grid-template-columns: 1fr; }
+  .cart-panel { position: static; }
+  .pack-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 620px) {
+  nav { padding: 0 1.2rem; }
+  .page { padding: 1.5rem 1.2rem 4rem; gap: 1.5rem; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .pack-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<header>
-  <a href="/" class="logo">KookifonK</a>
-  <a href="/produits.html" class="back">← Produits</a>
-</header>
+<nav>
+  <a href="/" class="nav-logo">KookifonK<span>.</span></a>
+  <a href="/produits.html" class="nav-back">← Retour aux produits</a>
+</nav>
 
-<div class="wrap">
+<div class="page">
+  <!-- COLONNE GAUCHE -->
   <div>
-    <h2>Choisissez vos snacks</h2>
+    <div class="page-header">
+      <h1>Votre <em>commande</em></h1>
+      <p>Sélectionnez vos snacks et vos packs. Le prix exact s'affiche dans le récapitulatif.</p>
+    </div>
 
     <!-- À L'UNITÉ -->
     <div class="section">
-      <div class="section-title">À l'unité — 4,90 €</div>
+      <span class="section-label">Snack à l'unité</span>
+      <div class="section-title">4,90 € — sans engagement</div>
       <div class="product-grid" id="grid-unite"></div>
     </div>
 
     <!-- PACK 4 -->
     <div class="section">
-      <div class="section-title">Pack 4 snacks identiques — 18,00 €</div>
+      <span class="section-label">Pack 4 snacks identiques</span>
+      <div class="section-title">18,00 € — même formule, −8%</div>
       <div class="product-grid" id="grid-pack4"></div>
     </div>
 
-    <!-- PACKS -->
+    <!-- PACKS PROTOCOLES -->
     <div class="section">
-      <div class="section-title">Packs — meilleur prix</div>
+      <span class="section-label">Packs protocoles</span>
+      <div class="section-title">Le protocole complet — économies garanties</div>
       <div class="pack-grid" id="grid-packs"></div>
     </div>
   </div>
 
+  <!-- COLONNE DROITE — PANIER -->
   <div>
     <div class="cart-panel">
-      <h2>Mon panier <span id="cart-count" style="color:var(--rust)"></span></h2>
-      <div id="cart-empty" class="cart-empty">Votre panier est vide.<br>Ajoutez vos snacks ci-contre.</div>
+      <div class="cart-header">
+        Mon panier
+        <span id="cart-count-badge" class="cart-count-badge" style="display:none"></span>
+      </div>
+
+      <div id="cart-empty" class="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        Votre panier est vide.<br>Ajoutez vos snacks ci-contre.
+      </div>
+
       <div id="cart-items" class="cart-items" style="display:none"></div>
+
       <div id="cart-totals" style="display:none">
-        <hr class="cart-sep">
-        <div class="cart-row"><span>Sous-total</span><span id="subtotal">0,00 €</span></div>
-        <hr class="cart-sep">
-        <div class="cart-row total"><span>Total</span><span id="cart-total">0,00 €</span></div>
-        <button class="checkout-btn" id="checkout-btn" onclick="goCheckout()">🔒 Payer avec Stripe</button>
-        <div class="security">Paiement 100% sécurisé · Stripe</div>
-        <div class="security" style="margin-top:4px">🎟️ Codes promo acceptés sur la page de paiement</div>
+        <hr class="cart-divider">
+        <div class="cart-row"><span>Sous-total</span><span id="subtotal"></span></div>
+        <div class="cart-row"><span>Livraison</span><span style="color:var(--sage);font-weight:600">Calculée au checkout</span></div>
+        <hr class="cart-divider">
+        <div class="cart-row total"><span>Total</span><span id="cart-total"></span></div>
+        <button class="checkout-btn" id="checkout-btn" onclick="goCheckout()">
+          🔒 Payer avec Stripe
+        </button>
+        <div class="security">Paiement 100% sécurisé · Crypté SSL · Stripe</div>
+        <div class="promo-banner">🎟️ Code promo <strong>BIENVENUE10</strong> accepté sur la page Stripe</div>
       </div>
     </div>
   </div>
@@ -118,55 +289,18 @@ h2{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bo
 <script>
 // ── PRODUITS ──
 var PRODUITS = [
-  {
-    id:"energie",
-    nom:"Énergie Morning",
-    emoji:"☀️",
-    choco:"Valrhona Noir 70%",
-    moment:"Avant ce qui compte ce matin"
-  },
-  {
-    id:"focus",
-    nom:"Focus Deep Work",
-    emoji:"🎯",
-    choco:"Valrhona Framboise",
-    moment:"20 min avant de travailler"
-  },
-  {
-    id:"alpes",
-    nom:"Alpes Endurance",
-    emoji:"🏔️",
-    choco:"Valrhona Blanc",
-    moment:"Avant trail · vélo · rando"
-  },
-  {
-    id:"recup",
-    nom:"Récup Night",
-    emoji:"🌙",
-    choco:"Valrhona Lait",
-    moment:"Le soir après l'effort"
-  },
-  {
-    id:"deepsleep",
-    nom:"Deep Sleep",
-    emoji:"💤",
-    choco:"Valrhona Blanc",
-    moment:"15 min avant de dormir"
-  },
-  {
-    id:"sensoria",
-    nom:"Sensoria",
-    emoji:"🌸",
-    choco:"Valrhona Framboise",
-    moment:"Les 7 jours avant"
-  }
+  { id:"energie",   nom:"Énergie Morning",  emoji:"☀️", choco:"Valrhona Noir 70%",    moment:"Avant ce qui compte ce matin" },
+  { id:"focus",     nom:"Focus Deep Work",  emoji:"🎯", choco:"Valrhona Framboise",   moment:"20 min avant de travailler" },
+  { id:"alpes",     nom:"Alpes Endurance",  emoji:"🏔️", choco:"Valrhona Blanc",       moment:"Avant trail · vélo · rando" },
+  { id:"recup",     nom:"Récup Night",      emoji:"🌙", choco:"Valrhona Lait",        moment:"Le soir après l'effort" },
+  { id:"deepsleep", nom:"Deep Sleep",       emoji:"💤", choco:"Valrhona Blanc",       moment:"15 min avant de dormir" },
+  { id:"sensoria",  nom:"Sensoria",         emoji:"🌸", choco:"Valrhona Framboise",   moment:"Les 7 jours avant" }
 ];
 
 // ── PRICE IDs STRIPE ──
 var FORMATS = {
   unite: {
-    label:"x1",
-    prix:4.90,
+    label:"× 1", prix:4.90,
     priceIds:{
       energie:   "price_1T8TEIHDPI45iJSiaNXC37zI",
       focus:     "price_1T8StWHDPI45iJSiEXowq1Yw",
@@ -177,8 +311,7 @@ var FORMATS = {
     }
   },
   pack4: {
-    label:"x4",
-    prix:18.00,
+    label:"× 4", prix:18.00,
     priceIds:{
       energie:   "price_1TJCMRHDPI45iJSiPgUVxUTX",
       focus:     "price_1TJCOSHDPI45iJSiYGqUdR5l",
@@ -190,41 +323,10 @@ var FORMATS = {
   }
 };
 
-// ── PACKS ──
 var PACKS = [
-  {
-    id:"trail",
-    nom:"Pack Protocole Trail",
-    emoji:"🏔️",
-    badge:"PROTOCOLE",
-    badgeClass:"",
-    cardClass:"",
-    desc:"8 biscuits Alpes Endurance · 3 semaines de préparation + jour J",
-    prix:32.00,
-    priceId:"price_1TJCEYHDPI45iJSiL2OTRZY6"
-  },
-  {
-    id:"recup",
-    nom:"Pack Protocole Récup",
-    emoji:"🌙",
-    badge:"PROTOCOLE",
-    badgeClass:"",
-    cardClass:"",
-    desc:"12 biscuits Récup Night · 3 semaines de récupération sportive",
-    prix:46.00,
-    priceId:"price_1TJCGYHDPI45iJSip7n0aUpB"
-  },
-  {
-    id:"cycle",
-    nom:"Pack Protocole Cycle",
-    emoji:"🌸",
-    badge:"PROTOCOLE",
-    badgeClass:"rose",
-    cardClass:"sensoria",
-    desc:"14 biscuits Sensoria · 2 cycles complets · Effet documenté",
-    prix:52.00,
-    priceId:"price_1TJCJTHDPI45iJSivDwvHLGF"
-  }
+  { id:"trail", nom:"Pack Protocole Trail",  emoji:"🏔️", badge:"PROTOCOLE", badgeClass:"", cardClass:"",        desc:"8 biscuits Alpes Endurance · 3 semaines préparation + jour J · −18%", prix:32.00, priceId:"price_1TJCEYHDPI45iJSiL2OTRZY6" },
+  { id:"recupp", nom:"Pack Protocole Récup", emoji:"🌙", badge:"PROTOCOLE", badgeClass:"", cardClass:"",        desc:"12 biscuits Récup Night · 3 semaines récupération sportive · −22%",  prix:46.00, priceId:"price_1TJCGYHDPI45iJSip7n0aUpB" },
+  { id:"cycle", nom:"Pack Protocole Cycle",  emoji:"🌸", badge:"PROTOCOLE", badgeClass:"rose", cardClass:"sensoria", desc:"14 biscuits Sensoria · 2 cycles complets · −24%",                prix:52.00, priceId:"price_1TJCJTHDPI45iJSivDwvHLGF" }
 ];
 
 // ── PANIER ──
@@ -236,28 +338,24 @@ function fmt(n) { return n.toFixed(2).replace(".", ",") + " €"; }
 function addToCart(prodId, format) {
   var f = FORMATS[format];
   var priceId = f.priceIds[prodId];
-  if (priceId === "PRICE_ID_A_CREER") {
-    showToast("⚠️ Ce produit sera disponible très bientôt !");
-    return;
-  }
+  if (priceId === "PRICE_ID_A_CREER") { showToast("⚠️ Disponible très bientôt !"); return; }
   var prod = PRODUITS.find(function(p){ return p.id === prodId; });
   var key = cartKey(prodId, format);
   var item = cart.find(function(x){ return x.key === key; });
   if (item) { item.qte++; }
-  else { cart.push({ key:key, prodId:prodId, nom:prod.nom, label:f.label, priceId:priceId, prix:f.prix, qte:1 }); }
-  renderCart(); updateCardState(prodId, format); showToast(prod.nom + " " + f.label + " ajouté ✓");
+  else { cart.push({ key:key, prodId:prodId, nom:prod.nom, emoji:prod.emoji, label:f.label, priceId:priceId, prix:f.prix, qte:1 }); }
+  renderCart(); updateCardState(prodId, format);
+  showToast(prod.emoji + " " + prod.nom + " ajouté ✓");
 }
 
 function addPackToCart(packId) {
   var pack = PACKS.find(function(p){ return p.id === packId; });
-  if (pack.priceId === "PRICE_ID_A_CREER") {
-    showToast("⚠️ Ce pack sera disponible très bientôt !");
-    return;
-  }
+  if (pack.priceId === "PRICE_ID_A_CREER") { showToast("⚠️ Disponible très bientôt !"); return; }
   var item = cart.find(function(x){ return x.key === packId; });
   if (item) { item.qte++; }
-  else { cart.push({ key:packId, nom:pack.nom, label:"", priceId:pack.priceId, prix:pack.prix, qte:1 }); }
-  renderCart(); updatePackState(packId); showToast(pack.nom + " ajouté ✓");
+  else { cart.push({ key:packId, nom:pack.emoji + " " + pack.nom, emoji:"", label:"", priceId:pack.priceId, prix:pack.prix, qte:1 }); }
+  renderCart(); updatePackState(packId);
+  showToast(pack.emoji + " " + pack.nom + " ajouté ✓");
 }
 
 function removeFromCart(key) {
@@ -284,28 +382,34 @@ function changeQtyCard(prodId, format, delta) {
 }
 
 function renderCart() {
-  var empty = document.getElementById("cart-empty");
-  var items = document.getElementById("cart-items");
-  var totals = document.getElementById("cart-totals");
-  var count = document.getElementById("cart-count");
+  var empty   = document.getElementById("cart-empty");
+  var items   = document.getElementById("cart-items");
+  var totals  = document.getElementById("cart-totals");
+  var badge   = document.getElementById("cart-count-badge");
   if (cart.length === 0) {
-    empty.style.display = ""; items.style.display = "none"; totals.style.display = "none"; count.textContent = "";
+    empty.style.display = ""; items.style.display = "none";
+    totals.style.display = "none"; badge.style.display = "none";
     return;
   }
   empty.style.display = "none"; items.style.display = ""; totals.style.display = "";
-  var total = cart.reduce(function(a, b){ return a + b.prix * b.qte; }, 0);
-  count.textContent = "(" + cart.reduce(function(a, b){ return a + b.qte; }, 0) + ")";
+  var total = cart.reduce(function(a,b){ return a + b.prix * b.qte; }, 0);
+  var totalQte = cart.reduce(function(a,b){ return a + b.qte; }, 0);
+  badge.textContent = totalQte + " article" + (totalQte > 1 ? "s" : "");
+  badge.style.display = "";
   items.innerHTML = cart.map(function(item) {
-    return "<div class='cart-item'><div style='flex:1'>"
-      + "<div style='font-size:11px;font-weight:700'>" + item.nom
-      + (item.label ? " <span style='color:var(--rust)'>" + item.label + "</span>" : "") + "</div>"
-      + "<div style='display:flex;align-items:center;gap:6px;margin-top:4px'>"
-      + "<button class='pc-btn' style='width:20px;height:20px;font-size:12px' onclick='changeQty(\"" + item.key + "\",-1)'>−</button>"
-      + "<span style='font-size:11px;font-weight:700'>" + item.qte + "</span>"
-      + "<button class='pc-btn' style='width:20px;height:20px;font-size:12px' onclick='changeQty(\"" + item.key + "\",1)'>+</button>"
+    return "<div class='cart-item'>"
+      + "<div class='ci-info'>"
+      + "<div class='ci-name'>" + item.nom + "</div>"
+      + (item.label ? "<div class='ci-label'>" + item.label + "</div>" : "")
+      + "<div class='ci-controls'>"
+      + "<button class='ci-ctrl' onclick='changeQty(\"" + item.key + "\",-1)'>−</button>"
+      + "<span class='ci-qte'>" + item.qte + "</span>"
+      + "<button class='ci-ctrl' onclick='changeQty(\"" + item.key + "\",1)'>+</button>"
       + "</div></div>"
-      + "<div style='text-align:right'><div class='ci-price'>" + fmt(item.prix * item.qte) + "</div>"
-      + "<button class='ci-rm' onclick='removeFromCart(\"" + item.key + "\")'>✕</button></div></div>";
+      + "<div class='ci-right'>"
+      + "<div class='ci-price'>" + fmt(item.prix * item.qte) + "</div>"
+      + "<button class='ci-rm' onclick='removeFromCart(\"" + item.key + "\")'>✕</button>"
+      + "</div></div>";
   }).join("");
   document.getElementById("subtotal").textContent = fmt(total);
   document.getElementById("cart-total").textContent = fmt(total);
@@ -316,11 +420,11 @@ function updateCardState(prodId, format) {
   var item = cart.find(function(x){ return x.key === key; });
   var qte = item ? item.qte : 0;
   var card = document.getElementById("card-" + prodId + "-" + format);
-  var pq = document.getElementById("pq-" + prodId + "-" + format);
-  var qd = document.getElementById("qd-" + prodId + "-" + format);
+  var pq   = document.getElementById("pq-" + prodId + "-" + format);
+  var qd   = document.getElementById("qd-" + prodId + "-" + format);
   if (card) card.classList.toggle("in-cart", qte > 0);
-  if (pq) { pq.textContent = qte; pq.style.display = qte > 0 ? "flex" : "none"; }
-  if (qd) qd.textContent = qte;
+  if (pq)  { pq.textContent = qte; pq.style.display = qte > 0 ? "flex" : "none"; }
+  if (qd)  qd.textContent = qte;
 }
 
 function updatePackState(packId) {
@@ -339,14 +443,14 @@ function goCheckout() {
     body: JSON.stringify({
       line_items: cart.map(function(i){ return { price: i.priceId, quantity: i.qte }; }),
       success_url: window.location.origin + "/merci.html",
-      cancel_url: window.location.origin + "/panier.html"
+      cancel_url:  window.location.origin + "/panier.html"
     })
   }).then(function(r){ return r.json(); }).then(function(data) {
     if (data.url) window.location.href = data.url;
-    else { alert("Erreur: " + (data.error || "inconnue")); btn.disabled = false; btn.textContent = "🔒 Payer avec Stripe"; }
+    else { alert("Erreur : " + (data.error || "inconnue")); btn.disabled = false; btn.innerHTML = "🔒 Payer avec Stripe"; }
   }).catch(function() {
     alert("Erreur de connexion.");
-    btn.disabled = false; btn.textContent = "🔒 Payer avec Stripe";
+    btn.disabled = false; btn.innerHTML = "🔒 Payer avec Stripe";
   });
 }
 
@@ -354,7 +458,7 @@ function renderGrid(gridId, format, prodList) {
   var list = prodList || PRODUITS;
   document.getElementById(gridId).innerHTML = list.map(function(p) {
     var unavail = FORMATS[format].priceIds[p.id] === "PRICE_ID_A_CREER";
-    return "<div class='product-card" + (unavail ? "' style='opacity:.55" : "") + "' id='card-" + p.id + "-" + format + "'>"
+    return "<div class='product-card" + (unavail ? " ' style='opacity:.5;pointer-events:none" : "'") + " id='card-" + p.id + "-" + format + "'>"
       + "<div class='pc-emoji'>" + p.emoji + "</div>"
       + "<div class='pc-name'>" + p.nom + "</div>"
       + "<div class='pc-choco'>" + p.choco + "</div>"
@@ -365,24 +469,18 @@ function renderGrid(gridId, format, prodList) {
       + "<span class='pc-qty-disp' id='qd-" + p.id + "-" + format + "'>0</span>"
       + "<button class='pc-btn' onclick='addToCart(\"" + p.id + "\",\"" + format + "\")'>+</button>"
       + "</div>"
-      + (unavail ? "<div style='font-size:8px;color:var(--muted);margin-top:4px'>Bientôt disponible</div>" : "")
+      + (unavail ? "<div class='unavail-note'>Bientôt disponible</div>" : "")
       + "<div class='pc-qty' id='pq-" + p.id + "-" + format + "'>0</div></div>";
   }).join("");
 }
 
 function renderPacks() {
   document.getElementById("grid-packs").innerHTML = PACKS.map(function(pk) {
-    var unavail = pk.priceId === "PRICE_ID_A_CREER";
-    var eco = pk.id === "decouverte" ? (6 * 4.90 - 27.00).toFixed(2).replace(".", ",") : null;
     return "<div class='pack-card " + pk.cardClass + "' id='card-pack-" + pk.id + "' onclick='addPackToCart(\"" + pk.id + "\")'>"
       + "<div class='pack-badge " + pk.badgeClass + "'>" + pk.badge + "</div>"
       + "<div class='pack-name'>" + pk.emoji + " " + pk.nom + "</div>"
       + "<div class='pack-desc'>" + pk.desc + "</div>"
-      + "<div style='display:flex;align-items:baseline;gap:8px'>"
       + "<div class='pack-price'>" + fmt(pk.prix) + "</div>"
-      + (eco ? "<span class='pack-save'>éco. " + eco + " €</span>" : "")
-      + "</div>"
-      + (unavail ? "<div style='font-size:8px;color:var(--muted);margin-top:6px'>Bientôt disponible</div>" : "")
       + "</div>";
   }).join("");
 }
@@ -393,7 +491,6 @@ function showToast(msg) {
   setTimeout(function(){ t.classList.remove("show"); }, 2500);
 }
 
-// ── PRODUITS (sans Sensoria pour le pack 4) ──
 var PRODUITS_PACK4 = PRODUITS.filter(function(p){ return p.id !== "sensoria"; });
 renderGrid("grid-unite", "unite", PRODUITS);
 renderGrid("grid-pack4", "pack4", PRODUITS_PACK4);
