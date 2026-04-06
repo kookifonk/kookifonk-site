@@ -163,7 +163,6 @@ var PRODUITS = [
 ];
 
 // ── PRICE IDs STRIPE ──
-// Remplacer PRICE_ID_A_CREER par les vrais IDs Stripe quand créés
 var FORMATS = {
   unite: {
     label:"x1",
@@ -173,20 +172,20 @@ var FORMATS = {
       focus:     "price_1T8StWHDPI45iJSiEXowq1Yw",
       alpes:     "price_1T8THqHDPI45iJSiZ6aZnXaK",
       recup:     "price_1T8TSCHDPI45iJSijo99ymwP",
-      deepsleep: "PRICE_ID_A_CREER",
-      sensoria:  "PRICE_ID_A_CREER"
+      deepsleep: "price_1TJCAfHDPI45iJSiAxLS3BAB",
+      sensoria:  "price_1TJCCGHDPi45iJSiYwb5eRLe"
     }
   },
   pack4: {
     label:"x4",
     prix:18.00,
     priceIds:{
-      energie:   "PRICE_ID_A_CREER",
-      focus:     "PRICE_ID_A_CREER",
-      alpes:     "PRICE_ID_A_CREER",
-      recup:     "PRICE_ID_A_CREER",
-      deepsleep: "PRICE_ID_A_CREER",
-      sensoria:  "PRICE_ID_A_CREER"
+      energie:   "price_1TJCMRHDPi45iJSiPgUVxUTX",
+      focus:     "price_1TJCOSHDPi45iJSiYGqUdR5l",
+      alpes:     "price_1TJCQ3HDPi45iJSiI2DKTMuU",
+      recup:     "price_1TJCTfHDPi45iJSiUTPa2JHP",
+      deepsleep: "price_1TJCUqHDPi45iJSiLFOT1vsq",
+      sensoria:  "price_1TJCVwHDPi45iJSiWzisxbtG"
     }
   }
 };
@@ -194,26 +193,37 @@ var FORMATS = {
 // ── PACKS ──
 var PACKS = [
   {
-    id:"decouverte",
-    nom:"Pack Découverte",
-    emoji:"🎁",
-    badge:"PACK",
+    id:"trail",
+    nom:"Pack Protocole Trail",
+    emoji:"🏔️",
+    badge:"PROTOCOLE",
     badgeClass:"",
     cardClass:"",
-    desc:"1 de chaque formule · 6 snacks · 6 moments différents",
-    prix:27.00,
-    priceId:"price_1T8hCQHDPI45iJSi15nO1DaR"
+    desc:"8 biscuits Alpes Endurance · 3 semaines de préparation + jour J",
+    prix:32.00,
+    priceId:"price_1TJCEYHDPi45iJSiL2OTRZY6"
   },
   {
-    id:"sensoria7",
-    nom:"Pack Sensoria",
+    id:"recup",
+    nom:"Pack Protocole Récup",
+    emoji:"🌙",
+    badge:"PROTOCOLE",
+    badgeClass:"",
+    cardClass:"",
+    desc:"12 biscuits Récup Night · 3 semaines de récupération sportive",
+    prix:46.00,
+    priceId:"price_1TJCGYHDPi45iJSip7n0aUpB"
+  },
+  {
+    id:"cycle",
+    nom:"Pack Protocole Cycle",
     emoji:"🌸",
-    badge:"CYCLE FÉMININ",
+    badge:"PROTOCOLE",
     badgeClass:"rose",
     cardClass:"sensoria",
-    desc:"7 biscuits Sensoria · 1 paquet = 1 cycle complet · Phase lutéale",
-    prix:28.00,
-    priceId:"PRICE_ID_A_CREER"
+    desc:"14 biscuits Sensoria · 2 cycles complets · Effet documenté",
+    prix:52.00,
+    priceId:"price_1TJCJTHDPi45iJSivDwvHLGF"
   }
 ];
 
